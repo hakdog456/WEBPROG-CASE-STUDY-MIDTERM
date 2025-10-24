@@ -235,10 +235,10 @@ body{
 .carouselCon{
   /* border: solid 2px violet; */
   position: relative;
-  perspective: 1500px;
+  perspective: 1300px;
   width: 100%;
   position: relative;
-  /* display: flex; */
+  display: flex;
   align-items: center;
   justify-content: center;
   /* height: max-content; */
@@ -251,7 +251,6 @@ body{
   height: 526px;
   /* border: 2px solid white; */
   border-radius: 20px;
-  line-height: 150px;
   /* background:lightcoral; */
   transform: rotateY(30deg);
   flex-shrink: 0;
