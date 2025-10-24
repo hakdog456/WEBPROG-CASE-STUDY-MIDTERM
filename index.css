@@ -238,7 +238,7 @@ body{
   perspective: 1500px;
   width: 100%;
   position: relative;
-  display: flex;
+  /* display: flex; */
   align-items: center;
   justify-content: center;
   /* height: max-content; */
