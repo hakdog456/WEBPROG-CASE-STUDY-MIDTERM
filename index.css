@@ -57,14 +57,22 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
+:root{
+  --fontColor: #223125;
+  --bgColor: #DEDCCA;
+}
 
 
 /* MAIN STARTING STYLING */
 /* PAGE STYLING */
 body{
-    background: #050607;
-    color: #DEDCCA;
+    position: relative;
+    background: var(--bgColor);
+    color: var(--fontColor);
     font-family: "Chakra Petch";
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 
@@ -72,17 +80,45 @@ body{
 
 /* NAV STYLING */
 .nav{
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    justify-content: center;
-    /* border: 1px solid pink; */
-    height: 113px;
-    gap: 2%;
-    font-family: "Chakra Petch";
-    color: #D6E1ED; 
-    font-size: 20px;
-  }
+  position: absolute;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  height: 81px;
+  font-family: "Chakra Petch";
+  color: var(--fontColor); 
+  font-size: 20px;
+  border-radius: 0px 0px 65px 65px;
+  width: 80%;
+  background: var(--bgColor);
+}
+
+.navLogo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+.mainNav{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  gap: 4%;
+  width: 100%;
+  border: 1px solid pink;
+  height: 100%;
+}
+
+.navControls{
+  display: flex;
+  align-items: center;
+  gap: 10%;
+  justify-content: flex-end;
+  padding-right: 20%;
+}
 
 .nav p{
   transition: .2s;
@@ -98,30 +134,59 @@ body{
 
 /* MAIN SECTION STYLING */
 /* HOME INTRO */
+.homeIntroImgBg{
+  position: absolute;
+  width: 100%;
+  height: auto;
+  z-index: -1;
+}
 .homeIntro{
   display: flex;
   /* border: 1px solid pink; */
   align-items: center;
   justify-content: center;
+  width: 100%;
   flex-direction: column; 
+  /* height: 100%; */
+  padding-bottom: 30%;
+}
+
+.homeIntroLogo{
+  margin-top: 2%;
+  padding-top: 81px;
+  width: 190px;
 }
 
 .homeIntro h1{
-  line-height: .9;
+  margin-top: 1%;
+  line-height: .83;
+  color: var(--bgColor);
+  font-family: "Slackey";
+  font-size: 128px;
+  text-shadow: 0px 4px 4px #07080D;
+}
+
+.homeIntro h2{
+  margin-top: 1%;
+  color: #FFD900;
+  font-family: "Slackey";
+  font-size: 36px;
+  text-shadow: 0px 4px 4px #07080D;
 }
 
 .startYoursBtn{
   display: flex;
+  background: #13160bb1;
   align-items: center;
   justify-content: center;
   padding: 10px 50px 10px 50px;
-  border: 1.5px solid white;
+  border: 1.5px solid #CCCBB9;
   border-radius: 100px;
   font-size: 24px;
   font-family: "Chakra Petch";
   font-weight: 600;
-  color: #FFFFFF;
-  margin-top: 3%;
+  color: #CCCBB9;
+  margin-top: 1%;
   transition: .2s;
   cursor: pointer;
 }

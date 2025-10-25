@@ -14,12 +14,18 @@ let pics = [place1, place2, place3]
 function updatePositions() {
   pics.forEach((pic, i) => {
     pic.classList.remove("left", "center", "right", "hidden");
-    if (i === index) pic.classList.add("center");
-    else if (i === (index - 1 + pics.length) % pics.length)
+    if (i === index){
+      pic.classList.add("center");
+    } 
+    else if (i === (index - 1 + pics.length) % pics.length){
       pic.classList.add("left");
-    else if (i === (index + 1) % pics.length)
+    }
+    else if (i === (index + 1) % pics.length){
       pic.classList.add("right");
-    else pic.classList.add("hidden");
+    }
+    else{
+      pic.classList.add("hidden");
+    }
   });
 }
 
