@@ -226,7 +226,6 @@ body{
   /* border: 1px solid pink; */
   flex-direction: column;
   width: 100%;
-  /* margin-top: 5%; */
 }
 
 .ourPetsHeading{
@@ -285,8 +284,8 @@ body{
 
 .petPic{
   position: absolute;
-  width: 835px;
-  height: 526px;
+  width: 40%;
+  /* height: 526px; */
   /* border: .5px solid var(--bgColor); */
   border-radius: 40px;
   /* background:lightcoral; */
@@ -295,6 +294,7 @@ body{
   overflow:hidden;
   transition: all 0.5s ease;
 }
+
 
 /* Carousel Positions */
 .left {
@@ -310,6 +310,11 @@ body{
   z-index: 2;
   box-shadow: 0px 4px 40px black;
 }
+
+.center:hover{
+  scale: 1.2;
+}
+
 .right {
   transform: rotateY(-60deg) scale(.5) translateX(1000px);
   opacity: .7;
@@ -368,7 +373,7 @@ body{
   display: grid;
   grid-template-columns: 1fr 1fr;
   width: 100%;
-
+  margin-top: 5%;
   /* testing height */
   /* height: 500px;  */
 
@@ -463,7 +468,7 @@ body{
 
 /* Contact US */
 .contactUs{
-  margin-top: 40%;
+  margin-top: 35%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   /* border: solid 1px violet; */
