@@ -115,7 +115,7 @@ body{
   justify-content: center;
   gap: 4%;
   width: 100%;
-  /* border: 1px solid pink; */
+  /* border: 2px solid pink; */
   height: 100%;
 }
 
@@ -343,7 +343,7 @@ body{
 
 .ourPetsContent .btnCon{
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   width: 100%;
   /* border:solid 2px green;  */
@@ -633,7 +633,6 @@ body{
 .foot1Text{
   display: flex;
   align-items: center;
-  font-size: 13px;
   padding-left: 10%;
   line-height: 1.3;
   margin-bottom: 1%;
@@ -657,4 +656,173 @@ body{
   width: 100%;
   z-index: -3;
   margin-top: 286%;
+}
+
+
+@media only screen and (max-width: 768px) {
+
+  /* HTML BODY */
+  html, body{
+    overflow-x: hidden;
+  }
+
+
+  /* NAV */
+  .nav{
+    width: 100%;
+    grid-template-columns: .9fr 1.9fr .5fr;
+  }
+
+  .mainNav{
+    gap: 3%;
+    font-size: 18px;
+  }
+
+  .navLogo{
+    justify-content: flex-end;
+  }
+
+  .navControls{
+    gap: 7%;
+  }
+ 
+  
+  /* HOME INTRO */
+  .homeIntroImgBg{
+    transform: scale(1.4);
+  }
+
+  .homeIntro h1{
+    font-size: 64px;
+  }
+
+  .homeIntro h2{
+    font-size: 24px;
+  }
+
+  .startYoursBtn{
+    font-size: 16px;
+  }
+
+
+  /* OUR PETS */
+  .blurryBranchImg{
+    margin-top: 70%;
+  }
+
+  .petPic{
+    width: 50%;
+  }
+
+
+  /* HOME INFORMATION SECTION */
+  .sideBranchImg{
+    margin-top: 150%;
+    margin-left: -30%;
+  }
+
+  .ourStoryDogsImg{
+    margin-top: 160%;
+    align-self: center;
+    width: 90%;
+  }
+
+  .homeInformation{
+    margin-top: 67%;
+    /* border: solid 1px red; */
+    grid-template-columns: none;
+    grid-template-rows: .3fr .3fr;
+  }
+
+  .homeInfoRight{
+    grid-row: 2;
+  }
+
+  .homeInfoLeft{
+    grid-row: 1;
+  }
+
+  .ourStory{
+    margin-top: 3%;
+  }
+
+  .ourMission{
+    margin-top: 0;
+  }
+
+  .homeInformation div{
+    /* border: solid 1px blue; */
+  }
+
+  .catImg{
+    margin-top: 390%;
+  }
+
+  .rightBranchImg{
+    margin-top: 420%;
+    margin-right: -15%;
+  }
+
+  .adoptionProcess{
+    margin-top: 95%;
+    align-items: center;
+  }
+
+  .adoptionProcessImg{
+    margin-top: 560%;
+    align-self: center;
+    margin-left: 0;
+    width: 88%;
+  }
+
+  /* CONTACT US */
+  .contactUsCat{
+    margin-top: 705%;
+    margin-left: 0;
+    align-self: center;
+    opacity: .2;
+  }
+
+  .contactUs{
+    margin-top: 135%;
+    grid-template-columns: none;
+    grid-template-rows: 1fr;
+  }
+
+  .contactUsRight{
+    align-items: center;
+  }
+
+  /* FOOTER */
+  .HomeFooter{
+    font-size: 11px;
+    grid-template-columns: 4fr 1fr 1.5fr 3fr;
+    height: 160px;
+  }
+
+  .HomeFooter div{
+    /* border: 1px solid blue; */
+  }
+
+  .foot1{
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .foot1Text{
+    margin-bottom: 0;
+  }
+
+  .footerLogoIcons{
+    align-items: flex-end;
+    gap: 2%;
+  }
+
+  .footLogo{
+    width: 50%;
+  }
+
+  .smallIconsCon{
+    width: 100%;
+    gap: 10%;
+  }
 }
