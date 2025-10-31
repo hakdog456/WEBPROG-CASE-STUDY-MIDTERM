@@ -57,8 +57,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
+/* VARIABLES */
 :root{
   --fontColor: #223125;
+  --fontColor2: #725134;
+  --fontColor3: #444E27;
   --bgColor: #DEDCCA;
 }
 
@@ -73,6 +76,10 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
+    
+    /* Temporary bottom padding */
+    /* padding-bottom: 30%; */
+
 }
 
 
@@ -108,7 +115,7 @@ body{
   justify-content: center;
   gap: 4%;
   width: 100%;
-  border: 1px solid pink;
+  /* border: 1px solid pink; */
   height: 100%;
 }
 
@@ -203,59 +210,17 @@ body{
 }
 
 
-/* HOME MISSION */
-.ourMission{
-  display: flex;
-  /* border: 1px solid pink; */
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Courier New', Courier, monospace;
-  margin-left: 7%;
-  margin-right: 7%;
-  margin-top: 310px;
-}
 
-.ourMissionTitle{
-  display: flex;
-  /* border: solid 1px white; */
-  width: 100%; 
-}
-
-.ourMissionContent{
-  display: flex;
-  /* border: 1px solid green; */
-}
-
-.ourMissionContent p{
-  width: 100%;
-}
-
-.missionContentLeft{
-  /* border: 1px solid lightcoral; */
-  font-size: 55px;
-  font-weight: 1000;
-  line-height: 1;
-}
-
-.missionContentRight{
-  /* border: 1px solid lightseagreen; */
-  font-size: 24px;
-  line-height: 1.3;
-  font-weight: 900;
-  display: flex;
-  align-items: end;
-}
-
-.blurryBranchImg{
-  position: absolute;
-  margin-top: 40%;
-}
 
 
 
 
 /* OUR PETS */
+.blurryBranchImg{
+  position: absolute;
+  margin-top: 40%;
+}
+
 .ourPets{
   display: flex;
   /* border: 1px solid pink; */
@@ -322,17 +287,16 @@ body{
   position: absolute;
   width: 835px;
   height: 526px;
-  /* border: 2px solid white; */
-  border-radius: 20px;
+  /* border: .5px solid var(--bgColor); */
+  border-radius: 40px;
   /* background:lightcoral; */
-  transform: rotateY(30deg);
+  /* transform: rotateY(30deg); */
   flex-shrink: 0;
   overflow:hidden;
   transition: all 0.5s ease;
 }
 
-
-/* Positions */
+/* Carousel Positions */
 .left {
   transform: rotateY(60deg) scale(.5) translateX(-1000px);
   opacity: .7;
@@ -344,6 +308,7 @@ body{
   opacity: 1;
   filter: blur(0);
   z-index: 2;
+  box-shadow: 0px 4px 40px black;
 }
 .right {
   transform: rotateY(-60deg) scale(.5) translateX(1000px);
@@ -366,7 +331,7 @@ body{
   background: none;
   border: none;
   cursor: pointer;
-  color: white;
+  /* color: white; */
   font-size: 40px;
   margin-bottom: 20%;
 }
@@ -378,4 +343,313 @@ body{
   width: 100%;
   /* border:solid 2px green;  */
   z-index: 2;
+}
+
+.btnCon button{
+  color: var(--fontColor);
+}
+
+
+
+
+
+
+/* HOME INFORMATION SECTION */
+.sideBranchImg{
+  position: absolute;
+  margin-top: 105%;
+  /* border: 1px solid red; */
+  align-self: flex-start;
+  z-index: -1;
+}
+
+.homeInformation{
+  /* border: 1px solid red; */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+
+  /* testing height */
+  /* height: 500px;  */
+
+}
+
+.homeInfoLeft{
+  /* border: 1px solid blue; */
+}
+
+.homeInfoRight{
+  /* border: 1px solid purple; */
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.ourStory, .ourMission, .adoptionProcess{
+  display: flex ;
+  align-items: center;
+  flex-direction: column;
+  margin-left: 6%;
+  margin-right: 6%;
+  /* border: 1px solid darkblue; */
+}
+
+.ourStory h2, .ourMission h2{
+  font-family: "Slackey";
+  font-size: 36px;
+  color: var(--fontColor2);
+}
+
+.ourStory p, .ourMission p, .adoptionProcess p{
+  margin-top: 1%;
+  font-size: 24px;
+  font-family: "Chakra Petch";
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.ourStoryDogsImg{
+  position: absolute;
+  margin-top: 120%;
+  align-self: flex-start;
+  mix-blend-mode: hard-light;
+  z-index: -2;
+}
+
+.ourMission{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 110%;
+}
+
+.catImg{
+  position: absolute;
+  margin-top: 160%;
+  align-self: flex-end;
+  mix-blend-mode: hard-light;
+  z-index: -2;
+}
+
+.rightBranchImg{
+  position: absolute;
+  margin-top: 180%;
+  align-self: flex-end;
+}
+
+.adoptionProcessImg{
+  position: absolute;
+  align-self: flex-start;
+  margin-top: 198%;
+  margin-left: 5%;
+}
+
+.adoptionProcess{
+  margin-top: 125%;
+  /* border: 1px solid red; */
+  /* width: 100%; */
+  align-items: flex-start;
+}
+
+.adoptionProcess h2{
+  margin-left: 5%;
+  font-family: "Slackey";
+  font-size: 30px;
+  font-weight: 100;
+  margin-bottom: 5%;
+}
+
+
+
+/* Contact US */
+.contactUs{
+  margin-top: 40%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* border: solid 1px violet; */
+  width: 100%;
+}
+
+.contactUsRight{
+  display: flex;
+  flex-direction: column;
+  /* border: solid 1px red; */
+  align-items: flex-start;
+  font-family: "Slackey";
+  color: var(--fontColor3);
+  overflow: hidden;
+}
+
+.contactUsForm{
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  border: solid 1px #223125;
+  width: 87%;
+  margin-left: 1%;
+  align-items: center;
+  border-radius: 51px;
+  overflow: hidden;
+  font-size: 20px;
+}
+
+.contactUsForm .bg{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #444E27;
+  mix-blend-mode: overlay;
+  z-index: -1;
+}
+
+.contactHead{
+  margin-top: 3%;
+  margin-bottom: 2%;
+}
+
+.input{
+  /* border: 1px solid green; */
+  display: grid ;
+  grid-template-columns: 1fr 3fr;
+  width: 90%;
+  justify-self: center;
+  align-items: center;
+  margin-top: 1.5%;
+  margin-bottom: 1.5%;
+}
+
+.input input, textarea{
+  width: 100%;
+  border-radius: 50px;
+  border: 1px solid #444E27;
+  background: none;
+  height: 57px;
+}
+
+#msgInput{
+  align-items: flex-start;
+}
+
+#msgTxtArea{
+  height: 200px;
+}
+
+.contactUsfooter{
+  display: grid;
+  grid-template-columns: 1fr .5fr;
+  width: 90%;
+  margin-top: 3%;
+  margin-bottom: 5%;
+}
+
+.sendMsgBtn{
+  font-family: "Chakra Petch";
+  background-color: #E0D7C3;
+  border-radius: 50px;
+  border: 1px solid #444E27;
+  mix-blend-mode: multiply;
+  width: 264px;
+  height: 61px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #444E27;
+  font-weight: 1000;
+  font-size: 24px;
+}
+
+.sideText{
+  font-family: "Chakra Petch";
+  font-size: 16px;
+}
+
+.contactUsCat{
+  position: absolute;
+  margin-top: 291%;
+  mix-blend-mode: hard-light;
+  align-self: flex-start;
+  margin-left: 6%;
+}
+
+
+/* FOOTER */
+
+.grassFooter{
+  position: absolute;
+  bottom: 0;
+  z-index: -1;
+}
+
+.footerBg{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #3F6032;
+  mix-blend-mode: multiply;
+  z-index: -1;
+}
+
+.HomeFooter{
+  position: relative;
+  /* border: 2px solid red; */
+  width: 100%;
+  margin-top: 37%;
+  height: 217px;
+  display: grid;
+  grid-template-columns: 4fr 1fr 1.5fr 2fr;
+  color: var(--bgColor);
+  font-size: 13px;
+}
+
+.HomeFooter div{
+  /* border: 1px blue solid; */
+}
+
+.foot1{
+  display: grid;
+  grid-template-rows: 1.5fr 1fr;
+}
+
+.footerLogoIcons{
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding-left: 10%;
+  gap: 4%;
+  padding-bottom: 1%;
+}
+
+.smallIconsCon{
+  gap: 15%;
+  display: flex;
+  margin-bottom: .5%;
+}
+
+.foot1Text{
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  padding-left: 10%;
+  line-height: 1.3;
+  margin-bottom: 1%;
+}
+
+.foot2, .foot3, .foot4{
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 7vh;
+}
+
+.homeBg1{
+  position: absolute;
+  width: 100%;
+  z-index: -3;
+}
+
+.homeBg2{
+  position: absolute;
+  width: 100%;
+  z-index: -3;
+  margin-top: 286%;
 }
