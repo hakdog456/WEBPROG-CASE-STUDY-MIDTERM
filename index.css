@@ -143,19 +143,36 @@ body{
 /* HOME INTRO */
 .homeIntroImgBg{
   position: absolute;
-  width: 100%;
+  width: 100vw;
   height: auto;
   z-index: -1;
 }
 .homeIntro{
+  position: relative;
   display: flex;
-  /* border: 1px solid pink; */
+  border: 1px solid pink;
+  grid-template-columns: auto 1fr;
   align-items: center;
   justify-content: center;
   width: 100%;
   flex-direction: column; 
   /* height: 100%; */
-  padding-bottom: 30%;
+  /* padding-bottom: 30%; */
+}
+
+.mainContent{
+  position: relative;
+  display: flex;
+  border: 1px solid pink;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex-direction: column;  
+}
+
+.blurryBranchCon{
+  height: 30vw;
+  overflow: visible;
 }
 
 .homeIntroLogo{
@@ -217,8 +234,8 @@ body{
 
 /* OUR PETS */
 .blurryBranchImg{
-  position: absolute;
-  margin-top: 40%;
+  /* position: absolute; */
+  border: 1px solid black;
 }
 
 .ourPets{
@@ -362,7 +379,7 @@ body{
 /* HOME INFORMATION SECTION */
 .sideBranchImg{
   position: absolute;
-  margin-top: 105%;
+  margin-top: 220vh;
   /* border: 1px solid red; */
   align-self: flex-start;
   z-index: -1;
@@ -415,7 +432,7 @@ body{
 
 .ourStoryDogsImg{
   position: absolute;
-  margin-top: 120%;
+  margin-top: 253vh;
   align-self: flex-start;
   mix-blend-mode: hard-light;
   z-index: -2;
