@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jurassic Bark - Admin Review</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch&family=Slackey&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --container-w: 743.17px;
+            --img-max: 100px;
+        }
+
+          
+        body {
+            font-family: 'Chakra Petch', monospace;
+            background-image: url('fabric_background.png');
+            background-size: cover;
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: #4a3728;
+            padding: 120px 0 80px 0;
+        }
+
+        .container {
+            max-width: 1500px;
+            max-height: 2311px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .pet-header {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 25px;
+            align-items: flex-start;
+        }
+
+        .pet-image {
+            width: 217.67px;
+            height: 183px;
+            border-radius: 45px;
+            object-fit: cover;
+            border: 2.5px solid #3d2f1f;
+            background: #888;
+        }
+
+        .pet-info {
+            flex: 0 0 auto;
+            width: 122px;
+            height: 124px;
+        }
+
+        .pet-info h2 {
+            font-size: 23px;
+            margin-bottom: 2px;
+            font-weight: semibold;
+            color: #3d2f1f;
+        }
+
+        .pet-info p {
+            font-size: 24px;
+            color: #5a4a3a;
+            line-height: 1.3;
+        }
+
+        .header-section {
+            display: flex;
+            
+            align-items: flex-start;
+            gap: 40px;
+            
+            margin: 0 auto 20px;
+            width: min(1221.17px, 100%);
+            height: min(190px, 100%);
+            max-width: 1221.17px;
+            max-height: 190px;
+        }
+
+    .progress-tracker {
+            display: flex;
+            
+            position: relative;
+            
+            --pc-size: 100px; 
+            
+            width: min(743.17px, 100%);
+            
+            height: min(176px, calc(var(--pc-size) + 76px));
+                
+                
+                justify-content: flex-end;
+                margin-left: auto; 
+                padding-right: 0;
+                
+                gap: 0;
+            align-items: flex-start; 
+
+        }
+
+        
+        .progress-connector {
+            
+            
+            flex: 1 2 min(109px, max(6px, calc((100% - (4 * var(--pc-size))) / 3)));
+            display: flex;
+            align-items: center; 
+            justify-content: center;
+            
+            width: min(109px, max(6px, calc((100% - (4 * var(--pc-size))) / 3)));
+            height: var(--pc-size);
+            min-width: 6px; 
+            z-index: -1; 
+            overflow: hidden; 
+        }
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            
+                
+                flex: 0 1 var(--pc-size);
+                min-width: 0; 
+                
+                width: var(--pc-size);
+                
+                height: var(--pc-size);
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+                text-align: center; 
+                position: relative; 
+            z-index: 2;
+        }
+
+          
+          .progress-meta {
+                position: absolute;
+                top: calc(var(--pc-size) + 6px); 
+                left: 50%;
+                transform: translateX(-50%);
+                width: var(--pc-size);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+                box-sizing: border-box;
+                text-align: center;
+                z-index: 2;
+          }
+
+        
+        .progress-step > * {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .progress-circle {
+            
+            width: var(--pc-size);
+            height: var(--pc-size);
+            border-radius: 50%;
+            background: rgba(209, 196, 160, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            flex: 0 1 var(--pc-size);
+            min-width: 48px; 
+            aspect-ratio: 1 / 1;
+        }
+
+        
+        .progress-circle svg,
+        .progress-circle img.progress-icon {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .progress-circle img.progress-icon {
+            object-fit: contain;
+        }
+
+        
+        @media (max-width: 900px) {
+            
+            .progress-tracker { --pc-size: 50px; }
+        }
+
+        @media (max-width: 480px) {
+            .progress-tracker { --pc-size: 44px; }
+        }
+
+        .progress-step.active .progress-circle {
+            background: rgba(203, 202, 120, 0.489);
+        }
+
+        
+        .progress-column {
+            display: flex;
+            flex-direction: column;
+            
+            align-items: flex-end; 
+            
+            align-self: flex-start;
+            
+            justify-content: flex-start;
+            
+            margin-top: 0;
+            padding-top: 0;
+            width: 100%;
+            gap: 8px;
+            flex: 1 1 auto; ;
+        }
+
+        .progress-label {
+            font-size: clamp(10px, 16px, 16px);
+            text-align: center;
+            line-height: 1.2;
+            color: #4a3728;
+            margin-top: 2px;
+            display: block;
+            box-sizing: border-box;
+            min-height: 38.4px;
+        }
+
+        
+        .progress-label,
+        .progress-date {
+            
+            width: var(--pc-size);
+            box-sizing: border-box;
+            min-height: 1.2em; 
+            white-space: normal; 
+            overflow-wrap: anywhere;
+            word-break: break-word;
+            text-align: center;
+        }
+
+        .progress-date {
+            color: #6b5d4f;
+            
+            min-height: 16px;
+            text-align: center;
+            font-size: clamp(10px, 12px, 14px);
+
+        }
+
+        .status-message {
+            text-align: right;
+            font-style: italic;
+            color: #725134;
+            margin: -20px 0 0 0;
+            font-size: 24px;
+        }
+
+        .form-container {
+            background: rgba(193, 192, 150, 0.354);
+            border: 1px solid rgba(0, 0, 0, 0.354);
+            padding: 35px 15px 35px 50px;
+            border-radius: 50px;
+            position: relative;
+            width: min(1262px, 100%);
+            margin: 0 auto;
+            max-width: 1262px;
+            height: min(2094px, 100%);
+        }
+
+        .form-container input[type="text"],
+        .form-container input[type="email"],
+        .form-container input[type="tel"] {
+            opacity: 0.7;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 25px;
+            margin-top: 35px;
+            color: #6b4423;
+            font-weight: bold;
+            
+            font-family: 'Slackey';
+            letter-spacing: 0.3px;
+        }
+
+        .section-title:first-child {
+            margin-top: 0;
+        }
+
+        .section-title--tight {
+            margin-top: -20px; 
+        }
+
+        .form-row {
+            display: grid;
+            gap: 18px;
+            margin-bottom: 18px;
+        }
+
+        .form-row-2-email-phone {
+            grid-template-columns: 2fr 1.7fr;
+        }
+        .form-row-2 {
+            grid-template-columns: 2fr 1.42fr;
+        }
+
+        .form-row-3 {
+            grid-template-columns: 1fr 1fr 1.77fr;
+        }
+
+        .form-row-4 {
+            grid-template-columns: 1fr 1fr 1fr 0.7fr;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-size: 23px;
+            font-weight: 500;
+            color: #3d2f1f;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"] {
+            padding: 11px 18px;
+            border: 1px solid #3d2f1f;
+            border-radius: 27px;
+            background: rgba(238, 232, 213, 0.1);
+            font-family: inherit;
+            font-size: 12px;
+            color: #3d2f1f;
+        }
+        .input-fixed {
+            height: 57px;
+            box-sizing: border-box;
+            padding: 11px 18px;
+            font-family: inherit;
+            font-size: 12px;
+            color: #3d2f1f;
+            border: 1.5px solid #3d2f1f;
+            border-radius: 100px;
+            background: rgba(238, 232, 213, 0.4);
+            transition: background 160ms ease, border-color 120ms ease;
+        }
+
+        .w-302 { width: min(100%, 302px); }
+        .w-305 { width: min(100%, 305px); }
+        .w-188 { width: min(100%, 188px); }
+        .w-519 { width: min(100%, 519px); }
+        .w-638 { width: min(100%, 638px); }
+        .w-1183 { width: min(100%, 1183px); }
+        .w-695 { width: min(100%, 695px); }
+        .w-470 { width: min(100%, 470px); }
+        .w-323 { width: min(100%, 323px); }
+        .w-753 { width: min(100%, 753px); }
+
+        .form-group input::placeholder {
+            color: rgba(61, 47, 31, 0.4);
+        }
+        .form-group input:focus,
+        .input-fixed:focus {
+            outline: none;
+            background: transparent;
+            border-color: #5a4a3a;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0px;
+            margin-top: 0px;
+            padding-left: 70px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 12px; 
+        }
+
+        
+        .radio-option input[type="radio"],
+        .radio-option input[type="checkbox"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            margin: 0;
+            flex: 0 0 16px;
+            display: inline-block;
+            vertical-align: middle;
+            border: 1px solid #3d2f1f; 
+            background: transparent;
+            cursor: pointer;
+        }
+
+        
+        .radio-option input[type="radio"] {
+            border-radius: 50%;
+        }
+        .radio-option input[type="checkbox"] {
+            border-radius: 4px;
+        }
+
+        
+        .radio-option input[type="radio"]:checked {
+            
+            background-image: radial-gradient(circle, #3d2f1f 55%, transparent 56%);
+            background-color: transparent;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 60% 60%;
+            border-color: #3d2f1f;
+        }
+        .radio-option input[type="checkbox"]:checked {
+            
+            background-color: #3d2f1f;
+            border-color: #3d2f1f;
+        }
+
+        .radio-option label {
+            font-size: 24px;
+            font-weight: normal;
+            color: #3d2f1f;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0px;
+            margin-top: 0px;
+            padding-left: 70px; 
+        }
+
+        
+        .checkbox-group--centered {
+            width: min(800px, 100%); 
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 0; 
+            align-items: flex-start; 
+        }
+
+        .two-column-questions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .question-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .question-label {
+            font-size: 24px;
+            font-weight: semibold;
+            color: #3d2f1f;
+            margin-bottom: 8px;
+        }
+
+        .three-column-questions {
+            display: grid;
+            
+            grid-template-columns: 0.6fr 0.8fr 0.98fr;
+            gap: 5px;
+            align-items: start;
+        }
+
+        
+        .other-reason-row {
+            display: grid;
+            grid-template-columns: 2fr 1.7fr ;
+            align-items: center;
+            gap: 12px;
+            margin-top: 6px;
+
+        }
+        .other-reason-row .radio-option { margin: 0; }
+        .other-reason-row .input-fixed { margin: 0; }
+        
+        
+        .form-actions-wrapper {
+            width: min(1262px, 100%);
+            max-width: 1262px;
+            margin: 18px auto 0; 
+            box-sizing: border-box;
+            padding: 0 15px; 
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end; 
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn {
+            font-family: inherit;
+            font-size: 24px;
+            padding: 10px 22px;
+            border-radius: 100px;
+            border: 1.5px solid #3d2f1f;
+            background: rgba(163, 136, 107, 0.271);
+            color: #3d2f1f;
+            cursor: pointer;
+            transition: background 160ms ease, border-color 120ms ease, color 120ms ease, transform 120ms ease;
+            width: min(193px, 100%);
+            height: min(61px, 100%);
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            color: #3d2f1f;
+            border-color: #3d2f1f;
+        }
+
+
+        .btn-secondary {
+            background: #a46345cb;
+            color: #3d2f1f;
+            border-color: #3d2f1f;
+        }
+
+        .btn-primary:hover {
+            background: rgba(32, 27, 21, 0.271);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(135, 74, 46, 0.9); 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Space for header -->
+        
+        <div class="header-section">
+            <div class="pet-header">
+                <div class="pet-image"></div>
+                <div class="pet-info">
+                    <h2>Bark Twain</h2>
+                    <p>Beagle</p>
+                    <p>2 yrs. old</p>
+                    <p>Male</p>
+                </div>
+            </div>
+            <div class="progress-column">
+                <div class="progress-tracker">
+                    <div class="progress-step active">
+                        <div class="progress-circle">
+                            <img src="svgs/application_placed.svg" alt="Application Placed" class="progress-icon">
+                        </div>
+                        <div class="progress-meta">
+                            <div class="progress-label">Application Placed</div>
+                            <div class="progress-date">October 28, 2025</div>
+                        </div>
+                    </div>
+                    <div class="progress-connector">
+                        <svg width="100%" height="2" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                            <line x1="0" x2="100" y1="1" y2="1" stroke="#3d2f1f" stroke-width="1" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <div class="progress-step">
+                        <div class="progress-circle">
+                            <img src="svgs/meet_and_greet.svg" alt="Meet and Greet" class="progress-icon">
+                        </div>
+                        <div class="progress-meta">
+                            <div class="progress-label">Meet and Greet</div>
+                            <div class="progress-date"></div>
+                        </div>
+                    </div>
+                    <div class="progress-connector">
+                        <svg width="100%" height="2" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                            <line x1="0" x2="100" y1="1" y2="1" stroke="#3d2f1f" stroke-width="1" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <div class="progress-step">
+                        <div class="progress-circle">
+                            <img src="svgs/ready_for_adoption.svg" alt="Ready for Adoption" class="progress-icon">
+                        </div>
+                        <div class="progress-meta">
+                            <div class="progress-label">Ready for Adoption</div>
+                            <div class="progress-date"></div>
+                        </div>
+
+                    </div>
+                    <div class="progress-connector">
+                        <svg width="100%" height="2" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                            <line x1="0" x2="100" y1="1" y2="1" stroke="#3d2f1f" stroke-width="1" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <div class="progress-step">
+                        <div class="progress-circle">
+                            <img src="svgs/adopted.svg" alt="Adopted" class="progress-icon">
+                        </div>
+                        <div class="progress-meta">
+                            <div class="progress-label">Adopted      </div>
+                            <div class="progress-date"></div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="status-message">Your application is being reviewed.</div>
+            </div>
+        </div>
+
+
+        <div class="form-container">
+            <form>
+                <!-- APPLICANT INFORMATION -->
+                <h3 class="section-title">Applicant Information</h3>
+                
+                <div class="form-row form-row-4">
+                    <div class="form-group">
+                        <label>First Name:</label>
+                        <input type="text" class="input-fixed w-305">
+                    </div>
+                    <div class="form-group">
+                        <label>Middle Name:</label>
+                        <input type="text" class="input-fixed w-305">
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name:</label>
+                        <input type="text" class="input-fixed w-305">
+                    </div>
+                    <div class="form-group">
+                        <label>Suffix (Optional):</label>
+                        <input type="text" class="input-fixed w-188">
+                    </div>
+                </div>
+
+                <div class="form-row form-row-3">
+                    <div class="form-group">
+                        <label>Occupation</label>
+                        <input type="text" class="input-fixed w-305">
+                    </div>
+                    <div class="form-group">
+                        <label>Employer</label>
+                        <input type="text" class="input-fixed w-305">
+                    </div>
+                    <div class="form-group">
+                        <label>Employer Address</label>
+                        <input type="text" class="input-fixed w-519">
+                    </div>
+                </div>
+
+                <div class="form-row form-row-2-email-phone">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="input-fixed w-638">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="tel" class="input-fixed w-519">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" class="input-fixed w-1183">
+                    </div>
+                </div>
+
+                <!-- HOME ENVIRONMENT -->
+                <h3 class="section-title">Home Environment</h3>
+                
+                <div class="two-column-questions">
+                    <div class="question-group">
+                        <div class="question-label">What type of housing do you reside in?</div>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" name="housing" id="apartment">
+                                <label for="apartment">Apartment/Condominium</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="housing" id="house">
+                                <label for="house">House</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="housing" id="other-housing">
+                                <label for="other-housing">Other</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question-group">
+                        <div class="question-label">Do you rent this property?</div>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" name="rent" id="rent-yes">
+                                <label for="rent-yes">Yes</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="rent" id="rent-no">
+                                <label for="rent-no">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 0px;">
+                    <div class="form-group" style="margin-bottom: 0px;">
+                        <label>If you rent:</label>
+                    </div>
+                    <div class="form-row form-row-2">
+                        <div class="form-group">
+                            <label>Landlord's Name:</label>
+                                <input type="text" class="input-fixed w-695">
+                        </div>
+                        <div class="form-group">
+                            <label>Landlord's Phone Number</label>
+                                <input type="tel" class="input-fixed w-470">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row form-row-2" style="margin-top: 0px;">
+                    <div class="form-group">
+                        <label>How many adults are in the household?</label>
+                        <input type="text" class="input-fixed w-695">
+                    </div>
+                    <div class="form-group">
+                        <label>How many children are in the household?</label>
+                        <input type="text" class="input-fixed w-470">
+                    </div>
+                </div>
+
+                <!-- Average time field will live in the three-column questions row below
+                     so all three related items share the same grid track. -->
+
+                <div class="three-column-questions" style="margin-top: 18px;">
+                    <div class="question-group">
+                        <div class="question-label">Do you have other pets?</div>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" name="other-pets" id="pets-yes">
+                                <label for="pets-yes">Yes</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="other-pets" id="pets-no">
+                                <label for="pets-no">No</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question-group">
+                        <div class="question-label">Have you previously owned pets?</div>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" name="prev-pets" id="prev-yes">
+                                <label for="prev-yes">Yes</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="prev-pets" id="prev-no">
+                                <label for="prev-no">No</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group average-alone-time">
+                        <label>Average time pet would be alone per day?</label>
+                        <input type="text" class="input-fixed w-470">
+                    </div>
+                </div>
+
+                <!-- PET PREFERENCES AND STYLE -->
+                <h3 class="section-title">Pet Preferences and Style</h3>
+                
+                <div class="two-column-questions">
+                    <div class="question-group">
+                        <div class="question-label">Why do you want to adopt this pet?</div>
+                        <div class="checkbox-group">
+                            <div class="radio-option">
+                                <input type="checkbox" id="companion-child">
+                                <label for="companion-child">Companion for child</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="checkbox" id="companion-pet">
+                                <label for="companion-pet">Companion for other pets</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="checkbox" id="security">
+                                <label for="security">Security</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="checkbox" id="house-pet">
+                                <label for="house-pet">House pet</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="checkbox" id="working">
+                                <label for="working">Working animal/Pest control</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="checkbox" id="breeding">
+                                <label for="breeding">Breeding</label>
+                            </div>
+                            <div class="other-reason-row">
+                                <div class="radio-option">
+                                    <input type="checkbox" id="other-reason">
+                                    <label for="other-reason">Other (please specify):</label>
+                                </div>
+                                <input type="text" class="input-fixed w-323" aria-label="Other reason">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question-group">
+                        <div class="question-label">Is the pet a gift for someone?</div>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" name="gift" id="gift-yes">
+                                <label for="gift-yes">Yes</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="gift" id="gift-no">
+                                <label for="gift-no">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <div class="form-group" style="margin-bottom: 0px;">
+                        <label>If yes, to whom?</label>
+                    </div>
+                    <div class="form-row form-row-2">
+                        <div class="form-group">
+                            <label>Name:</label>
+                                <input type="text" class="input-fixed w-695">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                                <input type="tel" class="input-fixed w-470">
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 0px;">
+                    <div class="question-group">
+                        <div class="question-label">Are you financially prepared for vet care, food, and supplies?</div>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" name="financial" id="financial-yes">
+                                <label for="financial-yes">Yes</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="financial" id="financial-no">
+                                <label for="financial-no">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AGREEMENT -->
+                <h3 class="section-title section-title--tight">Agreement</h3>
+                
+                    <div class="checkbox-group checkbox-group--centered">
+                        <div class="radio-option">
+                            <input type="checkbox" id="understand">
+                            <label for="understand">I understand that this application does not guarantee adoption.</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="checkbox" id="certify">
+                            <label for="certify">I certify that the information provided is true and complete.</label>
+                        </div>
+                    </div>
+
+                    <div class="form-row" style="margin-top: 18px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                        <div class="form-group">
+                            <label>Signature</label>
+                            <input type="text" class="input-fixed w-753">
+                        </div>
+                    </div>
+            </form>
+        </div>
+        
+        <!-- Action buttons aligned with the right edge of the form-container -->
+        <div class="form-actions-wrapper">
+            <div class="form-actions">
+                <button type="button" class="btn btn-primary">Approve</button>
+                <button type="button" class="btn btn-secondary">Reject</button>
+            </div>
+        </div>
+
+        <!-- Space for footer -->
+    </div>
+</body>
+</html>
