@@ -1,0 +1,235 @@
+/* Fonts */
+.slackey-regular {
+  font-family: "Slackey", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.chakra-petch-regular {
+  font-family: "Chakra Petch", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  margin: 0;
+  font-family: "Chakra Petch", sans-serif;
+  background: url("fabric_background.png");
+  background-size: cover;
+  color: #2b2b2b;
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: url("fabric_background.png");
+  padding: 1rem 3rem;
+  border-radius: 0px 0px 40px 40px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 48px;
+  width: auto;
+  display: block;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #1a1a1a;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+  transform: scale(1.2);
+}
+
+.icons {
+  display: flex;
+  gap: 1rem;
+}
+
+.icons .icon {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.icons .icon:hover {
+  transform: scale(1.1);
+}
+
+.icons i {
+  font-size: 1.2rem;
+  color: #1a1a1a;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.icons i:hover {
+  transform: scale(1.2);
+}
+
+/* CONTACT SECTION */
+.contact-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 2rem;
+}
+
+.contact-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 25px;
+  padding: 2rem;
+  backdrop-filter: blur(2px);
+  width: 100%;
+  max-width: 1000px;
+}
+
+.contact-image img {
+  width: 400px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.contact-form {
+  flex: 1;
+  background:#dedcca;
+  text-align: left;
+  border-radius: 25px;
+  padding: 2rem;
+  font-family: "Slackey", sans-serif;
+}
+
+.contact-form h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #444e27;
+}
+
+.contact-form label {
+  font-weight: 600;
+  display: block;
+  margin-top: 10px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 9px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 50px;
+  border: 1px solid #444e27;
+  background: none;
+  height: 57px;
+}
+
+.contact-form button {
+  font-family: "Chakra Petch";
+  margin-top: 1rem;
+  background-color: rgb(185, 171, 151);
+  border: 1px solid #444e27;
+  color:  #444e27;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  text-align: right;
+}
+
+.contact-form button:hover {
+  transform: scale(1.1);
+}
+
+.call {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #444e27;
+  font-family: "Chakra Petch";
+}
+
+/* ===== FOOTER ===== */
+footer {
+  position: absolute;
+  background: #3f6032;
+  padding: 2rem 3rem;
+  margin-top: 3rem;
+  color: #DEDCCA;
+  width: 100%;
+  font-family: "Chakra Petch", serif;
+}
+
+.footer-grid {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.footer-brand h2 {
+  color: #DEDCCA;
+}
+
+.socials i {
+  margin: 0 8px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.socials i:hover {
+  transform: scale(1.2);
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: #dedcca;
+  font-size: 0.95rem;
+}
+
+.footer-extra {
+  font-size: 0.9rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+  .contact-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  .contact-image {
+    display: none;
+  }
+  .contact-form {
+    max-width: 480px;
+    width: 100%;
+  }
+  .nav-links {
+    gap: 1rem;
+  }
+}
