@@ -76,6 +76,9 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
+    border: 2px solid violet;
+    overflow-x: hidden;
+    
     
     /* Temporary bottom padding */
     /* padding-bottom: 30%; */
@@ -100,6 +103,7 @@ body{
   border-radius: 0px 0px 65px 65px;
   width: 80%;
   background: var(--bgColor);
+  z-index: 4;
 }
 
 .navLogo{
@@ -143,27 +147,32 @@ body{
 /* HOME INTRO */
 .homeIntroImgBg{
   position: absolute;
-  width: 100vw;
-  height: auto;
+  flex-shrink: 0;
   z-index: -1;
+  background-image: url("images/homeImages/Mask group.webp");
+  height: 1100px;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;  
+  background-position: center center;
 }
 .homeIntro{
   position: relative;
   display: flex;
-  border: 1px solid pink;
+  /* border: 1px solid pink; */
   grid-template-columns: auto 1fr;
   align-items: center;
   justify-content: center;
   width: 100%;
   flex-direction: column; 
-  /* height: 100%; */
-  /* padding-bottom: 30%; */
+  height: 100%;
+  
 }
 
 .mainContent{
   position: relative;
   display: flex;
-  border: 1px solid pink;
+  /* border: 1px solid pink; */
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -235,7 +244,7 @@ body{
 /* OUR PETS */
 .blurryBranchImg{
   /* position: absolute; */
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 
 .ourPets{
@@ -377,87 +386,80 @@ body{
 
 
 /* HOME INFORMATION SECTION */
+.homeInformation{
+  border: 2px solid blue;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 5%;
+  /* testing height */
+  /* height: 500px;  */
+}
+
+.ourStory, .ourMission{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid red;
+  width: 100%;
+}
+
+.ourStoryimageHolder, .ourMissionImageHolder{
+  position: relative;
+  border: 1px solid blue;
+  display: flex;
+}
+
 .sideBranchImg{
+  margin-top: -100px;
   position: absolute;
-  margin-top: 220vh;
   /* border: 1px solid red; */
   align-self: flex-start;
   z-index: -1;
 }
 
-.homeInformation{
-  /* border: 1px solid red; */
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  width: 100%;
-  margin-top: 5%;
-  /* testing height */
-  /* height: 500px;  */
-
+.ourStoryDogsImg{
+  position: absolute;
+  align-self: center;
+  mix-blend-mode: hard-light;
+  z-index: -2;
 }
 
-.homeInfoLeft{
-  /* border: 1px solid blue; */
+.catImg{
+  position: absolute;
+  align-self: center;
+  mix-blend-mode: hard-light;
+  z-index: -2;
+  margin-bottom: -200px;
 }
 
-.homeInfoRight{
-  /* border: 1px solid purple; */
+.rightBranchImg{
+  position: absolute;
+  align-self: center;
+  right: -20px;
+  margin-bottom: -600px;
+}
+
+.ourStorycontentHolder, .ourMissionContentHolder{
   display: flex;
-  align-items: center;
   flex-direction: column;
-}
-
-.ourStory, .ourMission, .adoptionProcess{
-  display: flex ;
   align-items: center;
-  flex-direction: column;
-  margin-left: 6%;
-  margin-right: 6%;
-  /* border: 1px solid darkblue; */
-}
-
-.ourStory h2, .ourMission h2{
-  font-family: "Slackey";
-  font-size: 36px;
-  color: var(--fontColor2);
-}
-
-.ourStory p, .ourMission p, .adoptionProcess p{
   margin-top: 1%;
   font-size: 24px;
   font-family: "Chakra Petch";
   font-weight: 600;
   line-height: 1.4;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
-.ourStoryDogsImg{
-  position: absolute;
-  margin-top: 253vh;
-  align-self: flex-start;
-  mix-blend-mode: hard-light;
-  z-index: -2;
+.ourStorycontentHolder h2, .ourMissionContentHolder h2{
+  font-family: "Slackey";
+  font-size: 36px;
+  color: var(--fontColor2);
+  margin-bottom: 2%;
 }
 
-.ourMission{
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  margin-top: 110%;
-}
 
-.catImg{
-  position: absolute;
-  margin-top: 160%;
-  align-self: flex-end;
-  mix-blend-mode: hard-light;
-  z-index: -2;
-}
-
-.rightBranchImg{
-  position: absolute;
-  margin-top: 180%;
-  align-self: flex-end;
-}
 
 .adoptionProcessImg{
   position: absolute;
