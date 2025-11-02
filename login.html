@@ -39,6 +39,9 @@
         flex-wrap: nowrap;
         padding: 3vw;
       }
+      .mobile-image{
+        display: none;
+      }
 
       .cat-image{
         flex: 0 1 auto;
@@ -329,7 +332,7 @@
 
         .login-button input {
           width: 100%;
-          max-width: 10rem;
+          max-width: 12rem;
         }
 
         .signup-link {
@@ -387,6 +390,20 @@
           position: static;
           margin-top: 1rem;
           text-align: center;
+        }
+        .mobile-image {
+          display: block;
+          width: 100%;
+          margin-top: 0.3rem;
+          
+        }
+
+        .mobile-image img {
+          width: 100%;
+          height: auto;
+          object-fit: cover;
+          border-radius: 1rem;
+          mix-blend-mode: overlay;
         }
       }
 
@@ -465,6 +482,9 @@
                     <p>Don't have an account? <a href="#">Sign Up</a></p>
                 </div>
             </form>
+            <div class="mobile-image">
+              <img src="images/login-images/Dogs image (1).webp">
+            </div>
         </section>
 
         <script>
