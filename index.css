@@ -460,22 +460,37 @@ body{
 }
 
 
+.adoptionProcess{
+  position: relative;
+  border: 1px solid orange;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  margin-top: 10%;
+}
+
+.adoptionProcessImageHolder{
+  border: 2px solid crimson;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-left: 10%;
+}
 
 .adoptionProcessImg{
-  position: absolute;
-  align-self: flex-start;
-  margin-top: 198%;
-  margin-left: 5%;
 }
 
-.adoptionProcess{
-  margin-top: 125%;
-  /* border: 1px solid red; */
-  /* width: 100%; */
+.adoptionProcessContent{
+  display: flex;
+  flex-direction: column;
   align-items: flex-start;
+  font-size: 24px;
+  font-weight: 1000;
+  padding-top: 30%;
+  padding-right: 20%;
 }
 
-.adoptionProcess h2{
+.adoptionProcessContent h2{
   margin-left: 5%;
   font-family: "Slackey";
   font-size: 30px;
@@ -487,26 +502,40 @@ body{
 
 /* Contact US */
 .contactUs{
-  margin-top: 35%;
+  margin-top: 10%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  /* border: solid 1px violet; */
+  border: solid 1px violet;
   width: 100%;
 }
 
-.contactUsRight{
+.contactUsImageHolder{
+  border: 1px solid blueviolet;
   display: flex;
   flex-direction: column;
-  /* border: solid 1px red; */
+  align-items: flex-end;
+  padding-right: 5%;
+  justify-content: center;
+}
+
+.contactUsCat{
+  mix-blend-mode: hard-light;
+}
+
+
+.contactUsContent{
+  display: flex;
+  flex-direction: column;
+  border: solid 1px red;
   align-items: flex-start;
+  justify-content: center;
   font-family: "Slackey";
   color: var(--fontColor3);
-  overflow: hidden;
 }
 
 .contactUsForm{
   display: flex;
-  position: relative;
+  position: relative; 
   flex-direction: column;
   border: solid 1px #223125;
   width: 87%;
@@ -587,21 +616,18 @@ body{
   font-size: 16px;
 }
 
-.contactUsCat{
-  position: absolute;
-  margin-top: 291%;
-  mix-blend-mode: hard-light;
-  align-self: flex-start;
-  margin-left: 6%;
-}
-
-
 /* FOOTER */
 
 .grassFooter{
   position: absolute;
   bottom: 0;
   z-index: -1;
+  background-image: url("images/homeImages/grass-footer.webp");
+  background-repeat: no-repeat;
+  background-size: cover;  
+  background-position: center center;
+  width: 100%;
+  height: 800px;
 }
 
 .footerBg{
@@ -626,7 +652,7 @@ body{
 }
 
 .HomeFooter div{
-  /* border: 1px blue solid; */
+  border: 1px blue solid;
 }
 
 .foot1{
@@ -634,19 +660,25 @@ body{
   grid-template-rows: 1.5fr 1fr;
 }
 
+.footLogo{
+  border: 1px solid green;
+  width: 70%;
+}
+
 .footerLogoIcons{
   display: flex;
   align-items: flex-end;
-  justify-content: flex-start;
+  justify-content: center;
   padding-left: 10%;
   gap: 4%;
   padding-bottom: 1%;
 }
 
 .smallIconsCon{
-  gap: 15%;
+  gap: 6%;
   display: flex;
   margin-bottom: .5%;
+  width: 100%;
 }
 
 .foot1Text{
@@ -675,6 +707,13 @@ body{
   width: 100%;
   z-index: -3;
   margin-top: 286%;
+}
+
+/* Break point for footer foot1 text breaking at 1216 width */
+@media only screen and (max-width: 1215px) {
+  .foot1{
+    grid-template-rows: 1fr 1fr;
+  }
 }
 
 
@@ -707,9 +746,6 @@ body{
  
   
   /* HOME INTRO */
-  .homeIntroImgBg{
-    transform: scale(1.4);
-  }
 
   .homeIntro h1{
     font-size: 64px;
@@ -725,10 +761,6 @@ body{
 
 
   /* OUR PETS */
-  .blurryBranchImg{
-    margin-top: 70%;
-  }
-
   .petPic{
     width: 50%;
   }
