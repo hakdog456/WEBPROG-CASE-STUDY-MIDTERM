@@ -4,276 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jurassic Bark - Admin Review</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch&family=Slackey&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="global-application-styles.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
 
-        :root {
-            --container-w: 743.17px;
-            --img-max: 100px;
-        }
-
-          
-        body {
-            font-family: 'Chakra Petch', monospace;
-            background-image: url('fabric_background.png');
-            background-size: cover;
-            background-attachment: fixed;
-            min-height: 100vh;
-            color: #4a3728;
-            padding: 120px 0 80px 0;
-        }
-
-        .container {
-            max-width: 1500px;
-            max-height: 2311px;
-            margin: 0 auto;
-            padding: 0 40px;
-        }
-
-        .pet-header {
-            display: flex;
-            gap: 25px;
-            margin-bottom: 25px;
-            align-items: flex-start;
-        }
-
-        .pet-image {
-            width: 217.67px;
-            height: 183px;
-            border-radius: 45px;
-            object-fit: cover;
-            border: 2.5px solid #3d2f1f;
-            background: #888;
-        }
-
-        .pet-info {
-            flex: 0 0 auto;
-            width: 122px;
-            height: 124px;
-        }
-
-        .pet-info h2 {
-            font-size: 23px;
-            margin-bottom: 2px;
-            font-weight: semibold;
-            color: #3d2f1f;
-        }
-
-        .pet-info p {
-            font-size: 24px;
-            color: #5a4a3a;
-            line-height: 1.3;
-        }
-
-        .header-section {
-            display: flex;
-            
-            align-items: flex-start;
-            gap: 40px;
-            
-            margin: 0 auto 20px;
-            width: min(1221.17px, 100%);
-            height: min(190px, 100%);
-            max-width: 1221.17px;
-            max-height: 190px;
-        }
-
-    .progress-tracker {
-            display: flex;
-            
-            position: relative;
-            
-            --pc-size: 100px; 
-            
-            width: min(743.17px, 100%);
-            
-            height: min(176px, calc(var(--pc-size) + 76px));
-                
-                
-                justify-content: flex-end;
-                margin-left: auto; 
-                padding-right: 0;
-                
-                gap: 0;
-            align-items: flex-start; 
-
-        }
-
-        
-        .progress-connector {
-            
-            
-            flex: 1 2 min(109px, max(6px, calc((100% - (4 * var(--pc-size))) / 3)));
-            display: flex;
-            align-items: center; 
-            justify-content: center;
-            
-            width: min(109px, max(6px, calc((100% - (4 * var(--pc-size))) / 3)));
-            height: var(--pc-size);
-            min-width: 6px; 
-            z-index: -1; 
-            overflow: hidden; 
-        }
-        .progress-step {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-            
-                
-                flex: 0 1 var(--pc-size);
-                min-width: 0; 
-                
-                width: var(--pc-size);
-                
-                height: var(--pc-size);
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-                text-align: center; 
-                position: relative; 
-            z-index: 2;
-        }
-
-          
-          .progress-meta {
-                position: absolute;
-                top: calc(var(--pc-size) + 6px); 
-                left: 50%;
-                transform: translateX(-50%);
-                width: var(--pc-size);
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 4px;
-                box-sizing: border-box;
-                text-align: center;
-                z-index: 2;
-          }
-
-        
-        .progress-step > * {
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .progress-circle {
-            
-            width: var(--pc-size);
-            height: var(--pc-size);
-            border-radius: 50%;
-            background: rgba(209, 196, 160, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            
-            flex: 0 1 var(--pc-size);
-            min-width: 48px; 
-            aspect-ratio: 1 / 1;
-        }
-
-        
-        .progress-circle svg,
-        .progress-circle img.progress-icon {
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
-
-        .progress-circle img.progress-icon {
-            object-fit: contain;
-        }
-
-        
-        @media (max-width: 900px) {
-            
-            .progress-tracker { --pc-size: 50px; }
-        }
-
-        @media (max-width: 480px) {
-            .progress-tracker { --pc-size: 44px; }
-        }
-
-        .progress-step.active .progress-circle {
-            background: rgba(203, 202, 120, 0.489);
-        }
-
-        
-        .progress-column {
-            display: flex;
-            flex-direction: column;
-            
-            align-items: flex-end; 
-            
-            align-self: flex-start;
-            
-            justify-content: flex-start;
-            
-            margin-top: 0;
-            padding-top: 0;
-            width: 100%;
-            gap: 8px;
-            flex: 1 1 auto; ;
-        }
-
-        .progress-label {
-            font-size: clamp(10px, 16px, 16px);
-            text-align: center;
-            line-height: 1.2;
-            color: #4a3728;
-            margin-top: 2px;
-            display: block;
-            box-sizing: border-box;
-            min-height: 38.4px;
-        }
-
-        
-        .progress-label,
-        .progress-date {
-            
-            width: var(--pc-size);
-            box-sizing: border-box;
-            min-height: 1.2em; 
-            white-space: normal; 
-            overflow-wrap: anywhere;
-            word-break: break-word;
-            text-align: center;
-        }
-
-        .progress-date {
-            color: #6b5d4f;
-            
-            min-height: 16px;
-            text-align: center;
-            font-size: clamp(10px, 12px, 14px);
-
-        }
-
-        .status-message {
-            text-align: right;
-            font-style: italic;
-            color: #725134;
-            margin: -20px 0 0 0;
-            font-size: 24px;
-        }
 
         .form-container {
-            background: rgba(193, 192, 150, 0.354);
+            position: relative; /* stacking context for pseudo-element */
+            overflow: hidden; /* clip the pseudo-element to rounded corners */
+            background: transparent; /* actual color drawn by ::before */
+            border-radius: 50px;
             border: 1px solid rgba(0, 0, 0, 0.354);
             padding: 35px 15px 35px 50px;
-            border-radius: 50px;
-            position: relative;
             width: min(1262px, 100%);
             margin: 0 auto;
             max-width: 1262px;
-            height: min(2094px, 100%);
+            min-height: 100px;
+            box-sizing: border-box;
+        }
+
+        .form-container::before {
+            content: "";
+            position: absolute;
+            inset: 0; /* fill the container */
+            background: rgba(68, 78, 39, 0.5); /* original container color */
+            mix-blend-mode: overlay; /* blend with page background */
+            z-index: 0;
+            pointer-events: none;
+            border-radius: inherit;
         }
 
         .form-container input[type="text"],
@@ -493,7 +250,8 @@
 
         }
         .other-reason-row .radio-option { margin: 0; }
-        .other-reason-row .input-fixed { margin: 0; }
+        .other-reason-row .input-fixed { margin: 0;              background: rgba(238, 232, 213, 0.1);
+}
         
         
         .form-actions-wrapper {
@@ -556,7 +314,9 @@
         
         <div class="header-section">
             <div class="pet-header">
-                <div class="pet-image"></div>
+                <div class="pet-image">
+                    <img src="images/bark_twain.png" alt="Bark Twain">
+                </div>
                 <div class="pet-info">
                     <h2>Bark Twain</h2>
                     <p>Beagle</p>
@@ -566,61 +326,83 @@
             </div>
             <div class="progress-column">
                 <div class="progress-tracker">
-                    <div class="progress-step active">
-                        <div class="progress-circle">
-                            <img src="svgs/application_placed.svg" alt="Application Placed" class="progress-icon">
+
+                    <div class="progress-item active">
+                        <div class="progress-step">
+                            <div class="progress-circle"></div>
                         </div>
+
+                        <img src="svgs/application_placed.svg" class="progress-icon" alt="Application Placed">
+
                         <div class="progress-meta">
                             <div class="progress-label">Application Placed</div>
-                            <div class="progress-date">October 28, 2025</div>
+                            <div class="progress-date">October 20, 2025</div>
                         </div>
                     </div>
+
                     <div class="progress-connector">
-                        <svg width="100%" height="2" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                        <svg width="100%" height="2" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true"
+                            focusable="false">
                             <line x1="0" x2="100" y1="1" y2="1" stroke="#3d2f1f" stroke-width="1" stroke-linecap="round" />
                         </svg>
                     </div>
-                    <div class="progress-step">
-                        <div class="progress-circle">
-                            <img src="svgs/meet_and_greet.svg" alt="Meet and Greet" class="progress-icon">
+
+
+                    <div class="progress-item ">
+                        <div class="progress-step">
+                            <div class="progress-circle"></div>
                         </div>
+
+                        <img src="svgs/meet_and_greet.svg" class="progress-icon" alt="Meet and Greet">
+
                         <div class="progress-meta">
                             <div class="progress-label">Meet and Greet</div>
                             <div class="progress-date"></div>
                         </div>
                     </div>
+
                     <div class="progress-connector">
-                        <svg width="100%" height="2" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                        <svg width="100%" height="2" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true"
+                            focusable="false">
                             <line x1="0" x2="100" y1="1" y2="1" stroke="#3d2f1f" stroke-width="1" stroke-linecap="round" />
                         </svg>
                     </div>
-                    <div class="progress-step">
-                        <div class="progress-circle">
-                            <img src="svgs/ready_for_adoption.svg" alt="Ready for Adoption" class="progress-icon">
+
+                    <div class="progress-item ">
+                        <div class="progress-step">
+                            <div class="progress-circle"></div>
                         </div>
+
+                        <img src="svgs/ready_for_adoption.svg" class="progress-icon" alt="Decision Made">
+
                         <div class="progress-meta">
                             <div class="progress-label">Ready for Adoption</div>
                             <div class="progress-date"></div>
                         </div>
-
                     </div>
+
                     <div class="progress-connector">
-                        <svg width="100%" height="2" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                        <svg width="100%" height="2" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true"
+                            focusable="false">
                             <line x1="0" x2="100" y1="1" y2="1" stroke="#3d2f1f" stroke-width="1" stroke-linecap="round" />
                         </svg>
                     </div>
-                    <div class="progress-step">
-                        <div class="progress-circle">
-                            <img src="svgs/adopted.svg" alt="Adopted" class="progress-icon">
-                        </div>
-                        <div class="progress-meta">
-                            <div class="progress-label">Adopted      </div>
-                            <div class="progress-date"></div>
+
+                    <div class="progress-item">
+                        <div class="progress-step">
+                            <div class="progress-circle"></div>
                         </div>
 
+                        <img src="svgs/adopted.svg" class="progress-icon" alt="Adoption Finalized">
+
+                        <div class="progress-meta">
+                            <div class="progress-label">Adopted</div>
+                            <div class="progress-date"></div>
+                        </div>
                     </div>
+
                 </div>
-                <div class="status-message">Your application is being reviewed.</div>
+
             </div>
         </div>
 
