@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sign Up</title>
+        <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600&family=Slackey&display=swap" rel="stylesheet">
+        <style>
+            /*Global Styles*/
+          * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+          }
+
+          /* Body */
+          body {
+            background-image: url(images/login-images/heather-green-1GuZ9y1qAT8-unsplash-3.webp);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 1rem;
+            font-size: 16px;
+          }
+
+          /* Main Frame*/
+          .mainframe{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 100%;
+            gap: 2rem;
+            flex-wrap: nowrap;
+            padding: 3vw;
+          }
+
+          .dog-image{
+            flex: 0 1 auto;
+            width: auto;
+            max-width: 60rem;
+            min-width: 35rem;
+            height: auto;
+          }
+
+          .dog-image img{
+            mix-blend-mode: overlay;
+            width: 100%;
+            height: 40rem;
+            object-fit: contain;
+            display: block;
+          }
+
+          form{
+            display: flex;
+            flex-direction: column;
+            border: 0.125rem solid #725134;
+            width: 40.8rem;
+            height: 40rem;
+            border-radius: 2rem;
+            padding: 2rem;
+            position: relative;
+            flex: 0 1 auto;
+          }
+          form::before{
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(68, 78, 39, 0.5);
+            mix-blend-mode: overlay;
+            border-radius: inherit;
+            z-index: 0;
+          }
+
+          .maintext{
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+          }
+
+          form h2{
+            text-align: center;
+            font-family: 'slackey';
+            font-weight: 700;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+          }
+
+          form p{
+            font-family: 'chakra petch';
+            font-size: 1.25rem;
+            font-weight: 500;
+          }
+
+          .form-group{
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            align-items: center;
+            position: relative;
+            width: 100%;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            z-index: 1;
+          }
+
+          .form-group.confirm-password-group {
+            grid-template-columns: 120px 1fr;
+          }
+
+          .form-group.confirm-password-group label {
+            line-height: 1.2;
+            white-space: normal;
+          }
+
+          .form-group label{
+            font-family: 'slackey';
+            font-size: 1.25rem;
+            font-weight: 600;
+            min-width: max-content;
+          }
+
+          .form-group input{
+            width: 100%;
+            height: 3.56rem;
+            border-radius: 3rem;
+            padding: 0 1.5rem;
+            padding-right: 3.5rem;
+            border: 0.0625rem solid #444E27;
+            background-color: #ffffff00;
+            font-size: 1.25rem;
+            font-family: 'chakra petch';
+            color: #444E27;
+          }
+
+          .form-group input:-webkit-autofill,
+          .form-group input:-webkit-autofill:hover,
+          .form-group input:-webkit-autofill:focus,
+          .form-group input:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 30px transparent inset !important;
+            -webkit-text-fill-color: #444E27 !important;
+            transition: background-color 5000s ease-in-out 0s;
+          }
+
+          .form-group input::placeholder{
+            color: #444E2780;
+          }
+
+          .form-group input:focus{
+            outline: none;
+            background-color: rgba(255, 255, 255, 0.05);
+          }
+
+          .form-group .eyeicon1{
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            width: 1.5rem;
+            height: 1.5rem;
+            transition: opacity 0.3s ease;
+            flex-shrink: 0;
+          }
+
+          .form-group .eyeicon1:hover{
+            opacity: 0.7;
+          }
+          .form-group .eyeicon{
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            width: 1.5rem;
+            height: 1.5rem;
+            transition: opacity 0.3s ease;
+            flex-shrink: 0;
+          }
+
+          .form-group .eyeicon:hover{
+            opacity: 0.7;
+          }
+
+          .form-options{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            gap:7rem;
+            position: relative;
+            z-index: 1;
+          }
+          
+          .signup-button input{
+            width: 12.5rem;
+            height: 4.18rem;
+            border-radius: 3rem;
+            background-color: rgba(71, 50, 5, 0.27);
+            color: #444E27;
+            font-family: 'chakra petch';
+            font-size: 1.25rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+          }
+
+          .signup-button input:hover{
+            background-color: rgba(71, 50, 5, 0.55);
+            transform: translateY(-0.125rem);
+            box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+          }
+
+          .signup-button input:active{
+            transform: translateY(0);
+            background-color: rgba(71, 50, 5, 0.65);
+          }
+
+          .login-link a{
+            color: #444E27;
+            font-weight: 600;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+          }
+
+          .login-link a:hover{
+            opacity: 0.7;
+            text-decoration: underline;
+          }
+          .login-link p{
+            white-space: nowrap;
+          }
+
+          /* Responsive Design */
+          @media (max-width: 1280px) {
+            .mainframe {
+              flex-wrap: nowrap;
+              gap: 1rem;
+            }
+            .dog-image{
+              display: none;
+            }
+
+            form {
+              width: 40rem;
+              min-width: 40.3rem;
+              flex: 0 1 auto;
+              position: relative;
+            }
+            .login-link {
+              flex: 1 1 auto;
+              min-width: max-content;
+        }
+
+            .signup-button {
+            flex: 0 1 auto;
+        }
+          }
+          @media (max-width: 1024px) {
+            .mainframe {
+              flex-direction: column;
+              padding: 1.5rem;
+            }
+
+            .dog-image {
+              display: none;
+            }
+
+            form {
+              width: 90%;
+              max-width: 40rem;
+              height: auto;
+              padding: 2rem;
+              margin: 0 auto;
+            }
+
+            .form-group {
+              grid-template-columns: 120px 1fr;
+              gap: 0.5rem;
+              text-align: left;
+            }
+
+            .form-group.confirm-password-group {
+              grid-template-columns: 120px 1fr;
+            }
+
+            .form-group label {
+              font-size: 1.25rem;
+            }
+
+            .form-group input {
+              font-size: 1rem;
+              height: 3.56rem;
+              padding-right: 3.5rem;
+            }
+
+            .form-group .eyeicon, .form-group .eyeicon1{
+              right: 1.5rem;
+              width: 1.5rem;
+              height: 1.5rem;
+              transform: translateY(-50%);
+            }
+
+            .form-options {
+              font-size: 0.875rem;
+              align-items: center;
+              
+            }
+
+            .signup-button {
+              justify-content: center;
+            }
+
+            .signup-button input {
+              width: 100%;
+              width: 12.5rem;
+            }
+
+            .login-link {
+              margin-top: 1rem;
+              text-align: center;
+            }
+          }
+        </style>
+    </head>
+    <body>
+        <section class="mainframe">
+            <div class="dog-image">
+                <img src="images/login-images/Dogs image (1).webp" alt="dogimage">
+            </div>
+            <form action="#" method="get">
+                <div class="maintext">
+                    <h2>Join the Journey!</h2>
+                    <p>Open your heart to a new companion.</p>
+                </div>
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="Username">Username:</label>
+                    <input type="text" id="Username" name="Username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="text" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                    <svg class="eyeicon" id="eye" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path id="eyePath1" d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="#444E27" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path id="eyePath2" d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="#444E27" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <line id="eyeSlash" x1="3" y1="3" x2="21" y2="21" stroke="#444E27" stroke-width="2" stroke-linecap="round" style="display: none;"/>
+                    </svg>
+                </div>
+                <div class="form-group confirm-password-group">
+                    <label for="confirm-password">Confirm<br>Password:</label>
+                    <input type="password" id="confirm-password" name="confirm-password" required>
+                    <svg class="eyeicon1" id="eye1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path id="eyePath1-confirm" d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="#444E27" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path id="eyePath2-confirm" d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="#444E27" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <line id="eyeSlash1" x1="3" y1="3" x2="21" y2="21" stroke="#444E27" stroke-width="2" stroke-linecap="round" style="display: none;"/>
+                    </svg>
+                </div>
+                <div class="form-options">
+                    <div class="login-link">
+                        <p>Have an account? <a href="#">Log in Here</a></p>
+                    </div>
+                    <div class="signup-button">
+                        <input type="submit" value="Sign Up">
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <script>
+            // Password toggle
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eye');
+            const eyeSlash = document.getElementById('eyeSlash');
+
+            eyeIcon.addEventListener('click', function() {
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    eyeSlash.style.display = 'block';
+                } else {
+                    passwordInput.type = 'password';
+                    eyeSlash.style.display = 'none';
+                }
+            });
+
+            // Confirm Password toggle
+            const confirmPasswordInput = document.getElementById('confirm-password');
+            const eyeIcon1 = document.getElementById('eye1');
+            const eyeSlash1 = document.getElementById('eyeSlash1');
+
+            eyeIcon1.addEventListener('click', function() {
+                if (confirmPasswordInput.type === 'password') {
+                    confirmPasswordInput.type = 'text';
+                    eyeSlash1.style.display = 'block';
+                } else {
+                    confirmPasswordInput.type = 'password';
+                    eyeSlash1.style.display = 'none';
+                }
+            });
+        </script>
+    </body>
+</html>

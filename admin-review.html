@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jurassic Bark - Adoption Application</title>
+    <title>Jurassic Bark - Admin Review</title>
     <link rel="stylesheet" href="global-application-styles.css">
     <style>
-        /* form container: draw blended panel via ::before so children don't get blended */
+
+
         .form-container {
-            position: relative;
-            overflow: hidden;
-            background: transparent;
+            position: relative; /* stacking context for pseudo-element */
+            overflow: hidden; /* clip the pseudo-element to rounded corners */
+            background: transparent; /* actual color drawn by ::before */
             border-radius: 50px;
             border: 1px solid rgba(0, 0, 0, 0.354);
             padding: 35px 15px 35px 50px;
@@ -25,24 +25,18 @@
         .form-container::before {
             content: "";
             position: absolute;
-            inset: 0;
-            background: rgba(68, 78, 39, 0.5);
-            mix-blend-mode: overlay;
+            inset: 0; /* fill the container */
+            background: rgba(68, 78, 39, 0.5); /* original container color */
+            mix-blend-mode: overlay; /* blend with page background */
             z-index: 0;
             pointer-events: none;
             border-radius: inherit;
         }
 
-        .form-container>* {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* inputs should be fully opaque — we don't want them blended with the page */
         .form-container input[type="text"],
         .form-container input[type="email"],
         .form-container input[type="tel"] {
-            opacity: 1;
+            opacity: 0.7;
         }
 
         .section-title {
@@ -52,7 +46,7 @@
             margin-top: 35px;
             color: #6b4423;
             font-weight: bold;
-
+            
             font-family: 'Slackey';
             letter-spacing: 0.3px;
         }
@@ -62,7 +56,7 @@
         }
 
         .section-title--tight {
-            margin-top: -20px;
+            margin-top: -20px; 
         }
 
         .form-row {
@@ -74,7 +68,6 @@
         .form-row-2-email-phone {
             grid-template-columns: 2fr 1.7fr;
         }
-
         .form-row-2 {
             grid-template-columns: 2fr 1.42fr;
         }
@@ -110,7 +103,6 @@
             font-size: 12px;
             color: #3d2f1f;
         }
-
         .input-fixed {
             height: 57px;
             box-sizing: border-box;
@@ -120,55 +112,24 @@
             color: #3d2f1f;
             border: 1.5px solid #3d2f1f;
             border-radius: 100px;
-            background: #ffffff;
-            /* solid background so inputs remain readable */
+            background: rgba(238, 232, 213, 0.4);
             transition: background 160ms ease, border-color 120ms ease;
         }
 
-        .w-302 {
-            width: min(100%, 302px);
-        }
-
-        .w-305 {
-            width: min(100%, 305px);
-        }
-
-        .w-188 {
-            width: min(100%, 188px);
-        }
-
-        .w-519 {
-            width: min(100%, 519px);
-        }
-
-        .w-638 {
-            width: min(100%, 638px);
-        }
-
-        .w-1183 {
-            width: min(100%, 1183px);
-        }
-
-        .w-695 {
-            width: min(100%, 695px);
-        }
-
-        .w-470 {
-            width: min(100%, 470px);
-        }
-
-        .w-323 {
-            width: min(100%, 323px);
-        }
-
-        .w-753 {
-            width: min(100%, 753px);
-        }
+        .w-302 { width: min(100%, 302px); }
+        .w-305 { width: min(100%, 305px); }
+        .w-188 { width: min(100%, 188px); }
+        .w-519 { width: min(100%, 519px); }
+        .w-638 { width: min(100%, 638px); }
+        .w-1183 { width: min(100%, 1183px); }
+        .w-695 { width: min(100%, 695px); }
+        .w-470 { width: min(100%, 470px); }
+        .w-323 { width: min(100%, 323px); }
+        .w-753 { width: min(100%, 753px); }
 
         .form-group input::placeholder {
             color: rgba(61, 47, 31, 0.4);
         }
-
         .form-group input:focus,
         .input-fixed:focus {
             outline: none;
@@ -187,10 +148,10 @@
         .radio-option {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 12px; 
         }
 
-
+        
         .radio-option input[type="radio"],
         .radio-option input[type="checkbox"] {
             -webkit-appearance: none;
@@ -201,23 +162,22 @@
             flex: 0 0 16px;
             display: inline-block;
             vertical-align: middle;
-            border: 1px solid #3d2f1f;
+            border: 1px solid #3d2f1f; 
             background: transparent;
             cursor: pointer;
         }
 
-
+        
         .radio-option input[type="radio"] {
             border-radius: 50%;
         }
-
         .radio-option input[type="checkbox"] {
             border-radius: 4px;
         }
 
-
+        
         .radio-option input[type="radio"]:checked {
-
+            
             background-image: radial-gradient(circle, #3d2f1f 55%, transparent 56%);
             background-color: transparent;
             background-repeat: no-repeat;
@@ -225,9 +185,8 @@
             background-size: 60% 60%;
             border-color: #3d2f1f;
         }
-
         .radio-option input[type="checkbox"]:checked {
-
+            
             background-color: #3d2f1f;
             border-color: #3d2f1f;
         }
@@ -243,16 +202,16 @@
             flex-direction: column;
             gap: 0px;
             margin-top: 0px;
-            padding-left: 70px;
+            padding-left: 70px; 
         }
 
-
+        
         .checkbox-group--centered {
-            width: min(800px, 100%);
+            width: min(800px, 100%); 
             margin-left: auto;
             margin-right: auto;
-            padding-left: 0;
-            align-items: flex-start;
+            padding-left: 0; 
+            align-items: flex-start; 
         }
 
         .two-column-questions {
@@ -275,37 +234,84 @@
 
         .three-column-questions {
             display: grid;
-
+            
             grid-template-columns: 0.6fr 0.8fr 0.98fr;
             gap: 5px;
             align-items: start;
         }
 
-
+        
         .other-reason-row {
             display: grid;
-            grid-template-columns: 2fr 1.7fr;
+            grid-template-columns: 2fr 1.7fr ;
             align-items: center;
             gap: 12px;
             margin-top: 6px;
 
         }
-
-        .other-reason-row .radio-option {
-            margin: 0;
+        .other-reason-row .radio-option { margin: 0; }
+        .other-reason-row .input-fixed { margin: 0;              background: rgba(238, 232, 213, 0.1);
+}
+        
+        
+        .form-actions-wrapper {
+            width: min(1262px, 100%);
+            max-width: 1262px;
+            margin: 18px auto 0; 
+            box-sizing: border-box;
+            padding: 0 15px; 
         }
 
-        .other-reason-row .input-fixed {
-            background: rgba(238, 232, 213, 0.1);
-            margin: 0;
+        .form-actions {
+            display: flex;
+            justify-content: flex-end; 
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn {
+            font-family: inherit;
+            font-size: 24px;
+            padding: 10px 22px;
+            border-radius: 100px;
+            border: 1.5px solid #3d2f1f;
+            background: rgba(163, 136, 107, 0.271);
+            color: #3d2f1f;
+            cursor: pointer;
+            transition: background 160ms ease, border-color 120ms ease, color 120ms ease, transform 120ms ease;
+            width: min(193px, 100%);
+            height: min(61px, 100%);
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            color: #3d2f1f;
+            border-color: #3d2f1f;
+        }
+
+
+        .btn-secondary {
+            background: #a46345cb;
+            color: #3d2f1f;
+            border-color: #3d2f1f;
+        }
+
+        .btn-primary:hover {
+            background: rgba(32, 27, 21, 0.271);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(135, 74, 46, 0.9); 
         }
     </style>
 </head>
-
 <body>
     <div class="container">
-        <!-- Space for navbar -->
-
+        <!-- Space for header -->
+        
         <div class="header-section">
             <div class="pet-header">
                 <div class="pet-image">
@@ -342,7 +348,7 @@
                     </div>
 
 
-                    <div class="progress-item">
+                    <div class="progress-item ">
                         <div class="progress-step">
                             <div class="progress-circle"></div>
                         </div>
@@ -362,7 +368,7 @@
                         </svg>
                     </div>
 
-                    <div class="progress-item">
+                    <div class="progress-item ">
                         <div class="progress-step">
                             <div class="progress-circle"></div>
                         </div>
@@ -396,8 +402,7 @@
                     </div>
 
                 </div>
-                <div class="status-message">Your application is being reviewed.
-            </div>
+
             </div>
         </div>
 
@@ -406,7 +411,7 @@
             <form>
                 <!-- APPLICANT INFORMATION -->
                 <h3 class="section-title">Applicant Information</h3>
-
+                
                 <div class="form-row form-row-4">
                     <div class="form-group">
                         <label>First Name:</label>
@@ -461,7 +466,7 @@
 
                 <!-- HOME ENVIRONMENT -->
                 <h3 class="section-title">Home Environment</h3>
-
+                
                 <div class="two-column-questions">
                     <div class="question-group">
                         <div class="question-label">What type of housing do you reside in?</div>
@@ -502,11 +507,11 @@
                     <div class="form-row form-row-2">
                         <div class="form-group">
                             <label>Landlord's Name:</label>
-                            <input type="text" class="input-fixed w-695">
+                                <input type="text" class="input-fixed w-695">
                         </div>
                         <div class="form-group">
                             <label>Landlord's Phone Number</label>
-                            <input type="tel" class="input-fixed w-470">
+                                <input type="tel" class="input-fixed w-470">
                         </div>
                     </div>
                 </div>
@@ -560,7 +565,7 @@
 
                 <!-- PET PREFERENCES AND STYLE -->
                 <h3 class="section-title">Pet Preferences and Style</h3>
-
+                
                 <div class="two-column-questions">
                     <div class="question-group">
                         <div class="question-label">Why do you want to adopt this pet?</div>
@@ -620,11 +625,11 @@
                     <div class="form-row form-row-2">
                         <div class="form-group">
                             <label>Name:</label>
-                            <input type="text" class="input-fixed w-695">
+                                <input type="text" class="input-fixed w-695">
                         </div>
                         <div class="form-group">
                             <label>Phone Number</label>
-                            <input type="tel" class="input-fixed w-470">
+                                <input type="tel" class="input-fixed w-470">
                         </div>
                     </div>
                 </div>
@@ -647,30 +652,36 @@
 
                 <!-- AGREEMENT -->
                 <h3 class="section-title section-title--tight">Agreement</h3>
+                
+                    <div class="checkbox-group checkbox-group--centered">
+                        <div class="radio-option">
+                            <input type="checkbox" id="understand">
+                            <label for="understand">I understand that this application does not guarantee adoption.</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="checkbox" id="certify">
+                            <label for="certify">I certify that the information provided is true and complete.</label>
+                        </div>
+                    </div>
 
-                <div class="checkbox-group checkbox-group--centered">
-                    <div class="radio-option">
-                        <input type="checkbox" id="understand">
-                        <label for="understand">I understand that this application does not guarantee adoption.</label>
+                    <div class="form-row" style="margin-top: 18px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                        <div class="form-group">
+                            <label>Signature</label>
+                            <input type="text" class="input-fixed w-753">
+                        </div>
                     </div>
-                    <div class="radio-option">
-                        <input type="checkbox" id="certify">
-                        <label for="certify">I certify that the information provided is true and complete.</label>
-                    </div>
-                </div>
-
-                <div class="form-row"
-                    style="margin-top: 18px; max-width: 800px; margin-left: auto; margin-right: auto;">
-                    <div class="form-group">
-                        <label>Signature</label>
-                        <input type="text" class="input-fixed w-753">
-                    </div>
-                </div>
             </form>
+        </div>
+        
+        <!-- Action buttons aligned with the right edge of the form-container -->
+        <div class="form-actions-wrapper">
+            <div class="form-actions">
+                <button type="button" class="btn btn-primary">Approve</button>
+                <button type="button" class="btn btn-secondary">Reject</button>
+            </div>
         </div>
 
         <!-- Space for footer -->
     </div>
 </body>
-
 </html>

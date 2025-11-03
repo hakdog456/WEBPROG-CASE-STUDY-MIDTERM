@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="global-application-styles.css">
+    <title>Meet and Greet - Bark Twain</title>
+    <style>
+
+        .admin-ready-final-container {
+            position: relative;
+            overflow: hidden;
+            background: transparent;        
+            border: 1px solid rgba(0, 0, 0, 0.354);
+            padding: 25px 15px 35px 50px;
+            border-radius: 50px;
+            position: relative;
+            width: min(1262px, 100%);
+            margin: 0 auto;
+            max-height: 1262px;
+            max-width: 1262px;
+            height: min(212px, 100%);
+        }
+
+
+        .admin-ready-final-container::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(68, 78, 39, 0.5);
+            mix-blend-mode: overlay;
+            z-index: 0;
+            pointer-events: none;
+            border-radius: inherit;
+        }
+        
+
+        .section-title {
+            text-align: center;
+            font-size: 23px;
+            margin-bottom: 10px;
+            color: #6b4423;
+            font-weight: 400;
+            letter-spacing: 0.5px;;
+            font-family: "Slackey";
+        }
+
+        .verify-text {
+            font-size: 36px;
+            color: #4a3728;
+            margin-top: 20px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .form-actions-wrapper {
+            width: min(1262px, 100%);
+            max-width: 1262px;
+            margin: 18px auto 0; 
+            box-sizing: border-box;
+            padding: 0 15px; 
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end; 
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn {
+            font-family: inherit;
+            font-size: 24px;
+            padding: 10px 22px;
+            border-radius: 100px;
+            border: 1.5px solid #3d2f1f;
+            background: rgba(163, 136, 107, 0.271);
+            color: #3d2f1f;
+            cursor: pointer;
+            transition: background 160ms ease, border-color 120ms ease, color 120ms ease, transform 120ms ease;
+            width: min(193px, 100%);
+            height: min(61px, 100%);
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            color: #3d2f1f;
+            border-color: #3d2f1f;
+        }
+
+
+        .btn-secondary {
+            background: #a46345cb;
+            color: #3d2f1f;
+            border-color: #3d2f1f;
+        }
+
+        .btn-primary:hover {
+            background: rgba(32, 27, 21, 0.271);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(135, 74, 46, 0.9); 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Space for header, pet info, and progress tracker -->
+        
+        <div class="header-section">
+            <div class="pet-header">
+                <div class="pet-image">
+                    <img src="images/bark_twain.png" alt="Bark Twain">
+                </div>
+                <div class="pet-info">
+                    <h2>Bark Twain</h2>
+                    <p>Beagle</p>
+                    <p>2 yrs. old</p>
+                    <p>Male</p>
+                </div>
+            </div>
+            <div class="progress-column">
+                <div class="progress-tracker">
+
+                    <div class="progress-item active">
+                        <div class="progress-step">
+                            <div class="progress-circle"></div>
+                        </div>
+
+                        <img src="svgs/application_placed.svg" class="progress-icon" alt="Application Placed">
+
+                        <div class="progress-meta">
+                            <div class="progress-label">Application Placed</div>
+                            <div class="progress-date">October 20, 2025</div>
+                        </div>
+                    </div>
+
+                    <div class="progress-connector">
+                        <svg width="100%" height="2" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true"
+                            focusable="false">
+                            <line x1="0" x2="100" y1="1" y2="1" stroke="#3d2f1f" stroke-width="1" stroke-linecap="round" />
+                        </svg>
+                    </div>
+
+
+                    <div class="progress-item active">
+                        <div class="progress-step">
+                            <div class="progress-circle"></div>
+                        </div>
+
+                        <img src="svgs/meet_and_greet.svg" class="progress-icon" alt="Meet and Greet">
+
+                        <div class="progress-meta">
+                            <div class="progress-label">Meet and Greet</div>
+                            <div class="progress-date">October 22, 2025</div>
+                        </div>
+                    </div>
+
+                    <div class="progress-connector">
+                        <svg width="100%" height="2" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true"
+                            focusable="false">
+                            <line x1="0" x2="100" y1="1" y2="1" stroke="#3d2f1f" stroke-width="1" stroke-linecap="round" />
+                        </svg>
+                    </div>
+
+                    <div class="progress-item active">
+                        <div class="progress-step">
+                            <div class="progress-circle"></div>
+                        </div>
+
+                        <img src="svgs/ready_for_adoption.svg" class="progress-icon" alt="Decision Made">
+
+                        <div class="progress-meta">
+                            <div class="progress-label">Ready for Adoption</div>
+                            <div class="progress-date">October 25, 2025</div>
+                        </div>
+                    </div>
+
+                    <div class="progress-connector">
+                        <svg width="100%" height="2" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true"
+                            focusable="false">
+                            <line x1="0" x2="100" y1="1" y2="1" stroke="#3d2f1f" stroke-width="1" stroke-linecap="round" />
+                        </svg>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-step">
+                            <div class="progress-circle"></div>
+                        </div>
+
+                        <img src="svgs/adopted.svg" class="progress-icon" alt="Adoption Finalized">
+
+                        <div class="progress-meta">
+                            <div class="progress-label">Adopted</div>
+                            <div class="progress-date"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="admin-ready-final-container">
+            <h3 class="section-title">Adoption Confirmation</h3>
+
+            <p class="verify-text">
+                Verify and approve Bark Twain's adoption to [name]?
+            </p>
+        </div>
+
+        <div class="form-actions-wrapper">
+            <div class="form-actions">
+                <button type="button" class="btn btn-primary">Approve</button>
+                <button type="button" class="btn btn-secondary">Reject</button>
+            </div>
+        </div>
+
+        <!-- Space for footer -->
+    </div>
+</body>
+</html>

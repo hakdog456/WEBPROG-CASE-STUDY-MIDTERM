@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="global-application-styles.css">
+    <title>Payment - Bark Twain Adoption</title>
+    <style>
+        .payment-container {
+            position: relative; /* stacking context for pseudo-element */
+            overflow: hidden; /* clip the pseudo-element to rounded corners */
+            background: transparent; /* actual color drawn by ::before */
+            border: 1px solid rgba(0, 0, 0, 0.354);
+            padding: 35px 15px 35px 60px;
+            border-radius: 50px;
+            position: relative;
+            
+            width: min(1262px, 100%);
+            max-width: 1262px;
+            height: min(637px, 100%);
+            max-height: 637px;
+            margin: 0 auto;
+        }
+
+        .payment-container::before {
+            content: "";
+            position: absolute;
+            inset: 0; /* fill the container */
+            background: rgba(68, 78, 39, 0.5); /* original container color */
+            mix-blend-mode: overlay; /* blend with page background */
+            z-index: 0;
+            pointer-events: none;
+            border-radius: inherit;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 23px;
+            margin-bottom: 15px;
+            color: #6b4423;
+            font-weight: 400;
+            letter-spacing: 0.5px;;
+            font-family: "Slackey";
+        }
+
+        .payment-methods {
+            display: grid;
+            
+            grid-template-columns: repeat(3, 304px);
+            gap: 25px;
+            margin: 0 auto 35px;
+            justify-content: center; 
+        }
+
+        .payment-method {
+            background: rgba(180, 170, 140, 0);
+            
+            width: min(304px, 100%);
+            height: 185px;
+            padding: 20px;
+            border-radius: 42px;
+            border: 2px solid #5a4a3a;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-sizing: border-box;
+        }
+
+        
+        @media (max-width: 980px) {
+            .payment-methods {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 16px;
+            }
+            .payment-method {
+                width: 100%;
+                height: auto;
+                padding: 16px;
+            }
+        }
+
+        .payment-method.active {
+            background: rgba(120, 130, 100, 0.7);
+            border-color: #3d2f1f;
+        }
+
+        .payment-method:hover {
+            background: rgba(160, 150, 120, 0.3);
+        }
+
+        .payment-icon {
+            width: 50px;
+            height: 50px;
+            color: #4a3728;
+        }
+
+        .payment-label {
+            font-size: 24px;
+            font-weight: bold;
+            color: #3d2f1f;
+        }
+
+        .form-row {
+            display: grid;
+            gap: 65px;
+            margin-bottom: 25px;
+        }
+
+        .form-row-2 {
+            grid-template-columns: 1fr 0.7fr;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4a3728;
+        }
+
+        .form-group input {
+            padding: 14px 20px;
+            border: 2px solid #5a4a3a;
+            border-radius: 25px;
+            background: rgba(238, 232, 213, 0);
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #3d2f1f;
+        }
+
+        
+        .w-579 { width: min(100%, 579px); height: 57px; box-sizing: border-box; }
+        .w-407 { width: min(100%, 407px); height: 57px; box-sizing: border-box; }
+
+        .form-group input:focus {
+            outline: none;
+            background: rgba(238, 232, 213, 0.7);
+            border-color: #3d2f1f;
+        }
+
+        .payment-footer {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 25px;
+            margin-top: 0px;
+            margin-right: 50px;
+        }
+
+        .total-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #3d2f1f;
+        }
+
+        .total-section span:last-child {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        .total-section span {
+            font-size: 24px;
+            margin-right: 60px;
+        }
+
+        .pay-button {
+            padding: 14px 50px;
+            border: 2px solid #5a4a3a;
+            border-radius: 35px;
+            background: rgba(193, 192, 150, 0);
+            font-family: 'Courier New', monospace;
+            font-size: 24px;
+            font-weight: bold;
+            color: #3d2f1f;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .pay-button:hover {
+            background: rgba(160, 150, 120, 0.9);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Space for header, pet info, and progress tracker -->
+        
+        <div class="header-section">
+            <div class="pet-header">
+                <div class="pet-image">
+                    <img src="images/bark_twain.png" alt="Bark Twain">
+                </div>
+                <div class="pet-info">
+                    <h2>Bark Twain</h2>
+                    <p>Beagle</p>
+                    <p>2 yrs. old</p>
+                    <p>Male</p>
+                </div>
+            </div>
+            <div class="progress-column">
+                <div class="progress-tracker">
+
+                    <div class="progress-item active">
+                        <div class="progress-step">
+                            <div class="progress-circle"></div>
+                        </div>
+
+                        <img src="svgs/application_placed.svg" class="progress-icon" alt="Application Placed">
+
+                        <div class="progress-meta">
+                            <div class="progress-label">Application Placed</div>
+                            <div class="progress-date">October 20, 2025</div>
+                        </div>
+                    </div>
+
+                    <div class="progress-connector">
+                        <svg width="100%" height="2" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true"
+                            focusable="false">
+                            <line x1="0" x2="100" y1="1" y2="1" stroke="#3d2f1f" stroke-width="1" stroke-linecap="round" />
+                        </svg>
+                    </div>
+
+
+                    <div class="progress-item active">
+                        <div class="progress-step">
+                            <div class="progress-circle"></div>
+                        </div>
+
+                        <img src="svgs/meet_and_greet.svg" class="progress-icon" alt="Meet and Greet">
+
+                        <div class="progress-meta">
+                            <div class="progress-label">Meet and Greet</div>
+                            <div class="progress-date">October 22, 2025</div>
+                        </div>
+                    </div>
+
+                    <div class="progress-connector">
+                        <svg width="100%" height="2" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true"
+                            focusable="false">
+                            <line x1="0" x2="100" y1="1" y2="1" stroke="#3d2f1f" stroke-width="1" stroke-linecap="round" />
+                        </svg>
+                    </div>
+
+                    <div class="progress-item active">
+                        <div class="progress-step">
+                            <div class="progress-circle"></div>
+                        </div>
+
+                        <img src="svgs/ready_for_adoption.svg" class="progress-icon" alt="Decision Made">
+
+                        <div class="progress-meta">
+                            <div class="progress-label">Ready for Adoption</div>
+                            <div class="progress-date"></div>
+                        </div>
+                    </div>
+
+                    <div class="progress-connector">
+                        <svg width="100%" height="2" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true"
+                            focusable="false">
+                            <line x1="0" x2="100" y1="1" y2="1" stroke="#3d2f1f" stroke-width="1" stroke-linecap="round" />
+                        </svg>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-step">
+                            <div class="progress-circle"></div>
+                        </div>
+
+                        <img src="svgs/adopted.svg" class="progress-icon" alt="Adoption Finalized">
+
+                        <div class="progress-meta">
+                            <div class="progress-label">Adopted</div>
+                            <div class="progress-date"></div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="status-message">Your meet-and-greet weent great! Let's finalize your pet adoption.
+            </div>
+            </div>
+        </div>
+
+        <div class="payment-container">
+            <h3 class="section-title">Payment Method</h3>
+            
+            <div class="payment-methods">
+                <div class="payment-method">
+                    <img src="svgs/credit_card.svg" class="payment-icon" viewBox="0 0 24 24">
+                    <div class="payment-label">Credit Card</div>
+                </div>
+                
+                <div class="payment-method">
+                    <img src="svgs/gcash.svg" class="payment-icon" viewBox="0 0 24 24" fill="none">
+                    <div class="payment-label">GCash</div>
+                </div>
+                
+                <div class="payment-method">
+                    <img src="svgs/bank_transfer.svg" class="payment-icon" viewBox="0 0 24 24" fill="none">
+                    <div class="payment-label">Bank Transfer</div>
+                </div>
+            </div>
+
+            <div class="form-row form-row-2">
+                <div class="form-group">
+                    <label>Card Number</label>
+                    <input type="text" class="w-579" placeholder="1234 5678 9012 3456">
+                </div>
+                <div class="form-group">
+                    <label>Expiry Date</label>
+                    <input type="text" class="w-407" placeholder="MM/YY">
+                </div>
+            </div>
+
+            <div class="form-row form-row-2">
+                <div class="form-group">
+                    <label>Card Holder Name</label>
+                    <input type="text" class="w-579" placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label>CVV</label>
+                    <input type="text" class="w-407" placeholder="123">
+                </div>
+            </div>
+
+            <div class="payment-footer">
+                <div class="total-section">
+                    <span>Total</span>
+                    <span>₱1000.00</span>
+                </div>
+                <button class="pay-button">Pay</button>
+            </div>
+        </div>
+
+        <!-- Space for footer -->
+    </div>
+</body>
+</html>

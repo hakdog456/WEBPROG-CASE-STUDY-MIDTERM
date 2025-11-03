@@ -76,6 +76,9 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* border: 2px solid violet; */
+    overflow-x: hidden;
+    
     
     /* Temporary bottom padding */
     /* padding-bottom: 30%; */
@@ -86,6 +89,12 @@ body{
 
 
 /* NAV STYLING */
+
+/* turning off mobile elements */
+.burgerMenuCon{
+    display: none;
+}
+
 .nav{
   position: absolute;
   display: grid;
@@ -100,6 +109,7 @@ body{
   border-radius: 0px 0px 65px 65px;
   width: 80%;
   background: var(--bgColor);
+  z-index: 4;
 }
 
 .navLogo{
@@ -115,7 +125,7 @@ body{
   justify-content: center;
   gap: 4%;
   width: 100%;
-  /* border: 1px solid pink; */
+  /* border: 2px solid pink; */
   height: 100%;
 }
 
@@ -143,19 +153,26 @@ body{
 /* HOME INTRO */
 .homeIntroImgBg{
   position: absolute;
-  width: 100%;
-  height: auto;
+  flex-shrink: 0;
   z-index: -1;
+  background-image: url("images/homeImages/Mask group.webp");
+  height: 1100px;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;  
+  background-position: center center;
 }
 .homeIntro{
+  position: relative;
   display: flex;
   /* border: 1px solid pink; */
+  grid-template-columns: auto 1fr;
   align-items: center;
   justify-content: center;
   width: 100%;
   flex-direction: column; 
-  /* height: 100%; */
-  padding-bottom: 30%;
+  height: 100%;
+  
 }
 
 .homeIntroLogo{
@@ -163,6 +180,23 @@ body{
   padding-top: 81px;
   width: 190px;
 }
+
+.mainContent{
+  position: relative;
+  display: flex;
+  /* border: 1px solid pink; */
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex-direction: column;  
+}
+
+.blurryBranchCon{
+  height: 30vw;
+  overflow: visible;
+}
+
+
 
 .homeIntro h1{
   margin-top: 1%;
@@ -217,8 +251,8 @@ body{
 
 /* OUR PETS */
 .blurryBranchImg{
-  position: absolute;
-  margin-top: 40%;
+  /* position: absolute; */
+  /* border: 1px solid black; */
 }
 
 .ourPets{
@@ -226,7 +260,6 @@ body{
   /* border: 1px solid pink; */
   flex-direction: column;
   width: 100%;
-  /* margin-top: 5%; */
 }
 
 .ourPetsHeading{
@@ -285,8 +318,8 @@ body{
 
 .petPic{
   position: absolute;
-  width: 835px;
-  height: 526px;
+  width: 40%;
+  /* height: 526px; */
   /* border: .5px solid var(--bgColor); */
   border-radius: 40px;
   /* background:lightcoral; */
@@ -295,6 +328,7 @@ body{
   overflow:hidden;
   transition: all 0.5s ease;
 }
+
 
 /* Carousel Positions */
 .left {
@@ -310,6 +344,11 @@ body{
   z-index: 2;
   box-shadow: 0px 4px 40px black;
 }
+
+.center:hover{
+  scale: 1.2;
+}
+
 .right {
   transform: rotateY(-60deg) scale(.5) translateX(1000px);
   opacity: .7;
@@ -338,7 +377,7 @@ body{
 
 .ourPetsContent .btnCon{
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   width: 100%;
   /* border:solid 2px green;  */
@@ -355,103 +394,111 @@ body{
 
 
 /* HOME INFORMATION SECTION */
+.homeInformation{
+  /* border: 2px solid blue; */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 5%;
+  /* testing height */
+  /* height: 500px;  */
+}
+
+.ourStory, .ourMission{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* border: 1px solid red; */
+  width: 100%;
+}
+
+.ourStoryimageHolder, .ourMissionImageHolder{
+  position: relative;
+  /* border: 1px solid blue; */
+  display: flex;
+}
+
 .sideBranchImg{
+  margin-top: -100px;
   position: absolute;
-  margin-top: 105%;
   /* border: 1px solid red; */
   align-self: flex-start;
   z-index: -1;
 }
 
-.homeInformation{
-  /* border: 1px solid red; */
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  width: 100%;
-
-  /* testing height */
-  /* height: 500px;  */
-
+.ourStoryDogsImg{
+  position: absolute;
+  align-self: center;
+  mix-blend-mode: hard-light;
+  z-index: -2;
 }
 
-.homeInfoLeft{
-  /* border: 1px solid blue; */
+.catImg{
+  position: absolute;
+  align-self: center;
+  mix-blend-mode: hard-light;
+  z-index: -2;
+  margin-bottom: -200px;
 }
 
-.homeInfoRight{
-  /* border: 1px solid purple; */
+.rightBranchImg{
+  position: absolute;
+  align-self: center;
+  right: -20px;
+  margin-bottom: -600px;
+}
+
+.ourStorycontentHolder, .ourMissionContentHolder{
   display: flex;
-  align-items: center;
   flex-direction: column;
-}
-
-.ourStory, .ourMission, .adoptionProcess{
-  display: flex ;
   align-items: center;
-  flex-direction: column;
-  margin-left: 6%;
-  margin-right: 6%;
-  /* border: 1px solid darkblue; */
-}
-
-.ourStory h2, .ourMission h2{
-  font-family: "Slackey";
-  font-size: 36px;
-  color: var(--fontColor2);
-}
-
-.ourStory p, .ourMission p, .adoptionProcess p{
   margin-top: 1%;
   font-size: 24px;
   font-family: "Chakra Petch";
   font-weight: 600;
   line-height: 1.4;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
-.ourStoryDogsImg{
-  position: absolute;
-  margin-top: 120%;
-  align-self: flex-start;
-  mix-blend-mode: hard-light;
-  z-index: -2;
+.ourStorycontentHolder h2, .ourMissionContentHolder h2{
+  font-family: "Slackey";
+  font-size: 36px;
+  color: var(--fontColor2);
+  margin-bottom: 2%;
 }
 
-.ourMission{
+
+.adoptionProcess{
+  position: relative;
+  /* border: 1px solid orange; */
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  margin-top: 10%;
+}
+
+.adoptionProcessImageHolder{
+  /* border: 2px solid crimson; */
   display: flex;
   align-items: center;
-  flex-direction: column;
-  margin-top: 110%;
-}
-
-.catImg{
-  position: absolute;
-  margin-top: 160%;
-  align-self: flex-end;
-  mix-blend-mode: hard-light;
-  z-index: -2;
-}
-
-.rightBranchImg{
-  position: absolute;
-  margin-top: 180%;
-  align-self: flex-end;
+  justify-content: flex-end;
+  padding-left: 10%;
 }
 
 .adoptionProcessImg{
-  position: absolute;
-  align-self: flex-start;
-  margin-top: 198%;
-  margin-left: 5%;
 }
 
-.adoptionProcess{
-  margin-top: 125%;
-  /* border: 1px solid red; */
-  /* width: 100%; */
+.adoptionProcessContent{
+  display: flex;
+  flex-direction: column;
   align-items: flex-start;
+  font-size: 24px;
+  font-weight: 1000;
+  padding-top: 30%;
+  padding-right: 20%;
 }
 
-.adoptionProcess h2{
+.adoptionProcessContent h2{
   margin-left: 5%;
   font-family: "Slackey";
   font-size: 30px;
@@ -461,28 +508,43 @@ body{
 
 
 
+
 /* Contact US */
 .contactUs{
-  margin-top: 40%;
+  margin-top: 10%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   /* border: solid 1px violet; */
   width: 100%;
 }
 
-.contactUsRight{
+.contactUsImageHolder{
+  /* border: 1px solid blueviolet; */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-right: 5%;
+  justify-content: center;
+}
+
+.contactUsCat{
+  mix-blend-mode: hard-light;
+}
+
+
+.contactUsContent{
   display: flex;
   flex-direction: column;
   /* border: solid 1px red; */
   align-items: flex-start;
+  justify-content: center;
   font-family: "Slackey";
   color: var(--fontColor3);
-  overflow: hidden;
 }
 
 .contactUsForm{
   display: flex;
-  position: relative;
+  position: relative; 
   flex-direction: column;
   border: solid 1px #223125;
   width: 87%;
@@ -563,21 +625,18 @@ body{
   font-size: 16px;
 }
 
-.contactUsCat{
-  position: absolute;
-  margin-top: 291%;
-  mix-blend-mode: hard-light;
-  align-self: flex-start;
-  margin-left: 6%;
-}
-
-
 /* FOOTER */
 
 .grassFooter{
   position: absolute;
   bottom: 0;
-  z-index: -1;
+  z-index: -3;
+  /* background-image: url("images/homeImages/grass-footer.webp");
+  background-repeat: no-repeat;
+  background-size: cover;  
+  background-position: center center; */
+  width: 100%;
+  /* height: 800px; */
 }
 
 .footerBg{
@@ -610,28 +669,38 @@ body{
   grid-template-rows: 1.5fr 1fr;
 }
 
+.footLogo{
+  /* border: 1px solid green; */
+  width: 70%;
+}
+
 .footerLogoIcons{
   display: flex;
   align-items: flex-end;
-  justify-content: flex-start;
+  justify-content: center;
   padding-left: 10%;
   gap: 4%;
   padding-bottom: 1%;
 }
 
 .smallIconsCon{
-  gap: 15%;
+  gap: 6%;
   display: flex;
   margin-bottom: .5%;
+  width: 100%;
 }
 
-.foot1Text{
+.foot1Text, .bottomFoot1Text{
   display: flex;
   align-items: center;
-  font-size: 13px;
   padding-left: 10%;
   line-height: 1.3;
   margin-bottom: 1%;
+}
+
+/* disabling mobile elements */
+.bottomFoot1Text{
+  display: none;
 }
 
 .foot2, .foot3, .foot4{
@@ -645,11 +714,505 @@ body{
   position: absolute;
   width: 100%;
   z-index: -3;
+  /* background-image: url("images/homeImages/home-bg-1.webp"); */
+  background-image: url("images/homeImages/page background.webp");
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;  
+  background-position: center center;
+  /* border: 7px solid deepskyblue; */
 }
 
-.homeBg2{
+/* .homeBg2{
   position: absolute;
   width: 100%;
   z-index: -3;
   margin-top: 286%;
+} */
+
+/* Break point for footer foot1 text breaking at 1216 width */
+@media only screen and (max-width: 1215px) {
+  .foot1{
+    grid-template-rows: 1fr 1fr;
+  }
 }
+
+
+/* for tablet and breaking point of small laptop */
+@media only screen and (max-width: 930px) {
+
+  /* HTML BODY */
+  html, body{
+    overflow-x: hidden;
+  }
+
+
+  /* NAV */
+  /* turning off mobile designs */
+  
+  
+  .nav{
+    width: 100%;
+    grid-template-columns: .9fr 1.9fr .5fr;
+  }
+
+  .mainNav{
+    gap: 3%;
+    font-size: 18px;
+  }
+
+  .navLogo{
+    justify-content: flex-end;
+  }
+
+  .navControls{
+    gap: 7%;
+  }
+ 
+  
+  /* HOME INTRO */
+
+  .homeIntroImgBg{
+    margin-top: -300px;
+  }
+
+  .homeIntro{
+    /* border: 1px solid yellow; */
+  }
+
+  .homeIntro h1{
+    font-size: 64px;
+  }
+
+  .homeIntro h2{
+    font-size: 24px;
+  }
+
+  .startYoursBtn{
+    font-size: 16px;
+  }
+
+
+  /* OUR PETS */
+  .petPic{
+    width: 50%;
+  }
+
+
+
+  /* HOME INFORMATION SECTION */
+  .ourStory, .ourMission{
+    grid-template-columns: none;
+    grid-template-rows: 1fr auto;
+  }
+
+  .ourStoryimageHolder, .ourMissionImageHolder{
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sideBranchImg{
+    margin-left: -20%;
+  }
+
+  .ourStoryDogsImg{
+    margin-top: 50px;
+    position: relative; 
+  }
+
+  .ourStorycontentHolder, .ourMissionContentHolder{
+    padding-left: 10%;
+    padding-right: 10%;
+    font-size: 20px;
+    position: relative;
+  }
+
+  .catImg{
+    position: relative;
+    /* border: 1px solid black; */
+    margin-bottom: 0;
+  }
+
+  .rightBranchImg{
+    position: absolute;
+    right: -20px;
+    margin-bottom: 0 ;
+    bottom: -200px;
+  }
+
+  .ourMission{
+    /* border: 5px chartreuse; */
+    grid-template-rows: auto 1fr;
+  }
+
+  .ourMissionImageHolder{
+    /* border: 1px solid deeppink; */
+  }
+
+  .homeInformation{
+    /* border: solid 1px red; */
+  }
+
+
+
+  .adoptionProcess{
+    align-items: center;
+    margin-top: 0;
+    grid-template-columns: none;
+    grid-template-rows: auto auto;
+  }
+
+  .adoptionProcessContent{
+    grid-row: 1;
+    align-items: center;
+    padding-right: 10%;
+    padding-left: 10%;
+    font-size: 20px;
+    padding-top: 20%;
+  }
+
+  .adoptionProcessImageHolder{
+    justify-content: center;
+    padding-left: 0;
+    margin-top: 5%;
+  }
+
+  .adoptionProcessImg{
+    align-self: center;
+    margin-left: 0;
+    width: 88%;
+  }
+
+
+
+  /* CONTACT US */
+  
+  .contactUs{
+    position: relative;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    /* border: 5px #FFD900 solid; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+
+  .contactUsImageHolder{
+    grid-row: 1;
+    position: absolute;
+    padding-right: 0;
+    align-items: center;
+  }
+
+  .contactUsCat{
+    /* border: 3px solid darkblue; */
+    opacity: .2;
+    z-index: -2;
+  }
+
+  .contactUsContent{
+    grid-row: 1;
+    align-items: center;
+    width: 100%;
+  }
+
+  .contactUsForm{
+    margin-left: 0;
+    width: 100%;
+  }
+  
+
+  /* FOOTER */
+  .HomeFooter{
+    font-size: 11px;
+    grid-template-columns: 4fr 1fr 1.5fr 3fr;
+    height: 160px;
+  }
+
+  .HomeFooter div{
+    /* border: 1px solid blue; */
+  }
+
+  .foot1{
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .foot1Text{
+    margin-bottom: 0;
+  }
+
+  .footerLogoIcons{
+    align-items: flex-end;
+    gap: 2%;
+  }
+
+  .footLogo{
+    width: 50%;
+  }
+
+  .smallIconsCon{
+    width: 100%;
+    gap: 10%;
+  }
+}
+
+/* collapse nav Break Point */
+@media only screen and (max-width: 700px) {
+  
+  .nav{
+    grid-template-columns: 1fr 2fr 1fr;
+    box-shadow: 4px 1px 10px gray;
+  }
+
+  .nav div{
+    /* border: 1px solid blue; */
+  }
+
+  .mainNav{
+    display: none;
+  }
+
+  .burgerMenuCon{
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 45px;
+    align-content: center;
+    cursor: pointer;
+  }
+
+  .burgerMenuBtn{
+    display: flex;
+    flex-direction: column;
+    width: 35px;
+    position: relative;
+    transition: .2s;
+  }
+
+  .burgerMenuBtn div{
+    border: none;
+    width: 100%;
+    height: 4px;
+    background: #223125;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    border-radius: 2px;
+    transition: .6s;
+    transition-timing-function: ease;
+  }
+
+  .burgerActive{
+    justify-content: center;
+  }
+
+  .burgerActive div:first-child{
+    position: absolute;
+    transform: rotate(45deg);
+    align-self: center;
+  }
+
+  .burgerActive div:last-child{
+    position: absolute;
+    transform: rotate(-45deg);
+    align-self: center;
+  }
+
+  .burgerActive div:nth-child(2){
+    opacity: 0;
+  }
+  
+
+
+  .navMobileSlide{
+    padding-top: 85px;
+    /* padding-bottom: 5%; */
+    position: absolute;
+    /* height: 500px; */
+    background-image: url("images/homeImages/nav\ slider\ bg.webp");
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+    border-radius: 20px;
+    color: #223125;
+  }
+
+  .navMobileSlide div{
+    border-bottom: solid 2px #223125;
+    height: 50px;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .navMobileSlide div:last-child{
+    border: none;
+  }
+
+  .appear{
+    display: flex;
+  }
+
+  .navLogo{
+    grid-template-columns: 2;
+    justify-content: center;
+  }
+
+
+  /* FOOTER */
+  .HomeFooter{
+    grid-template-columns: 1fr 1fr 3fr 2fr;
+    grid-row: 1 1fr;
+    height: auto;
+    text-align: center;
+  }
+
+  .foot1{
+    grid-row: 1;
+    grid-column: 3;
+  }
+
+  .foot2, .foot3, .foot4{
+    padding-top: 5vh;
+    align-items: flex-start;
+  }
+
+  .footerLogoIcons{
+    flex-direction: column;
+    align-items: center;
+    padding-left: 0;
+    grid-row: 1 / 3;
+  }
+
+  .smallIconsCon{
+    width: 60%;
+  }
+
+  .smallIconsCon img{
+    width: 100%;
+  }
+
+  .foot1Text{
+    display: none;
+  }
+
+  .bottomFoot1Text{
+    align-items: center;
+    text-align: center;
+    display: flex;
+    grid-row: 2;
+    grid-column: 1 / 5;
+  }
+
+  .footLogo{
+    width: 90%;
+  }
+
+  .smallIconsCon{
+    justify-content: center;
+  }
+
+  .foot2{
+    grid-column: 1;
+  }
+
+  .foot3{
+    grid-column: 2;
+  }
+
+  .foot4{
+    grid-column: 4;
+  }
+
+  
+  
+}
+
+
+/* Mobile View */
+@media only screen and (max-width: 451px){
+
+  /* HOME INTRO */
+  
+  .homeIntroLogo{
+    width: 220px;
+  }
+
+  .homeIntro h1{
+    font-size: 48px;
+  }
+
+  .homeIntro h2{
+    font-size: 20px;
+  }
+
+  .startYoursBtn{
+    margin-top: 5%;
+  }
+
+
+  /* OUR PETS */
+  .petPic{
+    width: 80%;
+    border-radius: 20px;
+  }
+
+  .left{
+    transform: rotateY(60deg) scale(.5) translateX(-500px);
+  }
+
+  .right{
+    transform: rotateY(-60deg) scale(.5) translateX(500px);
+  }
+
+
+
+  /* CONTACT US */
+  .contactUs{
+    
+  }
+
+  .contactUsForm{
+    font-size: 18px;
+    border-radius: 30px;
+  }
+
+  .input input, textarea{
+    height: 32px;
+  }
+
+  #msgTxtArea{
+    height: 91px;
+    border-radius: 10px;
+  }
+  
+  .input p{
+    font-size: 14px;
+  }
+
+  .contactUsfooter{
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    /* border: 1px solid blue; */
+    justify-items: center;
+    align-items: center;
+    margin-bottom: 0;
+  }
+
+  .sendMsgBtn{
+    font-size: 16px;
+    width: 168px;
+    height: 41px;
+    grid-row: 1;
+  }
+
+  /* footer */
+  .HomeFooter{
+    font-size: 6px;
+  }
+
+}
+

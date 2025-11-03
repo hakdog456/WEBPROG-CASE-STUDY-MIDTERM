@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="global-application-styles.css">
+    <title>Meet and Greet - Bark Twain</title>
+    <style>
+
+            
+        .set-details-container {
+            position: relative;
+            overflow: hidden;
+            background: transparent;
+            width: min(654px, 100%);
+            max-width: 654px;
+            min-height: 627px; 
+            margin: 18px auto 40px; 
+            padding: 22px; 
+            box-sizing: border-box;
+            border: 1px solid rgba(0, 0, 0, 0.354);
+            border-radius: 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .set-details-container::before {
+            content: "";
+            position: absolute;
+            inset: 0; /* fill the container */
+            background: rgba(68, 78, 39, 0.5); /* original container color */
+            mix-blend-mode: overlay; /* blend with page background */
+            z-index: 0;
+            pointer-events: none;
+            border-radius: inherit;
+        }
+
+            .set-title {
+                width: min(283px, 100%);
+                height: min(34px, auto);
+                margin: 0 auto; 
+                font-family: 'Slackey', sans-serif;
+                font-size: 24px;
+                color: #6b4423;
+                text-align: center;
+                line-height: 34px;
+            }
+
+            .set-details-grid {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                padding: 6px 4px;
+                align-items: flex-start; 
+                width: 100%;
+                box-sizing: border-box;
+                flex: 1 1 auto;
+                margin-top: 10px;
+            }
+
+            .detail-row {
+                display: flex;
+                gap: 12px;
+                align-items: center;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            
+            .detail-row--top { align-items: flex-start; }
+
+            .detail-row label {
+                font-family: "Slackey";
+            }
+
+            
+            .detail-input {
+                width: min(449px, 100%);
+                max-width: 449px;
+                
+                height: 57px;
+                max-height: 57px;
+                padding: 10px 12px;
+                border-radius: 27px;
+                border: 1px solid rgba(61,47,31,0.32);
+                background: rgba(255,255,255,0);
+                font-family: inherit;
+                font-size: 16px;
+                color: #3d2f1f;
+                box-sizing: border-box;
+                flex: 1 1 auto;
+            }
+
+            .detail-label {
+                width: min(133px, 100%);
+                max-width: 133px;
+                height: min(34px, auto);
+                font-size: 24px;
+                font-family: 'Splackey';
+                color: #3d2f1f;
+                text-align: left;
+                box-sizing: border-box;
+                flex: 0 0 auto;
+            }
+
+            .detail-textarea {
+                width: min(449px, 100%);
+                max-width: 449px;
+                
+                height: min(198px, 60vh);
+                max-height: 449px;
+                min-height: 120px;
+                padding: 12px;
+                border-radius: 27px;
+                border: 1px solid rgba(61,47,31,0.32);
+                background: rgba(255,255,255,0);
+                font-family: inherit;
+                font-size: 15px;
+                color: #3d2f1f;
+                box-sizing: border-box;
+                resize: vertical;
+            }
+
+            .set-actions {
+                display: flex;
+                justify-content: flex-end;
+                width: 100%;
+                box-sizing: border-box;
+                padding-top: 0px;
+                margin-top: 6px; 
+                margin-bottom: 20px;
+            }
+
+            .btn {
+                font-family: inherit;
+                font-size: 24px;
+                padding: 12px 20px;
+                border-radius: 28px;
+                border: 1px solid rgba(61,47,31,0.32);
+                background: #bd919100;
+                color: #3d2f1f;
+                cursor: pointer;
+                transition: background 160ms ease, transform 120ms ease, border-color 120ms ease;
+            }
+
+            .btn-primary {
+                background: #867b5b5c;
+                color: #4a3728;
+                width: min(268px, 100%);
+                max-width: 268px;
+                height: min(61px, auto);
+                max-height: 61px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .btn:hover { transform: translateY(-2px); }
+            .btn-primary:hover {background: rgba(160, 150, 120, 0.3);
+ }
+
+            
+            @media (max-width: 700px) {
+                .detail-row { flex-direction: column; align-items: stretch; }
+                .detail-label { max-width: 100%; width: 100%; }
+                .detail-input, .detail-textarea { max-width: 100%; width: 100%; }
+                .set-details-container { padding: 16px; min-height: auto; }
+                .btn-primary { width: 100%; max-width: none; }
+                .detail-textarea { height: min(360px, 45vh); max-height: 45vh; }
+            }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Space for header, pet info, and progress tracker -->
+        
+        <div class="header-section">
+            <div class="pet-header">
+                <div class="pet-image">
+                    <img src="images/bark_twain.png" alt="Bark Twain">
+                </div>
+                <div class="pet-info">
+                    <h2>Bark Twain</h2>
+                    <p>Beagle</p>
+                    <p>2 yrs. old</p>
+                    <p>Male</p>
+                </div>
+            </div>
+            <div class="progress-column">
+                <div class="progress-tracker">
+
+                    <div class="progress-item active">
+                        <div class="progress-step">
+                            <div class="progress-circle"></div>
+                        </div>
+
+                        <img src="svgs/application_placed.svg" class="progress-icon" alt="Application Placed">
+
+                        <div class="progress-meta">
+                            <div class="progress-label">Application Placed</div>
+                            <div class="progress-date">October 20, 2025</div>
+                        </div>
+                    </div>
+
+                    <div class="progress-connector">
+                        <svg width="100%" height="2" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true"
+                            focusable="false">
+                            <line x1="0" x2="100" y1="1" y2="1" stroke="#3d2f1f" stroke-width="1" stroke-linecap="round" />
+                        </svg>
+                    </div>
+
+
+                    <div class="progress-item active">
+                        <div class="progress-step">
+                            <div class="progress-circle"></div>
+                        </div>
+
+                        <img src="svgs/meet_and_greet.svg" class="progress-icon" alt="Meet and Greet">
+
+                        <div class="progress-meta">
+                            <div class="progress-label">Meet and Greet</div>
+                            <div class="progress-date"></div>
+                        </div>
+                    </div>
+
+                    <div class="progress-connector">
+                        <svg width="100%" height="2" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true"
+                            focusable="false">
+                            <line x1="0" x2="100" y1="1" y2="1" stroke="#3d2f1f" stroke-width="1" stroke-linecap="round" />
+                        </svg>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-step">
+                            <div class="progress-circle"></div>
+                        </div>
+
+                        <img src="svgs/ready_for_adoption.svg" class="progress-icon" alt="Decision Made">
+
+                        <div class="progress-meta">
+                            <div class="progress-label">Ready for Adoption</div>
+                            <div class="progress-date"></div>
+                        </div>
+                    </div>
+
+                    <div class="progress-connector">
+                        <svg width="100%" height="2" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true"
+                            focusable="false">
+                            <line x1="0" x2="100" y1="1" y2="1" stroke="#3d2f1f" stroke-width="1" stroke-linecap="round" />
+                        </svg>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-step">
+                            <div class="progress-circle"></div>
+                        </div>
+
+                        <img src="svgs/adopted.svg" class="progress-icon" alt="Adoption Finalized">
+
+                        <div class="progress-meta">
+                            <div class="progress-label">Adopted</div>
+                            <div class="progress-date"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="set-details-container">
+            <div class="set-title">Set Meet and Greet</div>
+
+            <div class="set-details-grid">
+                <div class="detail-row">
+                    <label class="detail-label" for="meet-date">Date:</label>
+                    <input type="text" class="detail-input" id="meet-date" placeholder="Select date" aria-label="Date">
+                </div>
+
+                <div class="detail-row">
+                    <label class="detail-label" for="meet-time">Time:</label>
+                    <input type="text" class="detail-input" id="meet-time" placeholder="Select time" aria-label="Time">
+                </div>
+
+                <div class="detail-row">
+                    <label class="detail-label" for="meet-location">Location:</label>
+                    <input type="text" class="detail-input" id="meet-location" placeholder="Location" aria-label="Location">
+                </div>
+
+                <div class="detail-row detail-row--top">
+                    <label class="detail-label" for="meet-message">Message:</label>
+                    <textarea class="detail-textarea" id="meet-message" placeholder="Message" aria-label="Message"></textarea>
+                </div>
+            </div>
+
+            <div class="set-actions">
+                <button type="button" class="btn btn-primary">Send Schedule</button>
+            </div>
+        </div>
+
+        <!-- Space for footer -->
+    </div>
+</body>
+</html>

@@ -17,11 +17,22 @@
 <body>
 
     <!-- Page Image Background -->
-    <img class="homeBg1" src="images/homeImages/home-bg-1.webp" alt="">
-    <img class="homeBg2" src="images/homeImages/Home-Bg-2.webp" alt="">
+    <div class="homeBg1" ></div>
+    <!-- <div class="homeBg2" ></div> -->
+    <!-- <img  src="images/homeImages/home-bg-1.webp" alt=""> -->
+    <!-- <img  src="images/homeImages/Home-Bg-2.webp" alt=""> -->
 
     <!-- NAV BAR -->
     <div class="nav">
+        <!-- Burger menu button for mobile -->
+        <div class="burgerMenuCon" >
+            <div class="burgerMenuBtn" >
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+
         <div class="navLogo">
             <img src="images/homeImages/Jurassic Bark.webp" alt="">
         </div>
@@ -48,21 +59,50 @@
         </div>
     </div>
 
-    <!-- MAIN CONTENT -->
-    <img class="homeIntroImgBg" src="images/homeImages/Mask group.webp" alt="">
-    <div class="homeIntro" >
-        <img class="homeIntroLogo" src="images/3d Logo.png" alt="">
-        <h1>
-            EVERY TAIL
-            <br>
-            HAS A TALE
-        </h1>
-        <h2>Start yours today!</h2>
-        <div class="startYoursBtn" >Meet Our Animals</div>
+    <div class="navMobileSlide">
+        <div class="navItem">
+            <p>HOME</p>
+        </div>
+        
+        <div class="navItem">
+            <p>ABOUT US</p>
+        </div>
+
+        <div class="navItem">
+            <p>OUR ANIMALS</p>
+        </div>
+
+        <div class="navItem">
+            <p>CONTACT US</p>
+        </div>
+
+        <div class="navItem">
+            <p>FAQs</p>
+        </div>
+
     </div>
 
-    <!-- Blurry Branch Img -->
-    <img class="blurryBranchImg" src="images/homeImages/blury-branch.webp" alt="">
+    <!-- MAIN CONTENT -->
+    <!-- Home Back ground -->
+    <div class="homeIntroImgBg" ></div>
+    <div class="homeIntro" >
+        <!-- Main Content -->
+        <div class="mainContent">
+            <img class="homeIntroLogo" src="images/3d Logo.png" alt="">
+            <h1>
+                EVERY TAIL
+                <br>
+                HAS A TALE
+            </h1>
+            <h2>Start yours today!</h2>
+            <div class="startYoursBtn" >Meet Our Animals</div>
+        </div>
+        <!-- Blurry Branch Img -->
+        <div class="blurryBranchCon">
+            <img class="blurryBranchImg" src="images/homeImages/blury-branch.webp" alt="">
+        </div>
+    </div>
+
 
     <!-- OUT PETS -->
      <div class="ourPets">
@@ -76,7 +116,7 @@
                 <button class="prevBtn" >&lt;</button>
             </div>
             <div class="carouselCon">
-                <div class="petPic place1 ">
+                <!-- <div class="petPic place1 ">
                     <img src="images/Bark-Twaine-BEAGLE 1.png" alt="">
                 </div>
                 <div class="petPic place2 ">
@@ -84,7 +124,7 @@
                 </div>
                 <div class="petPic place3 ">
                     <img src="images/Turing-POODLE 1.png" alt="">
-                </div>
+                </div> -->
                 <!-- <div class="petPic place3 next3"></div> -->
             </div>
             <div class="btnCon">
@@ -93,38 +133,19 @@
         </div>
      </div>
 
-    <!-- Background Images -->
-    <!-- side branch -->
-    <img class="sideBranchImg" src="images/homeImages/side-branch.webp" alt="">
-    
-    <!-- Our Story Image Dogs -->
-    <img class="ourStoryDogsImg" src="images/homeImages/ourStory-Image.webp" alt="">
-
-    <!-- Cat Image for Our Mission -->
-    <img class="catImg" src="images/homeImages/cat-image.webp" alt="">
-
-    <!-- Right Branch after cat -->
-    <img class="rightBranchImg" src="images/homeImages/BranchRight.webp" alt="">
-
-    <!-- Adoption Process Image -->
-    <img class="adoptionProcessImg" src="images/homeImages/Adoption-Process-Panel.webp" alt="">
-
-
     <!-- HOME INFORMATION -->
     <div class="homeInformation">
-        <div class="homeInfoLeft">
-            <div class="ourMission">
-                <h2>OUR MISSION</h2>
-                <p>
-                    At Jurassic Bark, our mission is to rescue, rehabilitate, and rehome animals in need, giving them the opportunity to live safe, happy, and healthy lives with loving families. 
-                    <br><br>
-                    We are dedicated to providing shelter, nourishment, and medical care for abandoned or abused animals, ensuring they receive the compassion and support they deserve. Beyond rescue, we strive to promote responsible pet ownership through education and community outreach, encouraging people to treat animals with kindness and respect.
-                </p>
-            </div>
-        </div>
 
-        <div class="homeInfoRight">
-            <div class="ourStory">
+        <!-- Our Story -->
+        <div class="ourStory">
+            <div class="ourStoryimageHolder">
+                <!-- side branch -->
+                <img class="sideBranchImg" src="images/homeImages/side-branch.webp" alt="">
+    
+                <!-- Our Story Image Dogs -->
+                <img class="ourStoryDogsImg" src="images/homeImages/ourStory-Image.webp" alt="">
+            </div>
+            <div class="ourStorycontentHolder">
                 <h2>OUR STORY</h2>
                 <p>Jurassic Bark began with a simple dream — to give every abandoned, neglected, or abused animal a second chance at life.
                     <br><br>
@@ -135,8 +156,38 @@
                     Today, we continue to rescue, rehabilitate, and rehome animals in need across the Philippines. Each wagging tail, healed paw, and successful adoption is a testament to what kindness, teamwork, and community can achieve.
                 </p>
             </div>
+        </div>
 
-            <div class="adoptionProcess">
+        <!-- Our Mission -->
+        <div class="ourMission">
+            <div class="ourMissionContentHolder">
+                <h2>OUR MISSION</h2>
+                <p>
+                    At Jurassic Bark, our mission is to rescue, rehabilitate, and rehome animals in need, giving them the opportunity to live safe, happy, and healthy lives with loving families. 
+                    <br><br>
+                    We are dedicated to providing shelter, nourishment, and medical care for abandoned or abused animals, ensuring they receive the compassion and support they deserve. Beyond rescue, we strive to promote responsible pet ownership through education and community outreach, encouraging people to treat animals with kindness and respect.
+                </p>
+            </div>
+
+            <div class="ourMissionImageHolder">
+                <!-- Cat Image for Our Mission -->
+                <img class="catImg" src="images/homeImages/cat-image.webp" alt="">
+
+                <!-- Right Branch after cat -->
+                <img class="rightBranchImg" src="images/homeImages/BranchRight.webp" alt="">
+
+            </div>
+            
+        </div>
+       
+        <div class="adoptionProcess">
+
+            <div class="adoptionProcessImageHolder">
+                <!-- Adoption Process Image -->
+                <img class="adoptionProcessImg" src="images/homeImages/Adoption-Process-Panel.webp" alt="">
+            </div>
+
+            <div class="adoptionProcessContent">
                 <h2>ADOPTION PROCESS</h2>
                 <p>
                     1. Find your future furry friend by browsing lovable profiles tailored to your lifestyle and home.
@@ -152,16 +203,17 @@
             </div>
         </div>
         
+        
     </div>
-
-    <!-- Cat Contact US Picture -->
-    <img class="contactUsCat" src="images/homeImages/cat.webp" alt="">
 
     <!-- CONTACT US -->
     <div class="contactUs">
-        <div class="contactUsLeft" ></div>       
-        <div class="contactUsRight" >
+        <div class="contactUsImageHolder" >
+            <!-- Cat Contact US Picture -->
+            <img class="contactUsCat" src="images/homeImages/cat.webp" alt="">
+        </div>       
 
+        <div class="contactUsContent" >
             <div class="contactUsForm">
                 <div class="bg"></div>
                 <p class="contactHead" >CONTACT US!</p>
@@ -191,6 +243,7 @@
 
 
     <!-- GRASS FOOTER -->
+    <div class="grassFooter"></div>
     <img class="grassFooter" src="images/homeImages/grass-footer.webp" alt="">
      
     <!-- FOOTER -->
@@ -198,11 +251,11 @@
         <div class="footerBg" ></div>
         <div class="foot1" >
             <div class="footerLogoIcons" >
-                <img class="footLogo" src="images/homeImages/footer-Logo.webp" alt="">
+                <img class="footLogo" src="images/homeImages/Jurassic Bark.svg" alt="">
                 <div class="smallIconsCon">
-                    <img class="smallIcons" src="images/homeImages/facebook.webp" alt="">
-                    <img class="smallIcons" src="images/homeImages/instagram.webp" alt="">
-                    <img class="smallIcons" src="images/homeImages/tiktok-icon-1.webp" alt="">            </div>
+                    <img class="smallIcons" src="images/homeImages/facebook.svg" alt="">
+                    <img class="smallIcons" src="images/homeImages/instagram.svg" alt="">
+                    <img class="smallIcons" src="images/homeImages/tiktok.svg" alt="">            </div>
                 </div>
             <div class="foot1Text" >
                 © 2025 Jurassic Bark. All Rights Reserved.
@@ -211,7 +264,18 @@
                 <br>   
                 Accredited under the Animal Welfare Act of 1998 (Republic Act No. 8485, as amended by RA 10631).
             </div>
+
         </div>
+
+        <!-- bottom foot1 text for mobile -->
+        <div class="bottomFoot1Text" >
+            © 2025 Jurassic Bark. All Rights Reserved.
+            <br>
+            Registered Nonstock, Nonprofit Organization — SEC Registration No. CN2025-XXXXXX
+            <br>   
+            Accredited under the Animal Welfare Act of 1998 (Republic Act No. 8485, as amended by RA 10631).
+        </div>
+            
         <div class="foot2" >
             Home
             <br>

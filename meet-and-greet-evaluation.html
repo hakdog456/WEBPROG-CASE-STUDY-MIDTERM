@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="global-application-styles.css">
+    <title>Meet and Greet Evaluation</title>
+    <style>
+
+        .evaluation-container {
+            position: relative;
+            overflow: hidden;
+            background: transparent;
+            border-radius: 50px;
+            padding: 50px 60px 45px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: min(1262px, 100%);
+            max-width: 1262px;
+            min-height: 582px;
+            margin: 0 auto;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.354);
+        }
+
+
+        .evaluation-container::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(68, 78, 39, 0.5);
+            mix-blend-mode: overlay;
+            z-index: 0;
+            pointer-events: none;
+            border-radius: inherit;
+        }
+
+        .header-text {
+            color: #5a5a4a;
+            font-size: 23px;
+            margin-bottom: 30px;
+        }
+
+        
+        .grid-row {
+            display: grid;
+            grid-template-columns: minmax(0, 740px) repeat(5, 70px);
+            gap: 12px;
+            align-items: center;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 5px;
+        }
+
+        .header-row { margin-bottom: 6px; }
+
+        .eval-title {
+            font-family: 'Slackey', sans-serif;
+            font-size: 24px;
+            color: #8b5a3c;
+            font-weight: normal;
+            width: 100%;
+        }
+
+        .rating-number {
+            text-align: center;
+            color: #8b5a3c;
+            font-weight: 400;
+            font-size: 24px;
+            font-family: "Slackey";
+        }
+
+    
+
+        
+        .criteria-text {
+            color: #5a5a4ab1;
+            font-size: 24px;
+            line-height: 1.2;
+            width: 100%;
+        }
+
+        .radio-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        
+        .grid-row--push-right {
+            --radio-spacer: 120px; 
+            grid-template-columns: minmax(0, 717px) var(--radio-spacer) repeat(5, 60px);
+        }
+
+        
+        .grid-row--push-80 { --radio-spacer: 80px; }
+        .grid-row--push-120 { --radio-spacer: 120px; }
+        .grid-row--push-160 { --radio-spacer: 160px; }
+        .grid-row--push-200 { --radio-spacer: 200px; }
+
+        input[type="radio"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.234); 
+            cursor: pointer;
+            border-radius: 50%;
+
+        }
+
+        
+        .evaluation-actions-wrapper {
+            width: min(1262px, 100%);
+            max-width: 1262px;
+            margin: 12px auto 0;
+            box-sizing: border-box;
+            padding: 0 12px;
+        }
+
+        .evaluation-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 16px;
+            align-items: center;
+        }
+
+        
+        .evaluation-footer {
+            width: min(1262px, 100%);
+            max-width: 1262px;
+            margin: 12px auto 0;
+            box-sizing: border-box;
+            padding: 0 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 12px 22px;
+            border: none;
+            border-radius: 40px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-approve {
+            background-color: #d4c4a8;
+            color: #5a5a4a;
+        }
+
+        .btn-reject {
+            background-color: #c89b9b;
+            color: #5a5a4a;
+        }
+
+        
+        .eval-action-btn {
+            
+            width: 193px;
+            flex: 0 0 193px; 
+            max-width: 193px;
+            height: 61px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 40px;
+            font-size: 24px;
+            box-sizing: border-box;
+            border: 1px solid rgba(0, 0, 0, 0.234);
+        }
+
+        .overall-rating {
+            margin-top: 20px;
+            padding-top: 20px;
+            
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .overall-label {
+            color: #8b5a3c;
+            font-size: 24px;
+            font-weight: bold;
+            font-family: 'Slackey', sans-serif;
+        }
+
+        .overall-score {
+            color: #5a5a4a;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        @media (max-width: 700px) {
+            .eval-action-btn { width: 100%; flex: 1 1 auto; max-width: none; }
+            .grid-row { grid-template-columns: 1fr repeat(5, 48px); gap: 8px; }
+            .criteria-text { font-size: 18px; }
+        }
+
+                .form-actions-wrapper {
+            width: min(1262px, 100%);
+            max-width: 1262px;
+            margin: 18px auto 0; 
+            box-sizing: border-box;
+            padding: 0 15px; 
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end; 
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn {
+            font-family: inherit;
+            font-size: 24px;
+            padding: 10px 22px;
+            border-radius: 100px;
+            border: 1.5px solid #3d2f1f;
+            background: rgba(163, 136, 107, 0.271);
+            color: #3d2f1f;
+            cursor: pointer;
+            transition: background 160ms ease, border-color 120ms ease, color 120ms ease, transform 120ms ease;
+            width: min(193px, 100%);
+            height: min(61px, 100%);
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            color: #3d2f1f;
+            border-color: #3d2f1f;
+        }
+
+
+        .btn-secondary {
+            background: #a46345cb;
+            color: #3d2f1f;
+            border-color: #3d2f1f;
+        }
+
+        .btn-primary:hover {
+            background: rgba(32, 27, 21, 0.271);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(135, 74, 46, 0.9); 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-section">
+            <div class="pet-header">
+                <div class="pet-image">
+                    <img src="images/bark_twain.png" alt="Bark Twain">
+                </div>
+                <div class="pet-info">
+                    <h2>Bark Twain</h2>
+                    <p>Beagle</p>
+                    <p>2 yrs. old</p>
+                    <p>Male</p>
+                </div>
+            </div>
+            <div class="progress-column">
+                <div class="progress-tracker">
+
+                    <div class="progress-item active">
+                        <div class="progress-step">
+                            <div class="progress-circle"></div>
+                        </div>
+
+                        <img src="svgs/application_placed.svg" class="progress-icon" alt="Application Placed">
+
+                        <div class="progress-meta">
+                            <div class="progress-label">Application Placed</div>
+                            <div class="progress-date">October 20, 2025</div>
+                        </div>
+                    </div>
+
+                    <div class="progress-connector">
+                        <svg width="100%" height="2" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true"
+                            focusable="false">
+                            <line x1="0" x2="100" y1="1" y2="1" stroke="#3d2f1f" stroke-width="1" stroke-linecap="round" />
+                        </svg>
+                    </div>
+
+
+                    <div class="progress-item active">
+                        <div class="progress-step">
+                            <div class="progress-circle"></div>
+                        </div>
+
+                        <img src="svgs/meet_and_greet.svg" class="progress-icon" alt="Meet and Greet">
+
+                        <div class="progress-meta">
+                            <div class="progress-label">Meet and Greet</div>
+                            <div class="progress-date">October 22, 2025</div>
+                        </div>
+                    </div>
+
+                    <div class="progress-connector">
+                        <svg width="100%" height="2" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true"
+                            focusable="false">
+                            <line x1="0" x2="100" y1="1" y2="1" stroke="#3d2f1f" stroke-width="1" stroke-linecap="round" />
+                        </svg>
+                    </div>
+
+                    <div class="progress-item active">
+                        <div class="progress-step">
+                            <div class="progress-circle"></div>
+                        </div>
+
+                        <img src="svgs/ready_for_adoption.svg" class="progress-icon" alt="Decision Made">
+
+                        <div class="progress-meta">
+                            <div class="progress-label">Ready for Adoption</div>
+                            <div class="progress-date"></div>
+                        </div>
+                    </div>
+
+                    <div class="progress-connector">
+                        <svg width="100%" height="2" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true"
+                            focusable="false">
+                            <line x1="0" x2="100" y1="1" y2="1" stroke="#3d2f1f" stroke-width="1" stroke-linecap="round" />
+                        </svg>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-step">
+                            <div class="progress-circle"></div>
+                        </div>
+
+                        <img src="svgs/adopted.svg" class="progress-icon" alt="Adoption Finalized">
+
+                        <div class="progress-meta">
+                            <div class="progress-label">Adopted</div>
+                            <div class="progress-date"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="evaluation-container">
+            <h2 class="header-text">
+                Each item is rated from 1 (Strongly Disagree) to 5 (Strongly Agree)
+            </h2>
+
+            <div class="grid-row header-row">
+                <div class="eval-title">Evaluation and Criteria</div>
+                <div class="rating-number">5</div>
+                <div class="rating-number">4</div>
+                <div class="rating-number">3</div>
+                <div class="rating-number">2</div>
+                <div class="rating-number">1</div>
+            </div>
+
+            <div class="grid-row">
+                <div class="criteria-text">The pet appeared relaxed and comfortable around the adopter.</div>
+                <div class="radio-wrapper"><input type="radio" name="q1" value="5"></div>
+                <div class="radio-wrapper"><input type="radio" name="q1" value="4"></div>
+                <div class="radio-wrapper"><input type="radio" name="q1" value="3"></div>
+                <div class="radio-wrapper"><input type="radio" name="q1" value="2"></div>
+                <div class="radio-wrapper"><input type="radio" name="q1" value="1"></div>
+            </div>
+
+            <div class="grid-row">
+                <div class="criteria-text">The adopter showed patience and empathy during the interaction.</div>
+                <div class="radio-wrapper"><input type="radio" name="q2" value="5"></div>
+                <div class="radio-wrapper"><input type="radio" name="q2" value="4"></div>
+                <div class="radio-wrapper"><input type="radio" name="q2" value="3"></div>
+                <div class="radio-wrapper"><input type="radio" name="q2" value="2"></div>
+                <div class="radio-wrapper"><input type="radio" name="q2" value="1"></div>
+            </div>
+
+            <div class="grid-row">
+                <div class="criteria-text">The adopter respected the pet's boundaries and body language.</div>
+                <div class="radio-wrapper"><input type="radio" name="q3" value="5"></div>
+                <div class="radio-wrapper"><input type="radio" name="q3" value="4"></div>
+                <div class="radio-wrapper"><input type="radio" name="q3" value="3"></div>
+                <div class="radio-wrapper"><input type="radio" name="q3" value="2"></div>
+                <div class="radio-wrapper"><input type="radio" name="q3" value="1"></div>
+            </div>
+
+            <div class="grid-row">
+                <div class="criteria-text">The pet responded positively to touch, voice, or play.</div>
+                <div class="radio-wrapper"><input type="radio" name="q4" value="5"></div>
+                <div class="radio-wrapper"><input type="radio" name="q4" value="4"></div>
+                <div class="radio-wrapper"><input type="radio" name="q4" value="3"></div>
+                <div class="radio-wrapper"><input type="radio" name="q4" value="2"></div>
+                <div class="radio-wrapper"><input type="radio" name="q4" value="1"></div>
+            </div>
+
+            <div class="grid-row">
+                <div class="criteria-text">The adopter asked thoughtful questions about the pet's needs.</div>
+                <div class="radio-wrapper"><input type="radio" name="q5" value="5"></div>
+                <div class="radio-wrapper"><input type="radio" name="q5" value="4"></div>
+                <div class="radio-wrapper"><input type="radio" name="q5" value="3"></div>
+                <div class="radio-wrapper"><input type="radio" name="q5" value="2"></div>
+                <div class="radio-wrapper"><input type="radio" name="q5" value="1"></div>
+            </div>
+
+            <div class="grid-row">
+                <div class="criteria-text">The adopter demonstrated safe handling and awareness.</div>
+                <div class="radio-wrapper"><input type="radio" name="q6" value="5"></div>
+                <div class="radio-wrapper"><input type="radio" name="q6" value="4"></div>
+                <div class="radio-wrapper"><input type="radio" name="q6" value="3"></div>
+                <div class="radio-wrapper"><input type="radio" name="q6" value="2"></div>
+                <div class="radio-wrapper"><input type="radio" name="q6" value="1"></div>
+            </div>
+
+            <div class="grid-row">
+                <div class="criteria-text">The pet showed signs of bonding (e.g., proximity, eye contact).</div>
+                <div class="radio-wrapper"><input type="radio" name="q7" value="5"></div>
+                <div class="radio-wrapper"><input type="radio" name="q7" value="4"></div>
+                <div class="radio-wrapper"><input type="radio" name="q7" value="3"></div>
+                <div class="radio-wrapper"><input type="radio" name="q7" value="2"></div>
+                <div class="radio-wrapper"><input type="radio" name="q7" value="1"></div>
+            </div>
+
+            <div class="grid-row">
+                <div class="criteria-text">The adopter expressed commitment to long-term care.</div>
+                <div class="radio-wrapper"><input type="radio" name="q8" value="5"></div>
+                <div class="radio-wrapper"><input type="radio" name="q8" value="4"></div>
+                <div class="radio-wrapper"><input type="radio" name="q8" value="3"></div>
+                <div class="radio-wrapper"><input type="radio" name="q8" value="2"></div>
+                <div class="radio-wrapper"><input type="radio" name="q8" value="1"></div>
+            </div>
+
+        
+        </div>
+
+        <div class="form-actions-wrapper">
+            <div class="form-actions">
+                <button type="button" class="btn btn-primary">Approve</button>
+                <button type="button" class="btn btn-secondary">Reject</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const radios = document.querySelectorAll('input[type="radio"]');
+        const scoreDisplay = document.querySelector('.overall-score');
+
+        function calculateScore() {
+            let total = 0;
+            let count = 0;
+
+            for (let i = 1; i <= 8; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selected) {
+                    total += parseInt(selected.value);
+                    count++;
+                }
+            }
+
+            const average = count > 0 ? (total / count).toFixed(1) : '0.0';
+            scoreDisplay.textContent = average;
+        }
+
+        radios.forEach(radio => {
+            radio.addEventListener('change', calculateScore);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,312 @@
+@font-face {
+    font-family: 'Chakra Petch';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    /* use the woff2 hosted on Google's CDN so don't have to store files locally */
+    src: local('Chakra Petch'), local('ChakraPetch-Regular'),
+             url('https://fonts.gstatic.com/s/chakrapetch/v13/cIf6MapbsEk7TDLdtEz1BwkWn6pgar3I1A.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Slackey';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    /* use the woff2 hosted on Google's CDN so don't have to store files locally */
+    src: local('Slackey'), local('Slackey-Regular'),
+         url('https://fonts.gstatic.com/s/slackey/v29/N0bV2SdQO-5yM0-dGlNQJA.woff2') format('woff2');
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --container-w: 743.17px;
+    --img-max: 100px;
+}
+
+    
+body {
+    font-family: 'Chakra Petch', monospace;
+    background-image: url('fabric_background.png');
+    background-size: cover;
+    /* background-attachment: ; */
+    min-height: 100vh;
+    color: #4a3728;
+    padding: 120px 0 80px 0;
+}
+
+.container {
+    max-width: 1500px;
+    max-height: 2311px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.pet-header {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 25px;
+    align-items: flex-start;
+}
+
+.pet-image {
+    width: 217.67px;
+    height: 183px;
+    border-radius: 45px;
+    object-fit: cover;
+    border: 2.5px solid #3d2f1f;
+    background: #888;
+}
+
+.pet-info {
+    flex: 0 0 auto;
+    width: 122px;
+    height: 124px;
+}
+
+.pet-info h2 {
+    font-size: 23px;
+    margin-bottom: 0;
+    font-weight: semibold;
+    color: #3d2f1f;
+}
+
+.pet-info p {
+    font-size: 24px;
+    color: #5a4a3a;
+    line-height: 1.4;
+}
+
+.header-section {
+    display: flex;
+    
+    align-items: flex-start;
+    gap: 40px;
+    
+    margin: 0 auto 20px;
+    width: min(1221.17px, 100%);
+    height: min(190px, 100%);
+    max-width: 1221.17px;
+    max-height: 190px;
+}
+
+.progress-tracker {
+    display: flex;
+
+    position: relative;
+
+    --pc-size: 100px;
+
+    width: min(743.17px, 100%);
+
+    height: min(176px, calc(var(--pc-size) + 76px));
+
+
+    justify-content: flex-end;
+    margin-left: auto;
+    padding-right: 0;
+
+    gap: 0;
+    align-items: flex-start;
+
+}
+
+
+.progress-item {
+    position: relative;
+    width: var(--pc-size);
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.progress-item .progress-icon {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: var(--pc-size);
+    height: var(--pc-size);
+    object-fit: contain;
+    pointer-events: none;
+    z-index: 3;
+    /* on top */
+}
+
+
+/* make the blend circle without affecting children */
+.progress-item.active::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: var(--pc-size);
+    height: var(--pc-size);
+    border-radius: 50%;
+    background: rgba(68, 78, 39, 0.5);
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    z-index: 1;
+    /* behind icon */
+}
+
+.progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    flex: 0 1 var(--pc-size);
+    min-width: 0;
+    width: var(--pc-size);
+    height: var(--pc-size);
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+/* center connectors between circles */
+.progress-connector {
+
+
+    flex: 1 2 min(109px, max(6px, calc((100% - (4 * var(--pc-size))) / 3)));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: min(109px, max(6px, calc((100% - (4 * var(--pc-size))) / 3)));
+    height: var(--pc-size);
+    min-width: 6px;
+    z-index: -1;
+    overflow: hidden;
+}
+
+
+
+
+
+.progress-meta {
+    position: absolute;
+    top: calc(var(--pc-size) + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: var(--pc-size);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    box-sizing: border-box;
+    text-align: center;
+    z-index: 2;
+}
+
+
+.progress-step>* {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.progress-circle {
+    width: var(--pc-size);
+    height: var(--pc-size);
+    border-radius: 50%;
+    z-index: 2;
+    /* between halo + icon */
+}
+
+
+
+
+@media (max-width: 900px) {
+
+    .progress-tracker {
+        --pc-size: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .progress-tracker {
+        --pc-size: 44px;
+    }
+}
+
+.progress-step.active {
+    content: '';
+    position: absolute;
+    background: rgba(68, 78, 39, 0.5);
+    mix-blend-mode: overlay;
+    border-radius: 50%;
+
+}
+
+.progress-step.active .progress-circle {
+    position: relative;
+    z-index: 2;
+}
+
+
+
+.progress-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    align-self: flex-start;
+    justify-content: flex-start;
+    margin-top: 0;
+    padding-top: 0;
+    width: 100%;
+    gap: 8px;
+    flex: 1 1 auto;
+    ;
+}
+
+.progress-label {
+    font-size: clamp(10px, 16px, 16px);
+    text-align: center;
+    line-height: 1.2;
+    color: #4a3728;
+    margin-top: 2px;
+    display: block;
+    box-sizing: border-box;
+    min-height: 38.4px;
+}
+
+
+.progress-label,
+.progress-date {
+
+    width: var(--pc-size);
+    box-sizing: border-box;
+    min-height: 1.2em;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    text-align: center;
+}
+
+.progress-date {
+    color: #6b5d4f;
+    min-height: 16px;
+    text-align: center;
+    font-size: clamp(10px, 12px, 14px);
+
+}
+
+
+.status-message {
+    text-align: right;
+    font-style: italic;
+    color: #725134;
+    margin: -20px 0 0 0;
+    font-size: 24px;
+}
