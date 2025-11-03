@@ -1,328 +1,335 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
-    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600&family=Slackey&display=swap" rel="stylesheet">
-    <style>
-        /*Global Styles*/
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sign Up</title>
+        <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600&family=Slackey&display=swap" rel="stylesheet">
+        <style>
+            /*Global Styles*/
+          * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+          }
 
-      /* Body */
-      body {
-        background-image: url(images/login-images/heather-green-1GuZ9y1qAT8-unsplash-3.webp);
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        min-height: 100vh;
-        padding: 1rem;
-        font-size: 16px;
-      }
+          /* Body */
+          body {
+            background-image: url(images/login-images/heather-green-1GuZ9y1qAT8-unsplash-3.webp);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 1rem;
+            font-size: 16px;
+          }
 
-      /* Main Frame*/
-      .mainframe{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        max-width: 100%;
-        gap: 2rem;
-        flex-wrap: nowrap;
-        padding: 3vw;
-      }
+          /* Main Frame*/
+          .mainframe{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 100%;
+            gap: 2rem;
+            flex-wrap: nowrap;
+            padding: 3vw;
+          }
 
-      .dog-image{
-        flex: 0 1 auto;
-        width: auto;
-        max-width: 60rem;
-        min-width: 35rem;
-        height: auto;
-      }
+          .dog-image{
+            flex: 0 1 auto;
+            width: auto;
+            max-width: 60rem;
+            min-width: 35rem;
+            height: auto;
+          }
 
-      .dog-image img{
-        mix-blend-mode: overlay;
-        width: 100%;
-        height: 40rem;
-        object-fit: contain;
-        display: block;
-      }
+          .dog-image img{
+            mix-blend-mode: overlay;
+            width: 100%;
+            height: 40rem;
+            object-fit: contain;
+            display: block;
+          }
 
-      form{
-        display: flex;
-        flex-direction: column;
-        border: 0.125rem solid #725134;
-        width: 40.8rem;
-        height: 40rem;
-        border-radius: 2rem;
-        padding: 2rem;
-        position: relative;
-        flex: 0 1 auto;
-      }
-      form::before{
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: rgba(68, 78, 39, 0.5);
-        mix-blend-mode: overlay;
-        border-radius: inherit;
-        z-index: 0;
-      }
+          form{
+            display: flex;
+            flex-direction: column;
+            border: 0.125rem solid #725134;
+            width: 40.8rem;
+            height: 40rem;
+            border-radius: 2rem;
+            padding: 2rem;
+            position: relative;
+            flex: 0 1 auto;
+          }
+          form::before{
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(68, 78, 39, 0.5);
+            mix-blend-mode: overlay;
+            border-radius: inherit;
+            z-index: 0;
+          }
 
-      .maintext{
-        margin-bottom: 2rem;
-        position: relative;
-        z-index: 1;
-      }
+          .maintext{
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+          }
 
-      form h2{
-        text-align: center;
-        font-family: 'slackey';
-        font-weight: 700;
-        font-size: 2rem;
-        margin-bottom: 0.5rem;
-      }
+          form h2{
+            text-align: center;
+            font-family: 'slackey';
+            font-weight: 700;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+          }
 
-      form p{
-        font-family: 'chakra petch';
-        font-size: 1.25rem;
-        font-weight: 500;
-      }
+          form p{
+            font-family: 'chakra petch';
+            font-size: 1.25rem;
+            font-weight: 500;
+          }
 
-      .form-group{
-        display: grid;
-        grid-template-columns: 120px 1fr;
-        align-items: center;
-        position: relative;
-        width: 100%;
-        gap: 1rem;
-        margin-bottom: 1.5rem;
-        z-index: 1;
-      }
+          .form-group{
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            align-items: center;
+            position: relative;
+            width: 100%;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            z-index: 1;
+          }
 
-      .form-group.confirm-password-group {
-        grid-template-columns: 120px 1fr;
-      }
+          .form-group.confirm-password-group {
+            grid-template-columns: 120px 1fr;
+          }
 
-      .form-group.confirm-password-group label {
-        line-height: 1.2;
-        white-space: normal;
-      }
+          .form-group.confirm-password-group label {
+            line-height: 1.2;
+            white-space: normal;
+          }
 
-      .form-group label{
-        font-family: 'slackey';
-        font-size: 1.25rem;
-        font-weight: 600;
-        min-width: max-content;
-      }
+          .form-group label{
+            font-family: 'slackey';
+            font-size: 1.25rem;
+            font-weight: 600;
+            min-width: max-content;
+          }
 
-      .form-group input{
-        width: 100%;
-        height: 3.56rem;
-        border-radius: 3rem;
-        padding: 0 1.5rem;
-        padding-right: 3.5rem;
-        border: 0.0625rem solid #444E27;
-        background-color: #ffffff00;
-        font-size: 1.25rem;
-        font-family: 'chakra petch';
-        color: #444E27;
-      }
+          .form-group input{
+            width: 100%;
+            height: 3.56rem;
+            border-radius: 3rem;
+            padding: 0 1.5rem;
+            padding-right: 3.5rem;
+            border: 0.0625rem solid #444E27;
+            background-color: #ffffff00;
+            font-size: 1.25rem;
+            font-family: 'chakra petch';
+            color: #444E27;
+          }
 
-      .form-group input:-webkit-autofill,
-      .form-group input:-webkit-autofill:hover,
-      .form-group input:-webkit-autofill:focus,
-      .form-group input:-webkit-autofill:active {
-        -webkit-box-shadow: 0 0 0 30px transparent inset !important;
-        -webkit-text-fill-color: #444E27 !important;
-        transition: background-color 5000s ease-in-out 0s;
-      }
+          .form-group input:-webkit-autofill,
+          .form-group input:-webkit-autofill:hover,
+          .form-group input:-webkit-autofill:focus,
+          .form-group input:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 30px transparent inset !important;
+            -webkit-text-fill-color: #444E27 !important;
+            transition: background-color 5000s ease-in-out 0s;
+          }
 
-      .form-group input::placeholder{
-        color: #444E2780;
-      }
+          .form-group input::placeholder{
+            color: #444E2780;
+          }
 
-      .form-group input:focus{
-        outline: none;
-        background-color: rgba(255, 255, 255, 0.05);
-      }
+          .form-group input:focus{
+            outline: none;
+            background-color: rgba(255, 255, 255, 0.05);
+          }
 
-      .form-group .eyeicon1{
-        position: absolute;
-        right: 1.5rem;
-        top: 50%;
-        transform: translateY(-50%);
-        cursor: pointer;
-        width: 1.5rem;
-        height: 1.5rem;
-        transition: opacity 0.3s ease;
-        flex-shrink: 0;
-      }
+          .form-group .eyeicon1{
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            width: 1.5rem;
+            height: 1.5rem;
+            transition: opacity 0.3s ease;
+            flex-shrink: 0;
+          }
 
-      .form-group .eyeicon1:hover{
-        opacity: 0.7;
-      }
-      .form-group .eyeicon{
-        position: absolute;
-        right: 1.5rem;
-        top: 50%;
-        transform: translateY(-50%);
-        cursor: pointer;
-        width: 1.5rem;
-        height: 1.5rem;
-        transition: opacity 0.3s ease;
-        flex-shrink: 0;
-      }
+          .form-group .eyeicon1:hover{
+            opacity: 0.7;
+          }
+          .form-group .eyeicon{
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            width: 1.5rem;
+            height: 1.5rem;
+            transition: opacity 0.3s ease;
+            flex-shrink: 0;
+          }
 
-      .form-group .eyeicon:hover{
-        opacity: 0.7;
-      }
+          .form-group .eyeicon:hover{
+            opacity: 0.7;
+          }
 
-      .form-options{
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        gap:7rem;
-        position: relative;
-        z-index: 1;
-      }
-      
-      .signup-button input{
-        width: 12.5rem;
-        height: 4.18rem;
-        border-radius: 3rem;
-        background-color: rgba(71, 50, 5, 0.27);
-        color: #444E27;
-        font-family: 'chakra petch';
-        font-size: 1.25rem;
-        font-weight: 600;
-        border: none;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
+          .form-options{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            gap:7rem;
+            position: relative;
+            z-index: 1;
+          }
+          
+          .signup-button input{
+            width: 12.5rem;
+            height: 4.18rem;
+            border-radius: 3rem;
+            background-color: rgba(71, 50, 5, 0.27);
+            color: #444E27;
+            font-family: 'chakra petch';
+            font-size: 1.25rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+          }
 
-      .signup-button input:hover{
-        background-color: rgba(71, 50, 5, 0.55);
-        transform: translateY(-0.125rem);
-        box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
-      }
+          .signup-button input:hover{
+            background-color: rgba(71, 50, 5, 0.55);
+            transform: translateY(-0.125rem);
+            box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+          }
 
-      .signup-button input:active{
-        transform: translateY(0);
-        background-color: rgba(71, 50, 5, 0.65);
-      }
+          .signup-button input:active{
+            transform: translateY(0);
+            background-color: rgba(71, 50, 5, 0.65);
+          }
 
-      .login-link a{
-        color: #444E27;
-        font-weight: 600;
-        text-decoration: none;
-        transition: opacity 0.3s ease;
-      }
+          .login-link a{
+            color: #444E27;
+            font-weight: 600;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+          }
 
-      .login-link a:hover{
-        opacity: 0.7;
-        text-decoration: underline;
-      }
+          .login-link a:hover{
+            opacity: 0.7;
+            text-decoration: underline;
+          }
+          .login-link p{
+            white-space: nowrap;
+          }
 
-      /* Responsive Design */
-      @media (max-width: 1200px) {
-        .mainframe {
-          flex-wrap: nowrap;
-          gap: 1rem;
+          /* Responsive Design */
+          @media (max-width: 1280px) {
+            .mainframe {
+              flex-wrap: nowrap;
+              gap: 1rem;
+            }
+            .dog-image{
+              display: none;
+            }
+
+            form {
+              width: 40rem;
+              min-width: 40.3rem;
+              flex: 0 1 auto;
+              position: relative;
+            }
+            .login-link {
+              flex: 1 1 auto;
+              min-width: max-content;
         }
 
-        .cat-image {
-          flex: 1 1 auto;
-          width: auto;
-          max-width: 60rem;
-          min-width: 35rem;
-          height: auto;
+            .signup-button {
+            flex: 0 1 auto;
         }
+          }
+          @media (max-width: 1024px) {
+            .mainframe {
+              flex-direction: column;
+              padding: 1.5rem;
+            }
 
-        form {
-          width: 37.8rem;
-          min-width: 27.3rem;
-          flex: 0 1 auto;
-        }
-      }
-      @media (max-width: 1024px) {
-        .mainframe {
-          flex-direction: column;
-          padding: 1.5rem;
-        }
+            .dog-image {
+              display: none;
+            }
 
-        .cat-image {
-          display: none;
-        }
+            form {
+              width: 90%;
+              max-width: 40rem;
+              height: auto;
+              padding: 2rem;
+              margin: 0 auto;
+            }
 
-        form {
-          width: 90%;
-          max-width: 28rem;
-          height: auto;
-          padding: 2rem;
-          margin: 0 auto;
-        }
+            .form-group {
+              grid-template-columns: 120px 1fr;
+              gap: 0.5rem;
+              text-align: left;
+            }
 
-        .form-group {
-          grid-template-columns: 1fr;
-          gap: 0.5rem;
-          text-align: left;
-        }
+            .form-group.confirm-password-group {
+              grid-template-columns: 120px 1fr;
+            }
 
-        .form-group.confirm-password-group {
-          grid-template-columns: 1fr;
-        }
+            .form-group label {
+              font-size: 1.25rem;
+            }
 
-        .form-group label {
-          font-size: 1rem;
-        }
+            .form-group input {
+              font-size: 1rem;
+              height: 3.56rem;
+              padding-right: 3.5rem;
+            }
 
-        .form-group input {
-          font-size: 1rem;
-          height: 3rem;
-          padding-right: 3.5rem;
-        }
+            .form-group .eyeicon, .form-group .eyeicon1{
+              right: 1.5rem;
+              width: 1.5rem;
+              height: 1.5rem;
+              transform: translateY(-50%);
+            }
 
-        .form-group .eyeicon, .form-group .eyeicon1 {
-          right: 1rem;
-          width: 1.25rem;
-          height: 1.25rem;
-          transform: translateY(20%);
-        }
+            .form-options {
+              font-size: 0.875rem;
+              align-items: center;
+              
+            }
 
-        .form-options {
-          font-size: 0.875rem;
-        }
+            .signup-button {
+              justify-content: center;
+            }
 
-        .signup-button {
-          justify-content: center;
-          margin-bottom: 2rem;
-        }
+            .signup-button input {
+              width: 100%;
+              width: 12.5rem;
+            }
 
-        .signup-button input {
-          width: 100%;
-          max-width: 10rem;
-        }
-
-        .login-link {
-          position: static;
-          margin-top: 1rem;
-          text-align: center;
-        }
-      }
-    </style>
-</head>
-<body>
-    <section class="mainframe">
+            .login-link {
+              margin-top: 1rem;
+              text-align: center;
+            }
+          }
+        </style>
+    </head>
+    <body>
+        <section class="mainframe">
             <div class="dog-image">
-                <img src="images/login-images/Dog image.webp" alt="dogimage">
+                <img src="images/login-images/Dogs image (1).webp" alt="dogimage">
             </div>
             <form action="#" method="get">
                 <div class="maintext">
