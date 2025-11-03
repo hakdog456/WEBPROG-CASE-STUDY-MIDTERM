@@ -1,0 +1,140 @@
+/* CSS RESET */
+
+/* 1. Use a more-intuitive box-sizing model */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+* {
+  margin: 0;
+}
+
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
+body {
+  /* 4. Add accessible line-height */
+  line-height: 1.5;
+  /* 5. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 6. Improve media defaults */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 7. Inherit fonts for form controls */
+input, button, textarea, select {
+  font: inherit;
+}
+
+/* 8. Avoid text overflows */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+/* 9. Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+/*
+  10. Create a root stacking context
+*/
+#root, #__next {
+  isolation: isolate;
+}
+
+
+/* VARIABLES */
+:root{
+  --fontColor: #223125;
+  --fontColor2: #725134;
+  --fontColor3: #444E27;
+  --bgColor: #DEDCCA;
+}
+
+
+/* MAIN STARTING STYLING */
+/* PAGE STYLING */
+body{
+    position: relative;
+    background: var(--bgColor);
+    color: var(--fontColor);
+    font-family: "Chakra Petch";
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: 2px solid violet; */
+    overflow-x: hidden;
+    
+    
+    /* Temporary bottom padding */
+    /* padding-bottom: 30%; */
+
+}
+
+
+
+/* PET DETAILS */
+.petDetailsCon{
+    border: 1px solid red;
+    width: 82%;
+    display: grid;    
+    grid-template-columns: .7fr 1fr;
+    height: 638px;
+}
+
+.imageCon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imageHolder{
+    width: 85%;
+    height: 82%;
+    border-radius: 50px;
+    border: 2px yellow;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background: #000; */
+}
+
+.petImage {
+  height: 100%;       /* match div height */
+  width: auto;        /* keep aspect ratio */
+  object-fit: cover; /* ensure full image fits */
+  border-radius: 40px; /* optional, matches container */
+  display: block;
+}
+
+
+.petDetailsCon div, img{
+    border: 1px solid blue;
+}
+
+.petContent{
+    display: flex;
+    color: var(--fontColor);
+}
+
+.petText{
+    font-size: 24px;
+    margin-top: 7%;
+}
+
+.name{
+    font-weight: 1000;
+}
