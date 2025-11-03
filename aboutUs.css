@@ -89,7 +89,7 @@ body{
 
 /* OUR STORY */
 .ourStory{
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -99,7 +99,7 @@ body{
 
 .ourStoryContent{
     display: flex;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     width: 52%;
     flex-direction: column;
     margin-left: 8%;
@@ -130,7 +130,7 @@ body{
     width: 100%;
     flex-direction: column;
     align-items: center;
-    border: 1px solid olivedrab;
+    /* border: 1px solid olivedrab; */
     gap: 30px;
 }
 
@@ -138,7 +138,7 @@ body{
     display: flex;
     width: 72%;
     text-align: center;
-    border: 1px solid brown;
+    /* border: 1px solid brown; */
     flex-direction: column;
     align-items: center;
 }
@@ -150,7 +150,7 @@ body{
 }
 
 .ourMissionBottom{
-    border: 1px solid darkorange;
+    /* border: 1px solid darkorange; */
     width: 85%;
 }
 
@@ -162,7 +162,7 @@ body{
     display: flex;
     /* align-items: center; */
     flex-direction: column;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     margin-top: 3%;
     margin-bottom: 250px;
     height: auto;
@@ -172,7 +172,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     width: 100%;
     padding-left: 7%;
 }
@@ -189,7 +189,7 @@ body{
     padding-left: 8%;
     padding-right: 8%;
     justify-items: center;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     width: 100%;
 }
 
@@ -226,7 +226,7 @@ body{
 
 .details{
     margin-top: 25px;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     width: 85%;
     font-size: 24px;
     color: var(--fontColor);
@@ -266,4 +266,59 @@ body{
     .teamCards{
         margin-bottom: 10%;
     }
+}
+
+
+/* Mobile Break */
+@media only screen and (max-width: 680px) {
+
+    /* our story */
+    .ourStoryContent h2, .ourMission h2, .meetOurTeam h2{
+        font-size: 28px;
+    }
+
+    .teamCards{
+        grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+        padding-left: 1%;
+        padding-right: 1%;
+    }
+
+    .card{
+        height: 218px;
+        width: 168px;
+        border-radius: 20px;
+    }
+
+    .card *{
+        /* border: 1px solid blue; */
+    }
+
+    .profile{
+        width: 134px;
+        height: 134px;
+        margin-top: 23px;
+    }
+
+    .details{
+        margin-top: 0;
+        font-size: 16px;
+    }
+
+}
+
+
+
+@media only screen and (max-width: 350px) {
+
+
+    /* OUR STORY / MISSION */
+    .ourStoryContent p, .ourMission p, .ourMissionBottom{
+        font-size: 15px;
+    }
+    
+    /* MEET OUR TEAM */
+    .meetOurTeam{
+        margin-bottom: 140%;
+    }
+    
 }
