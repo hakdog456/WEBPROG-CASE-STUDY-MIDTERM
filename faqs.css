@@ -1,0 +1,401 @@
+/* -------------------- FONTS -------------------- */
+.slackey-regular {
+  font-family: "Slackey", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.chakra-petch-regular {
+  font-family: "Chakra Petch", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* RESET  */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+/* BASE */
+body {
+  background: url("fabric_background.png") no-repeat center center/cover;
+  display: flex;
+  flex-direction: column;
+  font-family: "Chakra Petch", sans-serif;
+}
+
+/* HEADER / NAVBAR  */
+header {
+  background: transparent;
+  padding: 1px 0;
+  box-shadow: none;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 11px 25px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 55px 55px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  mix-blend-mode: multiply;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+/* LOGO */
+.logo {
+  height: 45px;
+}
+
+/* NAV LINKS */
+nav {
+  display: flex;
+  gap: 25px;
+}
+
+nav a {
+  color: rgba(0,0,0,0.8);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+nav a:hover,
+nav a.active {
+  transform: scale(1.1);
+}
+
+/* ICONS */
+.icons {
+  display: flex;
+  gap: 15px;
+}
+
+.icon {
+  width: 33px;
+  height: 33px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.icon:hover {
+  transform: scale(1.15);
+}
+
+/* HAMBURGER MENU */
+.menu-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 28px;
+  height: 22px;
+  cursor: pointer;
+}
+
+.menu-btn span {
+  height: 3px;
+  width: 100%;
+  background-color: #2f4a26;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+.nav-toggle {
+  display: none;
+}
+
+/* ------------- MAIN / FAQ SECTION ------------- */
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+}
+
+.faq-container {
+  display: flex;
+  width: 90%;
+  max-width: 1400px;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 120px;
+  margin: 0 auto;
+  padding: 60px 0;
+}
+
+.faq-image {
+  flex: 1.2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.faq-image img {
+  width: 200%;
+  height: 100%;
+  max-height: 600px;
+  object-fit: cover;
+  opacity: 0.9;
+  border-radius: 20px;
+  mix-blend-mode: overlay;
+}
+
+.faq-box {
+  flex: 1.5;
+  background-color: rgba(244, 241, 207, 0.9);
+  padding: 60px;
+  border-radius: 55px;
+  border: 1px solid #2f4a26;
+  box-shadow: 0 0 15px rgba(0,0,0,0.15);
+  mix-blend-mode: multiply;
+  font-family: "Chakra Petch", sans-serif;
+  height: 60vh;
+}
+
+.faq-box h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: #444e27;
+  font-family: "Slackey";
+}
+
+details {
+  color: #444e27;
+  border: 1px solid #2f4a26;
+  border-radius: 45px;
+  padding: 20px 10px;
+  mix-blend-mode: multiply;
+  margin-bottom:10px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+summary {
+  font-weight: bold;
+  color: #444e27;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+summary::after {
+  content: "﹀";
+  font-size: 12px;
+  transition: transform 0.3s;
+}
+
+details[open] summary::after {
+  transform: rotate(180deg);
+}
+
+details p {
+  margin-top: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  color:#2f4a26;
+  font-family: "Chakra Petch", sans-serif;
+}
+
+
+/* ------------- TABLET VIEW ------------- */
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* Blend FAQ + Cat */
+  .faq-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+  .faq-box {
+    position: relative;
+    z-index: 1;
+    width: 90%;
+    height: 70vh;
+    mix-blend-mode: multiply;
+  }
+
+  .faq-image {
+    position: absolute;
+    right: 25;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.7;
+    mix-blend-mode: overlay;
+  }
+
+  .faq-image img {
+    width: 100%;
+    height: 55vh;
+    object-fit: cover;
+    border-radius: 20px;
+
+  }
+}
+
+
+/* --- MOBILE VIEW --- */
+@media (max-width: 768px) {
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: none;
+    backdrop-filter: blur(3px);
+    mix-blend-mode: multiply;
+  }
+
+  .nav-container {
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border-radius: 0 0 55px 55px;
+    padding: 10px 0;
+    box-shadow: 0 0 10px rgba(0,0,0,0.8);
+  }
+
+  /* Hamburger button */
+  .menu-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 28px;
+    height: 22px;
+    cursor: pointer;
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 101;
+  }
+
+  .menu-btn span {
+    height: 3px;
+    width: 100%;
+    border-radius: 2px;
+    transition: 0.3s;
+  }
+
+  /* Animate hamburger to X */
+  .nav-toggle:checked + .menu-btn span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  .nav-toggle:checked + .menu-btn span:nth-child(2) {
+    opacity: 0;
+  }
+  .nav-toggle:checked + .menu-btn span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+  }
+
+  /* Center logo */
+  .logo-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .logo {
+    height: 45px;
+  }
+
+  /* Right-side icons */
+  .icons {
+    position: absolute;
+    right: 20px;
+    display: flex;
+    gap: 12px;
+  }
+
+  /* Dropdown navigation */
+  nav {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 0;
+    border-radius: 0 0 55px 55px;
+    mix-blend-mode: multiply;
+    transform: translateY(-300px);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+  }
+
+  /* Reveal nav on toggle */
+  .nav-toggle:checked + .menu-btn + .logo-link + nav {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* FAQ layout */
+  .faq-section{
+    background-image: none;
+    padding-bottom: 0;
+  }
+  .faq-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .faq-box {
+    order: 1;
+    width: 105%;
+    padding: 25px 20px;
+    border-radius: 35px;
+    background-color: rgba(244, 241, 207, 0.95);
+    margin-bottom: -20px;
+    z-index: 2;
+    position: relative;
+  }
+
+  .faq-image {
+    order: 2;
+    width: 100%;
+    text-align: center;
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  .faq-image img {
+    margin-top: 50px;
+    width: 125%;
+    height: 50vh;
+    border-radius: 25px;
+    object-fit: cover;
+    mix-blend-mode: multiply;
+    opacity: 0.5;
+    filter: brightness(1);
+    
+  }
+  body, html {
+    background: url("fabric_background.png");
+  }
+
+}
