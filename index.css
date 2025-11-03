@@ -95,6 +95,10 @@ body{
     display: none;
 }
 
+.navMobileSlide{
+  display: none;
+}
+
 .nav{
   position: absolute;
   display: grid;
@@ -738,7 +742,7 @@ body{
 }
 
 
-/* for tablet and breaking point of small laptop */
+/* NAV / footer for tablet and breaking point of small laptop */
 @media only screen and (max-width: 930px) {
 
   /* HTML BODY */
