@@ -1,235 +1,371 @@
-/* Fonts */
+/* -------------------- FONTS -------------------- */
 .slackey-regular {
   font-family: "Slackey", sans-serif;
   font-weight: 400;
   font-style: normal;
 }
+
 .chakra-petch-regular {
   font-family: "Chakra Petch", sans-serif;
   font-weight: 400;
   font-style: normal;
 }
 
-body {
+/* -------------------- RESET -------------------- */
+* {
   margin: 0;
-  font-family: "Chakra Petch", sans-serif;
-  background: url("fabric_background.png");
-  background-size: cover;
-  color: #2b2b2b;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* NAVBAR */
+/* -------------------- BASE -------------------- */
+body {
+  font-family: "Chakra Petch", sans-serif;
+  background: url("fabric_background.png") no-repeat center center / cover;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  color: #333;
+}
+
+/* -------------------- NAVBAR -------------------- */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: url("fabric_background.png");
-  padding: 1rem 3rem;
-  border-radius: 0px 0px 40px 40px;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
+  padding: 11px 25px;
+  border-radius: 0 0 55px 55px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  mix-blend-mode: multiply;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  font-size: larger;
 }
 
 .logo img {
-  height: 48px;
-  width: auto;
-  display: block;
+  height: 45px;
 }
 
+/* Navbar Links */
 .nav-links {
-  list-style: none;
   display: flex;
-  gap: 2rem;
+  list-style: none;
+  gap: 25px;
 }
 
 .nav-links a {
   text-decoration: none;
-  color: #1a1a1a;
-  font-weight: 500;
-  transition: all 0.3s ease;
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 15px;
+  font-weight: 600;
+  transition: 0.3s;
 }
 
-.nav-links a:hover {
-  transform: scale(1.2);
-}
-
-.icons {
-  display: flex;
-  gap: 1rem;
-}
-
-.icons .icon {
-  width: 26px;
-  height: 26px;
-  object-fit: contain;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.icons .icon:hover {
+.nav-links a:hover,
+.nav-links a.active {
   transform: scale(1.1);
 }
 
-.icons i {
-  font-size: 1.2rem;
-  color: #1a1a1a;
+/* Icons */
+.icons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.icon {
+  width: 33px;
+  height: 33px;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+.icon:hover {
+  transform: scale(1.15);
+}
+
+/* Mobile Menu Toggle */
+.nav-toggle {
+  display: none;
+}
+
+/* Hamburger */
+.menu-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 28px;
+  height: 22px;
+  cursor: pointer;
+  z-index: 1100;
+  transition: all 0.3s ease;
+}
+
+.menu-btn span {
+  width: 25px;
+  height: 3px;
+  background: #333;
+  border-radius: 2px;
   transition: 0.3s ease;
 }
 
-.icons i:hover {
-  transform: scale(1.2);
-}
-
-/* CONTACT SECTION */
+/* -------------------- CONTACT SECTION -------------------- */
 .contact-section {
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 3rem 2rem;
+  padding: 80px 40px;
+  font-family: "Slackey";
+  color: #3f6032;
 }
 
 .contact-container {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-between;
-  border-radius: 25px;
-  padding: 2rem;
-  backdrop-filter: blur(2px);
+  gap: 5px;
+  max-width: 1600px;
   width: 100%;
-  max-width: 1000px;
+}
+
+
+.contact-image {
+  flex: 1.9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .contact-image img {
-  width: 400px;
-  border-radius: 10px;
+  width: 100%;
+  height: 100vh;
+  max-height: 600px;
   object-fit: cover;
+  border-radius: 20px;
+  mix-blend-mode: overlay;
 }
 
 .contact-form {
-  flex: 1;
-  background:#dedcca;
-  text-align: left;
+  flex: 1.2;
+  background-color: rgba(244, 241, 207, 0.9);
+  padding: 50px;
   border-radius: 25px;
-  padding: 2rem;
-  font-family: "Slackey", sans-serif;
+  border: 1px solid rgba(60, 60, 40, 0.3);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  mix-blend-mode: multiply;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .contact-form h2 {
   text-align: center;
-  margin-bottom: 1rem;
-  color: #444e27;
+  margin-bottom: 20px;
+  font-weight: 700;
 }
 
 .contact-form label {
-  font-weight: 600;
   display: block;
-  margin-top: 10px;
+  margin-bottom: 5px;
+  font-weight: 600;
 }
 
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  padding: 9px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  border-radius: 50px;
-  border: 1px solid #444e27;
-  background: none;
-  height: 57px;
+  padding: 10px 15px;
+  border: 1px solid #666;
+  border-radius: 20px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+/* Fixed message box size */
+.contact-form textarea {
+  height: 150px;
+  resize: none;
+}
+
+.contact-form .bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.contact-form .call {
+  font-family: "Chakra Petch", sans-serif;
+  font-size: medium;
+  color: #444;
 }
 
 .contact-form button {
-  font-family: "Chakra Petch";
-  margin-top: 1rem;
-  background-color: rgb(185, 171, 151);
-  border: 1px solid #444e27;
-  color:  #444e27;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 20px;
+  background-color: #c0a87b;
+  border: 1px solid #2f4a26;
+  color: #2f4a26;
+  padding: 10px 25px;
+  border-radius: 25px;
+  font-weight: 600;
   cursor: pointer;
-  transition: 0.3s ease;
-  text-align: right;
+  transition: 0.2s;
+  mix-blend-mode: normal;
+}
+
+.submit {
+  font-family: "Chakra Petch", sans-serif;
+  font-size: medium;
 }
 
 .contact-form button:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
-.call {
-  text-align: center;
-  font-size: 0.9rem;
-  color: #444e27;
-  font-family: "Chakra Petch";
-}
+/* -------------------- FOOTER section was here-------------------- */
 
-/* ===== FOOTER ===== */
-footer {
-  position: absolute;
-  background: #3f6032;
-  padding: 2rem 3rem;
-  margin-top: 3rem;
-  color: #DEDCCA;
-  width: 100%;
-  font-family: "Chakra Petch", serif;
-}
 
-.footer-grid {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 2rem;
-  max-width: 1200px;
-  margin: auto;
-}
 
-.footer-brand h2 {
-  color: #DEDCCA;
-}
 
-.socials i {
-  margin: 0 8px;
-  cursor: pointer;
-  transition: transform 0.3s;
-}
-
-.socials i:hover {
-  transform: scale(1.2);
-}
-
-.footer-links ul {
-  list-style: none;
-  padding: 0;
-}
-
-.footer-links a {
-  text-decoration: none;
-  color: #dedcca;
-  font-size: 0.95rem;
-}
-
-.footer-extra {
-  font-size: 0.9rem;
-}
-
-/* RESPONSIVE */
-@media (max-width: 992px) {
+/* -------------------- RESPONSIVE -------------------- */
+@media (max-width: 1024px) {
   .contact-container {
     flex-direction: column;
-    text-align: center;
   }
-  .contact-image {
+
+  /* Hide dog image on tablet */
+  .contact-image img {
     display: none;
   }
+
   .contact-form {
-    max-width: 480px;
-    width: 100%;
-  }
-  .nav-links {
-    gap: 1rem;
+    order: 1;
+    width: 117%;
   }
 }
+
+/* -------------------- MOBILE -------------------- */
+@media (max-width: 768px) {
+  /* Navbar */
+  .navbar {
+    padding: 10px 15px;
+    border-radius: 0 0 55px 55px;
+    position: sticky;
+    backdrop-filter: blur(3px);
+  }
+
+  .menu-btn {
+    display: flex;
+    position: absolute;
+    left: 20px;
+  }
+
+  .logo {
+    margin: 0 auto;
+  }
+
+  .icons {
+    position: absolute;
+    right: 20px;
+  }
+
+  /* Collapsible Nav Links */
+  .nav-links {
+    position: absolute;
+    top: 65px;
+    left: 0;
+    width: 100%;
+    background: transparent;
+    flex-direction: column;
+    text-align: center;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    z-index: 1000;
+  }
+
+  .nav-toggle:checked ~ .nav-links {
+    max-height: 230px;
+  }
+
+  /* Hamburger Animation */
+  .nav-toggle:checked + .menu-btn span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .nav-toggle:checked + .menu-btn span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-toggle:checked + .menu-btn span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+
+  /* Contact section */
+  .contact-container {
+    flex-direction: column-reverse !important;
+    align-items: center;
+  }
+
+  .contact-image img {
+    display: block !important;
+    order: 1;
+    width: 125%;
+    height: 75%;
+    border-radius: 15px;
+    object-fit: contain;
+  }
+  .contact-form {
+    width: 117%;
+  }
+  .contact-form .bottom-row{
+    flex-direction: column-reverse !important;
+    align-items: center;
+    gap: 20px;
+    padding: 1rem;
+  }
+
+  /*Footer was here*/
+}
+
+/* -------------------- TABLET -------------------- */
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* Contact section fix */
+  .contact-container {
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    gap: 0;
+  }
+
+  .contact-image img {
+    display: block !important;
+    position: absolute;
+    top: 12%;
+    bottom: 10%;
+    width: 100%;
+    max-width: 200%;
+    object-fit: cover;
+    opacity: 0.5;
+    height: 50vh;
+    z-index: 0;
+  }
+
+  .contact-form {
+    position: relative;
+    z-index: 2;
+    background-color: rgba(244, 241, 207, 0.85);
+    backdrop-filter: blur(2px);
+    border: 1px solid rgba(60, 60, 40, 0.25);
+    width: 100%;
+  }
+}
+
+/* -------------------- FOOTER STRUCTURE was here-------------------- */
+
