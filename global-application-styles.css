@@ -406,6 +406,7 @@
     grid-row: 1 1fr;
     height: auto;
     text-align: center;
+    
   }
 
   .foot1{
@@ -485,7 +486,7 @@ body {
     /* background-attachment: ; */
     min-height: 100vh;
     color: #4a3728;
-    padding: 120px 0 80px 0;
+    padding: 120px 0 250px 0;
 }
 
 .container {
