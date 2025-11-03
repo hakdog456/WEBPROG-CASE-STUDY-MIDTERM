@@ -43,6 +43,12 @@
             margin-bottom: 30px;
         }
 
+        .criteria-title {
+            font-weight: bold;
+            text-align: center;
+            color: #8b5a3c;
+        }
+
         
         .grid-row {
             display: grid;
@@ -202,10 +208,141 @@
             font-size: 24px;
             font-weight: bold;
         }
-        @media (max-width: 700px) {
+        @media (max-width: 900px) {
             .eval-action-btn { width: 100%; flex: 1 1 auto; max-width: none; }
-            .grid-row { grid-template-columns: 1fr repeat(5, 48px); gap: 8px; }
+
+            /* Center the main title and header instructions */
+            .eval-title, .header-text {
+                text-align: center;
+            }
+
+            /* Hide the criteria-title cell from the header row on small screens */
+            .criteria-title { display: none; }
+
+            /* Make the header-row use the same 5-column grid so numbers align
+               with the radio buttons; center the whole block. */
+            .header-row {
+                display: grid;
+                grid-template-columns: repeat(5, 48px);
+                gap: 8px;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 6px;
+            }
+
+            .header-row .rating-number {
+                width: 48px;
+                text-align: center;
+                font-size: 18px;
+            }
+
+            /* Reflow each criteria row so the criteria text sits above the radios.
+               Grid columns become the five rating columns; the text spans full width
+               in row 1, and radio buttons occupy row 2 in their respective columns. */
+            .grid-row {
+                grid-template-columns: repeat(5, 48px);
+                grid-template-rows: auto auto;
+                gap: 8px;
+                align-items: center;
+                justify-content: center; /* center the track set inside the row */
+                justify-items: center; /* center children inside each column */
+            }
+
+            /* Make the descriptive text span the full width above the radio buttons */
+            .grid-row .criteria-text {
+                grid-column: 1 / -1;
+                grid-row: 1;
+                font-size: 18px;
+                text-align: center; /* center the criteria text as requested */
+                padding: 6px 0;
+                width: auto
+            }
+
+            /* Place radio wrappers on the second row in their columns */
+            .grid-row .radio-wrapper {
+                grid-row: 2;
+                justify-content: center;
+            }
+
             .criteria-text { font-size: 18px; }
+
+            /* Gradually reduce container padding and spacing on tablet while
+               decreasing text size more slowly so layout breathes but doesn't
+               feel cramped. Uses clamp() so scaling is smooth across widths. */
+            .evaluation-container {
+                padding: clamp(20px, 3.5vw, 45px) clamp(14px, 3.2vw, 40px) clamp(16px, 3vw, 36px);
+                gap: clamp(8px, 1.8vw, 12px);
+                min-height: auto;
+            }
+
+            .eval-title {
+                font-size: clamp(20px, 2.6vw, 24px);
+            }
+
+            .header-text {
+                font-size: clamp(16px, 2.2vw, 20px);
+                margin-bottom: clamp(12px, 2.8vw, 24px);
+            }
+
+            .criteria-text {
+                font-size: clamp(16px, 2.2vw, 20px);
+                line-height: 1.25;
+            }
+
+            .rating-number {
+                font-size: clamp(16px, 2.2vw, 20px);
+            }
+
+            .grid-row {
+                gap: clamp(6px, 1.4vw, 10px);
+            }
+
+            input[type="radio"] {
+                width: clamp(16px, 2.2vw, 20px);
+                height: clamp(16px, 2.2vw, 20px);
+            }
+        }
+
+        /* Mobile: tighten padding further and reduce text size, but at a gentler rate
+           than structural spacing so content remains readable while fitting small screens */
+        @media (max-width: 500px) {
+            .evaluation-container {
+                padding: clamp(12px, 5vw, 24px) clamp(10px, 4vw, 18px) clamp(12px, 4vw, 20px);
+                gap: clamp(6px, 2.2vw, 10px);
+                min-height: auto;
+            }
+
+            .eval-title {
+                font-size: clamp(18px, 3.4vw, 20px);
+            }
+
+            .header-text {
+                font-size: clamp(14px, 3.6vw, 16px);
+                margin-bottom: clamp(8px, 3vw, 14px);
+            }
+
+            .criteria-text {
+                font-size: clamp(14px, 3.4vw, 16px);
+                line-height: 1.2;
+                padding: 4px 0;
+            }
+
+            .rating-number {
+                font-size: clamp(14px, 3.4vw, 16px);
+            }
+
+            .grid-row { gap: clamp(6px, 2vw, 8px); }
+
+            /* ensure grid items are centered on very small screens too */
+            .grid-row {
+                justify-content: center;
+                justify-items: center;
+            }
+
+            input[type="radio"] {
+                width: clamp(14px, 3.2vw, 18px);
+                height: clamp(14px, 3.2vw, 18px);
+            }
         }
 
                 .form-actions-wrapper {
@@ -320,7 +457,7 @@
                         </svg>
                     </div>
 
-                    <div class="progress-item active">
+                    <div class="progress-item active current">
                         <div class="progress-step">
                             <div class="progress-circle"></div>
                         </div>
@@ -359,12 +496,14 @@
         </div>
 
         <div class="evaluation-container">
+            <div class="eval-title">Evaluation and Criteria</div>
+
             <h2 class="header-text">
                 Each item is rated from 1 (Strongly Disagree) to 5 (Strongly Agree)
             </h2>
 
             <div class="grid-row header-row">
-                <div class="eval-title">Evaluation and Criteria</div>
+                <div class="criteria-text criteria-title">Criteria</div>
                 <div class="rating-number">5</div>
                 <div class="rating-number">4</div>
                 <div class="rating-number">3</div>

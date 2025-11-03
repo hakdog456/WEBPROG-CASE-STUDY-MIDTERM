@@ -5,7 +5,7 @@
     font-display: swap;
     /* use the woff2 hosted on Google's CDN so don't have to store files locally */
     src: local('Chakra Petch'), local('ChakraPetch-Regular'),
-             url('https://fonts.gstatic.com/s/chakrapetch/v13/cIf6MapbsEk7TDLdtEz1BwkWn6pgar3I1A.woff2') format('woff2');
+        url('https://fonts.gstatic.com/s/chakrapetch/v13/cIf6MapbsEk7TDLdtEz1BwkWn6pgar3I1A.woff2') format('woff2');
 }
 
 @font-face {
@@ -15,7 +15,7 @@
     font-display: swap;
     /* use the woff2 hosted on Google's CDN so don't have to store files locally */
     src: local('Slackey'), local('Slackey-Regular'),
-         url('https://fonts.gstatic.com/s/slackey/v29/N0bV2SdQO-5yM0-dGlNQJA.woff2') format('woff2');
+        url('https://fonts.gstatic.com/s/slackey/v29/N0bV2SdQO-5yM0-dGlNQJA.woff2') format('woff2');
 }
 
 
@@ -31,454 +31,6 @@
 }
 
 
-
-/* NAV STYLING*/
-/* NAV STYLING */
-
-/* turning off mobile elements */
-.burgerMenuCon{
-    display: none;
-}
-
-.navMobileSlide{
-  display: none;
-  top: 0;
-  padding-top: 85px;
-    /* padding-bottom: 5%; */
-    position: absolute;
-    /* height: 500px; */
-    background-image: url("images/homeImages/nav\ slider\ bg.webp");
-    background-repeat: no-repeat;
-    background-size: cover;  
-    background-position: center center;
-    width: 100%;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    z-index: 2;
-    border-radius: 20px;
-    color: #223125;
-    box-shadow: 4px 1px 10px black;
-    z-index: 5;
-}
-
-.nav{
-  top: 0;
-  position: absolute;
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
-  height: 81px;
-  font-family: "Chakra Petch";
-  color: var(--fontColor); 
-  font-size: 20px;
-  border-radius: 0px 0px 65px 65px;
-  width: 80%;
-  background: var(--bgColor);
-  z-index: 4;
-  box-shadow: 1px 1px 20px black;
-}
-
-.navLogo{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-}
-.mainNav{
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
-  gap: 4%;
-  width: 100%;
-  /* border: 2px solid pink; */
-  height: 100%;
-}
-
-.navControls{
-  display: flex;
-  align-items: center;
-  gap: 10%;
-  justify-content: flex-end;
-  padding-right: 20%;
-}
-
-.nav p{
-  transition: .2s;
-  cursor: pointer;
-}
-
-.nav p:hover{
-  transform: scale(1.3);
-}
-
-@media only screen and (max-width: 1170px) {
-  .nav{
-    width: 100%;
-  }
-}
-
-/* NAV footer for tablet and breaking point of small laptop */
-@media only screen and (max-width: 930px) {
-
-  /* HTML BODY */
-  html, body{
-    overflow-x: hidden;
-  }
-
-
-  /* NAV */
-  /* turning off mobile designs */
-  
-  
-  .nav{
-    width: 100%;
-    grid-template-columns: .9fr 1.9fr .5fr;
-  }
-
-  .mainNav{
-    gap: 3%;
-    font-size: 18px;
-  }
-
-  .navLogo{
-    justify-content: flex-end;
-  }
-
-  .navControls{
-    gap: 7%;
-  }
-
-}
-
-/* collapse nav Break Point */
-@media only screen and (max-width: 700px) {
-  
-  .nav{
-    grid-template-columns: 1fr 2fr 1fr;
-    box-shadow: 4px 1px 10px gray;
-  }
-
-  .nav div{
-    /* border: 1px solid blue; */
-  }
-
-  .mainNav{
-    display: none;
-  }
-
-  .burgerMenuCon{
-    display: flex;
-    justify-content: flex-start;
-    margin-left: 45px;
-    align-content: center;
-    cursor: pointer;
-  }
-
-  .burgerMenuBtn{
-    display: flex;
-    flex-direction: column;
-    width: 35px;
-    position: relative;
-    transition: .2s;
-  }
-
-  .burgerMenuBtn div{
-    border: none;
-    width: 100%;
-    height: 4px;
-    background: #223125;
-    margin-top: 3px;
-    margin-bottom: 3px;
-    border-radius: 2px;
-    transition: .6s;
-    transition-timing-function: ease;
-  }
-
-  .burgerActive{
-    justify-content: center;
-  }
-
-  .burgerActive div:first-child{
-    position: absolute;
-    transform: rotate(45deg);
-    align-self: center;
-  }
-
-  .burgerActive div:last-child{
-    position: absolute;
-    transform: rotate(-45deg);
-    align-self: center;
-  }
-
-  .burgerActive div:nth-child(2){
-    opacity: 0;
-  }
-  
-
-
-  .navMobileSlide{
-    padding-top: 85px;
-    /* padding-bottom: 5%; */
-    position: absolute;
-    /* height: 500px; */
-    /* background-image: url("images/homeImages/nav\ slider\ bg.webp"); */
-    /* background-repeat: no-repeat; */
-    /* background-size: cover;   */
-    /* background-position: center center; */
-    width: 100%;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    z-index: 2;
-    border-radius: 20px;
-    color: #223125;
-    box-shadow: 4px 1px 10px black;
-  }
-
-  .navMobileSlide div{
-    border-bottom: solid 2px #223125;
-    height: 50px;
-    width: 90%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .navMobileSlide div:last-child{
-    border: none;
-  }
-
-  .appear{
-    display: flex;
-  }
-
-  .navLogo{
-    grid-template-columns: 2;
-    justify-content: center;
-  }
-
-}
-
-
-
-
-
-
-/* FOOTER STYLING */
-
-.grassFooter{
-  position: absolute;
-  bottom: 0;
-  z-index: -3;
-  /* background-image: url("images/homeImages/grass-footer.webp");
-  background-repeat: no-repeat;
-  background-size: cover;  
-  background-position: center center; */
-  width: 100%;
-  /* height: 800px; */
-  
-}
-
-.footerBg{
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: #3F6032;
-  mix-blend-mode: multiply;
-  z-index: -1;
-}
-
-.HomeFooter{
-  position: absolute;
-  /* border: 2px solid red; */
-  width: 100%;
-  /* margin-top: 37%; */
-  height: 217px;
-  display: grid;
-  grid-template-columns: 4fr 1fr 1.5fr 2fr;
-  color: var(--bgColor);
-  font-size: 13px;
-  bottom: 0;
-}
-
-.HomeFooter div{
-  /* border: 1px blue solid; */
-}
-
-.foot1{
-  display: grid;
-  grid-template-rows: 1.5fr 1fr;
-}
-
-.footLogo{
-  /* border: 1px solid green; */
-  width: 70%;
-}
-
-.footerLogoIcons{
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding-left: 10%;
-  gap: 4%;
-  padding-bottom: 1%;
-}
-
-.smallIconsCon{
-  gap: 6%;
-  display: flex;
-  margin-bottom: .5%;
-  width: 100%;
-}
-
-.foot1Text, .bottomFoot1Text{
-  display: flex;
-  align-items: center;
-  padding-left: 10%;
-  line-height: 1.3;
-  margin-bottom: 1%;
-}
-
-/* disabling mobile elements */
-.bottomFoot1Text{
-  display: none;
-}
-
-.foot2, .foot3, .foot4{
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: 7vh;
-}
-
-
-/* Break point for footer foot1 text breaking at 1216 width */
-@media only screen and (max-width: 1215px) {
-  .foot1{
-    grid-template-rows: 1fr 1fr;
-  }
-}
-
-@media only screen and (max-width: 930px) {
-    /* FOOTER */
-  .HomeFooter{
-    font-size: 11px;
-    grid-template-columns: 4fr 1fr 1.5fr 3fr;
-    height: 160px;
-  }
-
-  .HomeFooter div{
-    /* border: 1px solid blue; */
-  }
-
-  .foot1{
-    grid-template-rows: 1fr 1fr;
-  }
-
-  .foot1Text{
-    margin-bottom: 0;
-  }
-
-  .footerLogoIcons{
-    align-items: flex-end;
-    gap: 2%;
-  }
-
-  .footLogo{
-    width: 50%;
-  }
-
-  .smallIconsCon{
-    width: 100%;
-    gap: 10%;
-  }
-}
-
-/* Mobile Collapse Footer */
-@media only screen and (max-width: 700px) {
-    /* FOOTER */
-  .HomeFooter{
-    grid-template-columns: 1fr 1fr 3fr 2fr;
-    grid-row: 1 1fr;
-    height: auto;
-    text-align: center;
-    
-  }
-
-  .foot1{
-    grid-row: 1;
-    grid-column: 3;
-  }
-
-  .foot2, .foot3, .foot4{
-    padding-top: 5vh;
-    align-items: flex-start;
-  }
-
-  .footerLogoIcons{
-    flex-direction: column;
-    align-items: center;
-    padding-left: 0;
-    grid-row: 1 / 3;
-  }
-
-  .smallIconsCon{
-    width: 60%;
-  }
-
-  .smallIconsCon img{
-    width: 100%;
-  }
-
-  .foot1Text{
-    display: none;
-  }
-
-  .bottomFoot1Text{
-    align-items: center;
-    text-align: center;
-    display: flex;
-    grid-row: 2;
-    grid-column: 1 / 5;
-  }
-
-  .footLogo{
-    width: 90%;
-  }
-
-  .smallIconsCon{
-    justify-content: center;
-  }
-
-  .foot2{
-    grid-column: 1;
-  }
-
-  .foot3{
-    grid-column: 2;
-  }
-
-  .foot4{
-    grid-column: 4;
-  }
-}
-
-/* Mobile View */
-@media only screen and (max-width: 451px){
-    
-  /* footer */
-  .HomeFooter{
-    font-size: 6px;
-  }
-}
-
-
-
-    
 body {
     font-family: 'Chakra Petch', monospace;
     background-image: url('fabric_background.png');
@@ -486,7 +38,10 @@ body {
     /* background-attachment: ; */
     min-height: 100vh;
     color: #4a3728;
-    padding: 120px 0 250px 0;
+    /* Smooth, responsive vertical padding across breakpoints.
+        Uses clamp so the padding decreases gradually instead of jumping
+        when media queries activate. */
+    padding: clamp(28px, 6.5vw, 120px) 0 clamp(16px, 4.5vw, 80px) 0;
 }
 
 .container {
@@ -533,15 +88,17 @@ body {
 
 .header-section {
     display: flex;
-    
+
     align-items: flex-start;
     gap: 40px;
-    
+
     margin: 0 auto 20px;
     width: min(1221.17px, 100%);
     height: min(190px, 100%);
     max-width: 1221.17px;
     max-height: 190px;
+    /* base padding uses clamp so spacing transitions smoothly across breakpoints */
+    padding: 0 clamp(10px, 4vw, 20px);
 }
 
 .progress-tracker {
@@ -610,7 +167,6 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
     flex: 0 1 var(--pc-size);
     min-width: 0;
     width: var(--pc-size);
@@ -674,17 +230,359 @@ body {
 
 
 
-
 @media (max-width: 900px) {
 
+    /* Slightly smaller progress circle, fluid between 52px and 80px */
+    /* Apply tablet-specific sizing and the same responsive layout tweaks
+        we used for mobile so the progress stack and pet image align.
+        We keep connectors and all progress items visible on tablet. */
+    .header-section {
+        /* compute shared sizing variables here so siblings can reference them */
+        --mobile-pet-w: clamp(140px, 18vw, 217.67px);
+        /* original pet image aspect ratio (width / height) ~= 217.67 / 183 = 1.189 */
+        --pet-img-h: calc(var(--mobile-pet-w) / 1.189);
+        /* scale for the progress circle relative to the pet image height.
+            Change this value to increase/decrease the circle+icon on tablet. */
+        --pc-scale: 0.7;
+        /* reduce header gap a bit on tablet and vertically center items */
+        gap: clamp(12px, 3.5vw, 28px);
+        align-items: center;
+        width: min(95%, 1221.17px);
+        /* enable absolutely-positioned status-message inside header */
+        position: relative;
+    }
+
     .progress-tracker {
-        --pc-size: 50px;
+        /* size the progress circle from the computed pet image height */
+        --pc-size: calc(var(--pet-img-h) * var(--pc-scale, 0.9));
+        /* ensure the tracker matches the pet image height so circle+meta fill it */
+        height: var(--pet-img-h);
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+        margin-top: -20px;
+    }
+
+    /* Keep the icon/halo anchored to the top of each step (like desktop)
+        so the connector (which vertically centers its line inside its box)
+        lines up with the circular icon's center. Avoid translating on Y. */
+    .progress-item .progress-icon {
+        top: 0 !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+    }
+
+    .progress-item.active::before {
+        top: 0 !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+    }
+
+    /* Ensure the step container keeps its original sizing behavior; don't
+        vertically center the absolute-positioned icon (that would shift it).
+        Keep children horizontally centered as before. */
+    .progress-step {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+    }
+
+    /* Make the pet header gap match mobile's responsive spacing */
+    .pet-header {
+        gap: clamp(8px, 4vw, 14px);
+        align-items: center;
+    }
+
+    /* Reduce the vertical gap between the circle and its meta responsively
+        (keeps label/date closer to the circle on tablet like mobile) */
+    .progress-step {
+        /* tighten the internal spacing a bit */
+        gap: clamp(2px, 0.9vw, 4px);
+    }
+
+    .progress-meta {
+        /* smaller margin and tighter internal gap so label sits closer to circle */
+        margin-top: clamp(2px, 0vw, 6px) !important;
+        gap: clamp(2px, 0.6vw, 4px) !important;
+        /* keep centering and fill behavior from earlier rules */
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        /* ensure children don't overlap — allow them to size naturally */
+        box-sizing: border-box !important;
+    }
+
+    /* prevent the label/date min-height from forcing overlap on tablet */
+    .progress-meta>.progress-label,
+    .progress-meta>.progress-date {
+        min-height: 0 !important;
+        flex: 0 0 auto !important;
+    }
+
+
+    /* Fluid base font-size for tablet; padding is handled globally to remain smooth */
+    body {
+        font-size: clamp(15px, 1.6vw, 16px);
+    }
+
+    /* Make pet image scale while maintaining aspect ratio */
+    .pet-image {
+        /* use the same computed width variable so progress sizing can reference it */
+        width: var(--mobile-pet-w);
+        /* set an explicit height computed from the same width and known aspect ratio */
+        height: var(--pet-img-h);
+        border-radius: clamp(20px, 6vw, 45px);
+        overflow: hidden;
+    }
+
+    /* ensure the actual img fills the container and keeps aspect ratio */
+    .pet-image img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+    }
+
+    .pet-info {
+        width: clamp(100px, 14vw, 122px);
+        height: auto;
+        padding-left: 0;
+    }
+
+    .pet-info h2 {
+        font-size: clamp(18px, 2.1vw, 23px);
+    }
+
+    .pet-info p {
+        font-size: clamp(16px, 2.2vw, 24px);
+    }
+
+    /* header-section tweaks moved above so tablet uses the same sizing
+        variables as mobile and keeps image/tracker aligned */
+
+    .progress-column {
+        gap: clamp(6px, 1.8vw, 8px);
+    }
+
+    /* match mobile stacking/alignment to avoid overflow on tablet */
+    .progress-step {
+        gap: clamp(4px, 1.1vw, 6px);
+    }
+
+    /* Keep the meta positioned absolutely beneath each circle so it doesn't
+        increase the .progress-item height (which would break connector alignment).
+        Use a small responsive offset for the top gap so the label sits just below. */
+    .progress-meta {
+        position: absolute !important;
+        /* reduce the vertical offset so meta sits closer to the circle */
+        top: calc(var(--pc-size) + clamp(2px, 0.8vw, 6px)) !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: var(--pc-size) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        gap: clamp(2px, 0.6vw, 4px) !important;
+        box-sizing: border-box;
+        text-align: center;
+        z-index: 2;
+    }
+
+    /* ensure labels/dates don't force overflow in constrained meta height
+        and make the date small enough to avoid wrapping on tablet */
+    .progress-meta>.progress-label {
+        min-height: 0 !important;
+        flex: 0 0 auto !important;
+    }
+
+    .progress-meta>.progress-date {
+        min-height: 0 !important;
+        flex: 0 0 auto !important;
+        /* Reduce size responsively so common date strings won't wrap on tablet */
+        font-size: clamp(10px, 0.9vw, 12px) !important;
+        white-space: nowrap !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+    }
+
+    /* place the status message bottom-right of the header on tablet
+        and scale its font-size smoothly with a slow clamp so it doesn't jump */
+    .status-message {
+        display: none;
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 500px) {
+
+    /* Smaller progress circle for tight viewports */
     .progress-tracker {
-        --pc-size: 44px;
+        /* size the progress circle from the shared pet image height computed
+                on the .header-section ancestor */
+        --pc-size: calc(var(--pet-img-h) * 0.9);
+        /* ensure the tracker itself matches the pet image height so the stacked
+                circle + meta exactly fills the same vertical space */
+        height: var(--pet-img-h);
+        align-items: center;
+    }
+
+    /* Mobile font-size only; padding handled globally so it transitions smoothly */
+    body {
+        font-size: clamp(13px, 3.2vw, 15px);
+    }
+
+    /* Image and info shrink reasonably while keeping aspect ratio */
+    .pet-image {
+        /* use the same computed width variable so progress sizing can reference it */
+        width: var(--mobile-pet-w);
+        /* set an explicit height computed from the same width and known aspect ratio */
+        height: var(--pet-img-h);
+        border-radius: clamp(12px, 6vw, 30px);
+        /* make sure the container clips and doesn't allow the inner img to overflow */
+        overflow: hidden;
+        /* preserve the internal image aspect behavior */
+    }
+
+    /* ensure the img inside the container scales correctly and keeps aspect ratio */
+    .pet-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+        margin-left: 0px;
+    }
+
+    .pet-info {
+        width: clamp(80px, 22vw, 110px);
+        padding-left: 0px;
+
+    }
+
+    .pet-info h2 {
+        font-size: clamp(16px, 4vw, 20px);
+    }
+
+    .pet-info p {
+        font-size: clamp(12px, 3.6vw, 18px);
+    }
+
+    /* Reduce the space between the pet image and info responsively
+        without using negative margins. The .pet-header gap is reduced
+        with a clamp so it scales across small devices. Align items
+        center so image and info are vertically aligned. */
+    .pet-header {
+        gap: clamp(8px, 0vw, 14px);
+        align-items: center;
+    }
+
+    /* Mobile: hide connectors and all progress items except the active one */
+    .progress-connector {
+        display: none !important;
+    }
+
+    /* Hide all items by default on mobile, then show the active one. */
+    .progress-item {
+        display: none !important;
+    }
+
+    /* Show the active progress item so users see the current step */
+    .progress-item.current {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        /* allow the active item to be wider than the progress circle so meta can expand */
+        width: auto !important;
+        max-width: min(95vw, 420px) !important;
+        padding: 0 clamp(6px, 4vw, 12px) !important;
+    }
+
+    /* Center the tracker and remove large gaps */
+    .progress-tracker {
+        justify-content: center;
+        gap: 0;
+        margin-top: 0px;
+
+    }
+
+    /* Make the meta label/date sit nicely under the circle.
+        Switch to normal flow (not absolutely positioned) so the meta can
+        use the available width of the containing .progress-item without forcing wraps. */
+    .progress-meta {
+        /* Reset absolute positioning and transforms from desktop rules so the meta
+            sits correctly under the circle on small screens. */
+        position: static !important;
+        left: auto !important;
+        top: auto !important;
+        transform: none !important;
+        /* let the meta size itself to its content but cap to the item's width */
+        width: auto !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        /* make the meta fill the remaining height under the circle so the
+                    combined height equals the pet image height */
+        height: calc(var(--pet-img-h) - var(--pc-size)) !important;
+        margin-top: 14px !important;
+        /* bring the meta closer to the circle on small screens and tighten label/date spacing */
+        gap: clamp(2px, 0.0vw, 3px) !important;
+        text-align: center !important;
+        /* center the meta within the progress-item column */
+        align-self: center !important;
+        /* use flex so the label/date are centered reliably and can wrap naturally */
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        box-sizing: border-box !important;
+        padding-top: 0px;
+    }
+
+    /* Mobile: prevent label/date forcing overlap */
+    .progress-meta>.progress-label,
+    .progress-meta>.progress-date {
+        min-height: 0 !important;
+        flex: 0 0 auto !important;
+    }
+
+    /* Adjust status message for mobile */
+    .status-message {
+        display: none !important;
+    }
+
+    .progress-label {
+        /* override global width-based rule (appears later in the file) */
+        width: auto !important;
+        max-width: 100% !important;
+        font-size: clamp(10px, 3vw, 14px) !important;
+        min-height: auto;
+        white-space: normal !important;
+        overflow-wrap: anywhere !important;
+        text-align: center !important;
+        display: block !important;
+    }
+
+    .progress-date {
+        width: auto !important;
+        max-width: 100% !important;
+        font-size: clamp(10px, 2.6vw, 12px) !important;
+        text-align: center !important;
+    }
+
+    .header-section {
+        /* reduce horizontal gap between the left (pet-header) and right (progress-column)
+            while remaining responsive and preventing overlap; the clamp ensures it scales */
+        gap: clamp(6px, 0.2vw, 12px);
+        /* compute shared sizing variables here so siblings can reference them */
+        --mobile-pet-w: clamp(90px, 26vw, 140px);
+        /* original pet image aspect ratio (width / height) ~= 217.67 / 183 = 1.189 */
+        --pet-img-h: calc(var(--mobile-pet-w) / 1.189);
+        /* align the image and progress tracker vertically centered */
+        align-items: center;
+    }
+
+    .progress-column {
+        align-items: center;
     }
 }
 
@@ -701,8 +599,6 @@ body {
     position: relative;
     z-index: 2;
 }
-
-
 
 .progress-column {
     display: flex;
@@ -749,7 +645,6 @@ body {
     font-size: clamp(10px, 12px, 14px);
 
 }
-
 
 .status-message {
     text-align: right;

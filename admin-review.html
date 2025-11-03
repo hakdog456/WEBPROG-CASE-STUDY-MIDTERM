@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="global-application-styles.css">
     <style>
 
-
         .form-container {
-            position: relative; /* stacking context for pseudo-element */
-            overflow: hidden; /* clip the pseudo-element to rounded corners */
-            background: transparent; /* actual color drawn by ::before */
+            position: relative;
+            overflow: hidden;
+            background: transparent;
             border-radius: 50px;
             border: 1px solid rgba(0, 0, 0, 0.354);
-            padding: 35px 15px 35px 50px;
+            /* responsive padding: vertical then horizontal; shrinks smoothly with viewport */
+            padding: clamp(16px, 3.5vw, 35px) clamp(12px, 3vw, 50px);
             width: min(1262px, 100%);
             margin: 0 auto;
             max-width: 1262px;
@@ -25,18 +25,56 @@
         .form-container::before {
             content: "";
             position: absolute;
-            inset: 0; /* fill the container */
-            background: rgba(68, 78, 39, 0.5); /* original container color */
-            mix-blend-mode: overlay; /* blend with page background */
+            inset: 0;
+            background: rgba(68, 78, 39, 0.5);
+            mix-blend-mode: overlay;
             z-index: 0;
             pointer-events: none;
             border-radius: inherit;
         }
 
+        /* Main page container: smooth, responsive outer padding so spacing decreases gradually */
+        .container {
+            max-width: 1500px;
+            margin: 0 auto;
+            position: relative; /* scope absolute-positioned decorations like the arrow */
+            /* vertical then horizontal padding: shrinks smoothly with viewport */
+            padding: clamp(12px, 3.2vw, 40px) clamp(10px, 2.5vw, 40px);
+            box-sizing: border-box;
+        }
+
+        .form-container>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* make the form a column flex container so children stack naturally
+           and controls like the submit button can use align-self to position */
+        .form-container > form {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch; /* ensure direct children (rows) stretch to full width */
+        }
+
+        /* Ensure each grid row fills the form width so inputs sized with
+           percentage/min() can expand as intended. Some rows are given
+           an inline max-width — keep that but allow the row to grow to
+           the form width when no max is applied. */
+        .form-row {
+            width: 100%;
+        }
+
+        /* Make form groups take full width inside their grid cell so
+           percentage-based input widths resolve against a known width. */
+        .form-group {
+            width: 100%;
+        }
+
+        /* inputs should be fully opaque — we don't want them blended with the page */
         .form-container input[type="text"],
         .form-container input[type="email"],
         .form-container input[type="tel"] {
-            opacity: 0.7;
+            opacity: 1;
         }
 
         .section-title {
@@ -46,17 +84,13 @@
             margin-top: 35px;
             color: #6b4423;
             font-weight: bold;
-            
+
             font-family: 'Slackey';
             letter-spacing: 0.3px;
         }
 
         .section-title:first-child {
             margin-top: 0;
-        }
-
-        .section-title--tight {
-            margin-top: -20px; 
         }
 
         .form-row {
@@ -68,6 +102,7 @@
         .form-row-2-email-phone {
             grid-template-columns: 2fr 1.7fr;
         }
+
         .form-row-2 {
             grid-template-columns: 2fr 1.42fr;
         }
@@ -103,6 +138,7 @@
             font-size: 12px;
             color: #3d2f1f;
         }
+
         .input-fixed {
             height: 57px;
             box-sizing: border-box;
@@ -112,24 +148,55 @@
             color: #3d2f1f;
             border: 1.5px solid #3d2f1f;
             border-radius: 100px;
-            background: rgba(238, 232, 213, 0.4);
+            background: #ffffff;
+            /* solid background so inputs remain readable */
             transition: background 160ms ease, border-color 120ms ease;
         }
 
-        .w-302 { width: min(100%, 302px); }
-        .w-305 { width: min(100%, 305px); }
-        .w-188 { width: min(100%, 188px); }
-        .w-519 { width: min(100%, 519px); }
-        .w-638 { width: min(100%, 638px); }
-        .w-1183 { width: min(100%, 1183px); }
-        .w-695 { width: min(100%, 695px); }
-        .w-470 { width: min(100%, 470px); }
-        .w-323 { width: min(100%, 323px); }
-        .w-753 { width: min(100%, 753px); }
+        .w-302 {
+            width: min(100%, 302px);
+        }
+
+        .w-305 {
+            width: min(100%, 305px);
+        }
+
+        .w-188 {
+            width: min(100%, 188px);
+        }
+
+        .w-519 {
+            width: min(100%, 519px);
+        }
+
+        .w-638 {
+            width: min(100%, 638px);
+        }
+
+        .w-1183 {
+            width: min(100%, 1183px);
+        }
+
+        .w-695 {
+            width: min(100%, 695px);
+        }
+
+        .w-470 {
+            width: min(100%, 470px);
+        }
+
+        .w-323 {
+            width: min(100%, 323px);
+        }
+
+        .w-753 {
+            width: min(100%, 753px);
+        }
 
         .form-group input::placeholder {
             color: rgba(61, 47, 31, 0.4);
         }
+
         .form-group input:focus,
         .input-fixed:focus {
             outline: none;
@@ -148,10 +215,10 @@
         .radio-option {
             display: flex;
             align-items: center;
-            gap: 12px; 
+            gap: 12px;
         }
 
-        
+
         .radio-option input[type="radio"],
         .radio-option input[type="checkbox"] {
             -webkit-appearance: none;
@@ -162,22 +229,23 @@
             flex: 0 0 16px;
             display: inline-block;
             vertical-align: middle;
-            border: 1px solid #3d2f1f; 
+            border: 1px solid #3d2f1f;
             background: transparent;
             cursor: pointer;
         }
 
-        
+
         .radio-option input[type="radio"] {
             border-radius: 50%;
         }
+
         .radio-option input[type="checkbox"] {
             border-radius: 4px;
         }
 
-        
+
         .radio-option input[type="radio"]:checked {
-            
+
             background-image: radial-gradient(circle, #3d2f1f 55%, transparent 56%);
             background-color: transparent;
             background-repeat: no-repeat;
@@ -185,8 +253,9 @@
             background-size: 60% 60%;
             border-color: #3d2f1f;
         }
+
         .radio-option input[type="checkbox"]:checked {
-            
+
             background-color: #3d2f1f;
             border-color: #3d2f1f;
         }
@@ -202,16 +271,16 @@
             flex-direction: column;
             gap: 0px;
             margin-top: 0px;
-            padding-left: 70px; 
+            padding-left: 70px;
         }
 
-        
+
         .checkbox-group--centered {
-            width: min(800px, 100%); 
+            width: min(800px, 100%);
             margin-left: auto;
             margin-right: auto;
-            padding-left: 0; 
-            align-items: flex-start; 
+            padding-left: 0;
+            align-items: flex-start;
         }
 
         .two-column-questions {
@@ -234,25 +303,117 @@
 
         .three-column-questions {
             display: grid;
-            
+
             grid-template-columns: 0.6fr 0.8fr 0.98fr;
             gap: 5px;
             align-items: start;
         }
 
-        
+
         .other-reason-row {
             display: grid;
-            grid-template-columns: 2fr 1.7fr ;
+            grid-template-columns: 2fr 1.7fr;
             align-items: center;
             gap: 12px;
             margin-top: 6px;
 
         }
-        .other-reason-row .radio-option { margin: 0; }
-        .other-reason-row .input-fixed { margin: 0;              background: rgba(238, 232, 213, 0.1);
-}
-        
+
+        .other-reason-row .radio-option {
+            margin: 0;
+        }
+
+        .other-reason-row .input-fixed {
+            background: rgba(238, 232, 213, 0.1);
+            margin: 0;
+        }
+        /* Responsive adjustments: tablet and mobile */
+        @media (max-width: 1024px) {
+            .form-container {
+                padding: 24px 18px;
+                width: calc(100% - 36px);
+            }
+            /* collapse wide multi-column rows into two columns on tablet */
+            .form-row-4 { grid-template-columns: 1fr 1fr; }
+            .form-row-3 { grid-template-columns: 1fr 1fr; }
+            .form-row-2, .form-row-2-email-phone { grid-template-columns: 1fr 1fr; }
+            .three-column-questions { grid-template-columns: 1fr 1fr; }
+            .two-column-questions { grid-template-columns: 1fr 1fr; }
+            .input-fixed { width: 100%; box-sizing: border-box; }
+            /* utility widths become full-width on tablet */
+            .w-1183, .w-753, .w-695, .w-638, .w-519, .w-470, .w-323, .w-305, .w-302, .w-188 {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .form-container {
+                padding: 16px 14px;
+                width: calc(100% - 28px);
+            }
+            /* stack everything on narrow screens */
+            .form-row, .form-row-4, .form-row-3, .form-row-2, .form-row-2-email-phone, .three-column-questions, .two-column-questions {
+                grid-template-columns: 1fr !important;
+                gap: 12px;
+            }
+            .form-group { width: 100%; }
+            .input-fixed { width: 100%; }
+            .section-title { font-size: 20px; text-align: center; }
+            .form-group label { font-size: 18px; }
+            .checkbox-group--centered { padding-left: 0; width: 100%; }
+        }
+
+        /* submit arrow placed as the last element in the form and flows with document
+           It will "hug" the right on wide screens by using margin-left:auto, and
+           become a full-width, centered CTA on narrow screens. Avoid absolute so
+           the button participates in layout and doesn't overlap content. */
+        .form-container .submit-arrow {
+            /* flow-based layout: place as the last element and push to the right */
+            display: inline-flex;
+            align-items: right;
+            justify-content: right;
+            /* place at the end of the form flow and push to the right */
+            margin-top: clamp(12px, 2vw, 24px);
+            align-self: flex-end; /* when the form is a column flex container */
+            z-index: 1; /* above the ::before overlay (which is z-index:0) */
+            background: transparent;
+            border: none;
+            padding: 8px;
+            border-radius: 999px;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+        }
+
+        .form-container .submit-arrow:focus {
+            outline: 2px solid rgba(61,47,31,0.2);
+            outline-offset: 4px;
+        }
+
+        .form-container .submit-arrow .arrow-img {
+            width: clamp(28px, 5vw, 48px);
+            height: auto;
+            display: block;
+        }
+
+        /* Narrow screens: make the button full-width and centered for easier tap target */
+        @media (max-width: 560px) {
+            .form-container .submit-arrow {
+                display: flex;
+                width: 100%;
+                justify-content: center;
+                margin-left: 0;
+                margin-top: 12px;
+                padding: 12px 0;
+                border-radius: 18px;
+                box-shadow: none;
+                background: rgba(61,47,31,0.06);
+                align-self: flex-end; /* when the form is a column flex container */
+            }
+
+            .form-container .submit-arrow .arrow-img {
+                width: 36px;
+            }
+        }
         
         .form-actions-wrapper {
             width: min(1262px, 100%);
@@ -327,7 +488,7 @@
             <div class="progress-column">
                 <div class="progress-tracker">
 
-                    <div class="progress-item active">
+                    <div class="progress-item active current">
                         <div class="progress-step">
                             <div class="progress-circle"></div>
                         </div>
