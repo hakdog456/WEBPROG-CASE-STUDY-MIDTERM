@@ -29,28 +29,6 @@ body {
   font-family: "Chakra Petch", sans-serif;
 }
 
-/* HAMBURGER MENU */
-.menu-btn {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  gap: 5px;
-  width: 28px;
-  height: 22px;
-  cursor: pointer;
-}
-
-.menu-btn span {
-  height: 3px;
-  width: 100%;
-  background-color: #2f4a26;
-  border-radius: 2px;
-  transition: 0.3s;
-}
-
-.nav-toggle {
-  display: none;
-}
 
 /* ------------- MAIN / FAQ SECTION ------------- */
 main {
@@ -63,13 +41,13 @@ main {
 
 .faq-container {
   display: flex;
-  width: 90%;
+  width: 95%;
   max-width: 1400px;
   align-items: stretch;
   justify-content: space-between;
   gap: 120px;
   margin: 0 auto;
-  padding: 60px 0;
+  padding: 40px 0;
 }
 
 .faq-image {
@@ -98,7 +76,7 @@ main {
   box-shadow: 0 0 15px rgba(0,0,0,0.15);
   mix-blend-mode: multiply;
   font-family: "Chakra Petch", sans-serif;
-  height: 60vh;
+
 }
 
 .faq-box h2 {
@@ -169,7 +147,7 @@ details[open] summary::after {
 
   .faq-image img {
     width: 100%;
-    height: 55vh;
+    height: 100%;
     object-fit: cover;
     border-radius: 20px;
 
@@ -195,7 +173,7 @@ details[open] summary::after {
 
   .faq-box {
     order: 1;
-    width: 105%;
+    width: 100%;
     padding: 25px 20px;
     border-radius: 35px;
     background-color: rgba(244, 241, 207, 0.95);
