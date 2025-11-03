@@ -95,6 +95,29 @@ body{
     display: none;
 }
 
+.navMobileSlide{
+  display: none;
+  top: 0;
+  padding-top: 85px;
+    /* padding-bottom: 5%; */
+    position: absolute;
+    /* height: 500px; */
+    background-image: url("images/homeImages/nav\ slider\ bg.webp");
+    background-repeat: no-repeat;
+    background-size: cover;  
+    background-position: center center;
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+    border-radius: 20px;
+    color: #223125;
+    box-shadow: 4px 1px 10px black;
+    z-index: 5;
+}
+
+
 .nav{
   position: absolute;
   display: grid;
@@ -737,8 +760,15 @@ body{
   }
 }
 
+/* NAV BREAK POINT */
+@media only screen and (max-width: 1170px) {
+  .nav{
+    width: 100%;
+  }
+}
 
-/* for tablet and breaking point of small laptop */
+
+/* NAV / footer for tablet and breaking point of small laptop */
 @media only screen and (max-width: 930px) {
 
   /* HTML BODY */

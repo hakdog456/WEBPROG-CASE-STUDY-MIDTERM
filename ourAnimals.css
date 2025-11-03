@@ -1,0 +1,298 @@
+
+/* CSS RESET */
+
+/* 1. Use a more-intuitive box-sizing model */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+* {
+  margin: 0;
+}
+
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
+body {
+  /* 4. Add accessible line-height */
+  line-height: 1.5;
+  /* 5. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 6. Improve media defaults */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 7. Inherit fonts for form controls */
+input, button, textarea, select {
+  font: inherit;
+}
+
+/* 8. Avoid text overflows */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+/* 9. Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+/*
+  10. Create a root stacking context
+*/
+#root, #__next {
+  isolation: isolate;
+}
+
+
+/* VARIABLES */
+:root{
+  --fontColor: #223125;
+  --fontColor2: #725134;
+  --fontColor3: #444E27;
+  --bgColor: #DEDCCA;
+}
+
+
+/* MAIN STARTING STYLING */
+/* PAGE STYLING */
+body{
+    position: relative;
+    background: var(--bgColor);
+    color: var(--fontColor);
+    font-family: "Chakra Petch";
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: 2px solid violet; */
+    overflow-x: hidden;
+    
+    /* Temporary bottom padding */
+}
+
+
+/* SEARCH BAR SECTION */
+.searchBarSection{
+  display: flex;
+  /* border: 1px solid red; */
+  width: 87%;
+  align-items: center;
+  gap: 2%;
+}
+
+.searchBar{
+  height: 74px;
+  width: 100%;
+  border: 2px solid #444E27;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 2%;
+}
+
+.filterIconCon{
+  
+}
+
+
+/* PETS LIST */
+
+.petsList{
+  width: 87%;
+  /* border: blue solid 1px; */
+  margin-top: 3%;  
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(430px, 1fr));
+  row-gap: 20px;
+  justify-items: center;
+  align-items: start;
+}
+
+.petCard{
+  width: 415px;
+  height: 531px;
+  border: 1px solid #223125;
+  border-radius: 50px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color: var(--fontColor);
+}
+
+.petCardBg{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #444E27;
+  mix-blend-mode: overlay;
+  z-index: -1;
+}
+
+.petPicCon{
+  /* border: 1px solid black; */
+  width: 339px;
+  height: 285px;
+  border-radius: 50px;
+  margin-top: 37px;
+  overflow: hidden;
+}
+
+.petDetails{
+  /* border: 1px solid red; */
+  width: 83%;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-row: 1fr 1fr;
+  font-size: 24px;
+  margin-top: 5%;
+}
+
+.petName{
+  font-weight: 1000;
+}
+
+.petGender{
+  text-align: end;
+}
+
+.petType{
+  grid-column: 1/3;
+}
+
+.buttons{
+  margin-top: 5%;
+  /* border: 1px solid blue; */
+  width: 83%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: space-between;
+}
+
+.knowMoreBtn{
+  height: 61px;
+  width: 223px;
+  border: 1px solid #444E27;
+  background: #E0D7C3;
+  border-radius: 100px;
+  mix-blend-mode: multiply;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 1000;
+  position: relative;
+}
+
+/* TABLET BREAK */
+@media only screen and (max-width: 1000px) {
+
+  /* SEARCH BAR SECTION */
+  .searchBar{
+    height: 50px;
+  }
+
+
+  /* PETS LIST */
+  .petsList{
+    grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  }
+
+  .petCard{
+    width: 303px;
+    height: 409px;
+    border-radius: 25px;
+  }
+  
+  .petPicCon{
+    width: 268px;
+    height: 266px;
+    margin-top: 20px;
+    border-radius: 25px;
+  }
+  
+  .petDetails, .knowMoreBtn{
+    font-size: 20px;
+    margin-top: 3%;
+
+  }
+
+  .buttons{
+    margin-top: 3%;
+    margin-bottom: 3%;
+  }
+
+  .knowMoreBtn{
+    height: 54px;
+    width: 172px;
+  }
+
+}
+
+
+/* MOBILE BREAK */
+@media only screen and (max-width: 730px) {
+
+  /* SEARCH BAR SECTION */
+  .searchBar{
+    height: 30px;
+  }
+
+  .searchBar img, .filterIconCon img{
+    width: 25px;
+  }
+  
+
+  /* PETS LIST */
+  .petsList{
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  }
+
+  .petCard{
+    width: 165px;
+    height: 239px;
+    border-radius: 10px;
+  }
+  
+  .petPicCon{
+    width: 132px;
+    height: 132px;
+    margin-top: 10px;
+    border-radius: 10px;
+  }
+  
+  .petDetails, .knowMoreBtn{
+    font-size: 12px;
+    margin-top: 3%;
+  }
+
+  .buttons{
+    margin-top: 3%;
+    margin-bottom: 3%;
+  }
+
+  .knowMoreBtn{
+    height: 29px;
+    width: 85px;
+  }
+
+  .heartBtn{
+    width: 32px;
+  }
+  
+}
