@@ -29,71 +29,6 @@ body {
   font-family: "Chakra Petch", sans-serif;
 }
 
-/* HEADER / NAVBAR  */
-header {
-  background: transparent;
-  padding: 1px 0;
-  box-shadow: none;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.nav-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 11px 25px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 0 0 55px 55px;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  mix-blend-mode: multiply;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-}
-
-/* LOGO */
-.logo {
-  height: 45px;
-}
-
-/* NAV LINKS */
-nav {
-  display: flex;
-  gap: 25px;
-}
-
-nav a {
-  color: rgba(0,0,0,0.8);
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 16px;
-  transition: 0.3s;
-}
-
-nav a:hover,
-nav a.active {
-  transform: scale(1.1);
-}
-
-/* ICONS */
-.icons {
-  display: flex;
-  gap: 15px;
-}
-
-.icon {
-  width: 33px;
-  height: 33px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.icon:hover {
-  transform: scale(1.15);
-}
-
 /* HAMBURGER MENU */
 .menu-btn {
   display: none;
@@ -145,9 +80,9 @@ main {
 }
 
 .faq-image img {
-  width: 200%;
+  width: 100%;
   height: 100%;
-  max-height: 600px;
+  max-height: 400px;
   object-fit: cover;
   opacity: 0.9;
   border-radius: 20px;
@@ -203,13 +138,6 @@ details[open] summary::after {
   transform: rotate(180deg);
 }
 
-details p {
-  margin-top: 10px;
-  font-size: 15px;
-  font-weight: bold;
-  color:#2f4a26;
-  font-family: "Chakra Petch", sans-serif;
-}
 
 
 /* ------------- TABLET VIEW ------------- */
@@ -225,8 +153,7 @@ details p {
   .faq-box {
     position: relative;
     z-index: 1;
-    width: 90%;
-    height: 70vh;
+    width: 90%;  
     mix-blend-mode: multiply;
   }
 
@@ -252,104 +179,6 @@ details p {
 
 /* --- MOBILE VIEW --- */
 @media (max-width: 768px) {
-  header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: none;
-    backdrop-filter: blur(3px);
-    mix-blend-mode: multiply;
-  }
-
-  .nav-container {
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    border-radius: 0 0 55px 55px;
-    padding: 10px 0;
-    box-shadow: 0 0 10px rgba(0,0,0,0.8);
-  }
-
-  /* Hamburger button */
-  .menu-btn {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-    width: 28px;
-    height: 22px;
-    cursor: pointer;
-    position: absolute;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 101;
-  }
-
-  .menu-btn span {
-    height: 3px;
-    width: 100%;
-    border-radius: 2px;
-    transition: 0.3s;
-  }
-
-  /* Animate hamburger to X */
-  .nav-toggle:checked + .menu-btn span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-  }
-  .nav-toggle:checked + .menu-btn span:nth-child(2) {
-    opacity: 0;
-  }
-  .nav-toggle:checked + .menu-btn span:nth-child(3) {
-    transform: rotate(-45deg) translate(6px, -6px);
-  }
-
-  /* Center logo */
-  .logo-link {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .logo {
-    height: 45px;
-  }
-
-  /* Right-side icons */
-  .icons {
-    position: absolute;
-    right: 20px;
-    display: flex;
-    gap: 12px;
-  }
-
-  /* Dropdown navigation */
-  nav {
-    position: absolute;
-    top: 60px;
-    left: 0;
-    width: 100%;
-    background: transparent;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    padding: 20px 0;
-    border-radius: 0 0 55px 55px;
-    mix-blend-mode: multiply;
-    transform: translateY(-300px);
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.3s ease;
-  }
-
-  /* Reveal nav on toggle */
-  .nav-toggle:checked + .menu-btn + .logo-link + nav {
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: auto;
-  }
-
   /* FAQ layout */
   .faq-section{
     background-image: none;

@@ -28,71 +28,6 @@ body {
   color: #333;
 }
 
-/* -------------------- NAVBAR -------------------- */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 11px 25px;
-  border-radius: 0 0 55px 55px;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  mix-blend-mode: multiply;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-  font-size: larger;
-}
-
-.logo img {
-  height: 45px;
-}
-
-/* Navbar Links */
-.nav-links {
-  display: flex;
-  list-style: none;
-  gap: 25px;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: rgba(0, 0, 0, 0.8);
-  font-size: 15px;
-  font-weight: 600;
-  transition: 0.3s;
-}
-
-.nav-links a:hover,
-.nav-links a.active {
-  transform: scale(1.1);
-}
-
-/* Icons */
-.icons {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.icon {
-  width: 33px;
-  height: 33px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.icon:hover {
-  transform: scale(1.15);
-}
-
-/* Mobile Menu Toggle */
-.nav-toggle {
-  display: none;
-}
-
 /* Hamburger */
 .menu-btn {
   display: none;
@@ -184,7 +119,7 @@ body {
   border-radius: 20px;
   margin-bottom: 15px;
   font-size: 14px;
-  background-color: rgba(255, 255, 255, 0.7);
+  mix-blend-mode: multiply;
 }
 
 /* Fixed message box size */
@@ -227,11 +162,6 @@ body {
   transform: scale(1.05);
 }
 
-/* -------------------- FOOTER section was here-------------------- */
-
-
-
-
 /* -------------------- RESPONSIVE -------------------- */
 @media (max-width: 1024px) {
   .contact-container {
@@ -251,61 +181,6 @@ body {
 
 /* -------------------- MOBILE -------------------- */
 @media (max-width: 768px) {
-  /* Navbar */
-  .navbar {
-    padding: 10px 15px;
-    border-radius: 0 0 55px 55px;
-    position: sticky;
-    backdrop-filter: blur(3px);
-  }
-
-  .menu-btn {
-    display: flex;
-    position: absolute;
-    left: 20px;
-  }
-
-  .logo {
-    margin: 0 auto;
-  }
-
-  .icons {
-    position: absolute;
-    right: 20px;
-  }
-
-  /* Collapsible Nav Links */
-  .nav-links {
-    position: absolute;
-    top: 65px;
-    left: 0;
-    width: 100%;
-    background: transparent;
-    flex-direction: column;
-    text-align: center;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-    z-index: 1000;
-  }
-
-  .nav-toggle:checked ~ .nav-links {
-    max-height: 230px;
-  }
-
-  /* Hamburger Animation */
-  .nav-toggle:checked + .menu-btn span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-  }
-
-  .nav-toggle:checked + .menu-btn span:nth-child(2) {
-    opacity: 0;
-  }
-
-  .nav-toggle:checked + .menu-btn span:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
-  }
-
   /* Contact section */
   .contact-container {
     flex-direction: column-reverse !important;
@@ -330,7 +205,6 @@ body {
     padding: 1rem;
   }
 
-  /*Footer was here*/
 }
 
 /* -------------------- TABLET -------------------- */
@@ -366,6 +240,4 @@ body {
     width: 100%;
   }
 }
-
-/* -------------------- FOOTER STRUCTURE was here-------------------- */
 
