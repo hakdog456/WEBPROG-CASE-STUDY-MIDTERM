@@ -6,7 +6,9 @@
     <title>Jurrasic Bark | Pet Detail</title>
     <link rel="stylesheet" href="petDetails.css">
     <link rel="stylesheet" href="global-application-styles.css">
+    <link rel="stylesheet" href="globalFooterNav.css">
     <script defer src="petDetails.js" ></script>
+    <script defer src="global.js" ></script>
 </head>
 <body>
 
@@ -73,6 +75,7 @@
     
     <!-- PET DETAILS -->
     <div class="petDetailsCon">
+        <div class="petDetailsBg"></div>
         <div class="imageCon">
             <div class="imageHolder">
                 <img class="petImage" src="images/homeImages/petPics/Bark-Twaine-BEAGLE 1.webp" alt="">        
@@ -92,10 +95,24 @@
             </div>  
 
             <div class="petControls">
-                <img src="images/ourAnimalsImages/heart icon.svg" alt="">
-                <div class="adoption" ></div>
+                <img class="heartIcon" src="images/ourAnimalsImages/heart icon.svg" alt="">
+                <div class="adoption" >
+                    <div class="adoptionBg"></div>
+                    <p class="adoptionText">Considering Bark Twain for adoption?</p>
+                    <div class="adoptionBtn">Apply Now</div>
+                    <div class="adoptionBtn">Read FAQs</div>
+                </div>
             </div>
         </div>
+
+        <!-- Bottom Pet Details Con For media Breakage -->
+        <div id="bottomAdoption" class="adoption" >
+            <div class="bottomAdoptionBg adoptionBg"></div>
+            <p class="bottomAdoptionText adoptionText">Considering Bark Twain for adoption?</p>
+            <div class="bottomAdoptionBtn adoptionBtn">Apply Now</div>
+            <div class="bottomAdoptionBtn adoptionBtn">Read FAQs</div>
+        </div>
+            
     </div>
 
 
