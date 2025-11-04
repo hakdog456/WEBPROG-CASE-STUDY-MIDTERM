@@ -5,6 +5,12 @@ body{
     padding-top: 100px;
 }
 
+a{
+  text-decoration: none;
+  color: inherit;
+}
+
+
 /* NAV STYLING */
 
 /* turning off mobile elements */
@@ -331,7 +337,7 @@ body{
     /* padding-bottom: 5%; */
     position: absolute;
     /* height: 500px; */
-    background-image: url("images/homeImages/nav\ slider\ bg.webp");
+    /* background-image: url("images/homeImages/nav\ slider\ bg.webp"); */
     width: 100%;
     display: none;
     flex-direction: column;
@@ -339,6 +345,8 @@ body{
     z-index: 2;
     border-radius: 20px;
     color: #223125;
+    background: #f0f1df;
+    font-weight: 1000;
   }
 
   .navMobileSlide div{

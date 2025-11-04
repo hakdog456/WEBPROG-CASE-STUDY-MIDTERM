@@ -222,6 +222,7 @@ body{
     background: #444E27;
     border-radius: 100px;
     margin-top: 27px;
+    overflow: hidden;
 }
 
 .details{
