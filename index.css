@@ -81,11 +81,14 @@ body{
     
     
     /* Temporary bottom padding */
-    /* padding-bottom: 30%; */
+    padding-bottom: 300px;
 
 }
 
-
+a{
+  text-decoration: none;
+  color: inherit;
+}
 
 
 /* NAV STYLING */
@@ -102,7 +105,7 @@ body{
     /* padding-bottom: 5%; */
     position: absolute;
     /* height: 500px; */
-    background-image: url("images/homeImages/nav\ slider\ bg.webp");
+    /* background-image: url("images/homeImages/nav\ slider\ bg.webp"); */
     background-repeat: no-repeat;
     background-size: cover;  
     background-position: center center;
@@ -659,6 +662,7 @@ body{
   background-size: cover;  
   background-position: center center; */
   width: 100%;
+  opacity: .5;
   /* height: 800px; */
 }
 
@@ -672,15 +676,15 @@ body{
 }
 
 .HomeFooter{
-  position: relative;
+  position: absolute;
   /* border: 2px solid red; */
   width: 100%;
-  margin-top: 37%;
   height: 217px;
   display: grid;
   grid-template-columns: 4fr 1fr 1.5fr 2fr;
   color: var(--bgColor);
   font-size: 13px;
+  bottom: 0;
 }
 
 .HomeFooter div{
@@ -1059,7 +1063,7 @@ body{
     /* padding-bottom: 5%; */
     position: absolute;
     /* height: 500px; */
-    background-image: url("images/homeImages/nav\ slider\ bg.webp");
+    /* background-image: url("images/homeImages/nav\ slider\ bg.webp"); */
     width: 100%;
     display: none;
     flex-direction: column;
@@ -1067,6 +1071,8 @@ body{
     z-index: 2;
     border-radius: 20px;
     color: #223125;
+    background: #f0f1df;
+    font-weight: 1000;
   }
 
   .navMobileSlide div{

@@ -6,7 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jurassic Bark - Adoption Application</title>
     <link rel="stylesheet" href="global-application-styles.css">
+    <link rel="stylesheet" href="globalFooterNav.css">
+    <script defer src="global.js" ></script>
     <style>
+        
+        body{
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
+            padding-bottom: 500px;
+        }
+
         /* form container: draw blended panel via ::before so children don't get blended */
         .form-container {
             position: relative;
@@ -14,7 +25,8 @@
             background: transparent;
             border-radius: 50px;
             border: 1px solid rgba(0, 0, 0, 0.354);
-            padding: 35px 15px 35px 50px;
+            /* responsive padding: vertical then horizontal; shrinks smoothly with viewport */
+            padding: clamp(16px, 3.5vw, 35px) clamp(12px, 3vw, 50px);
             width: min(1262px, 100%);
             margin: 0 auto;
             max-width: 1262px;
@@ -33,9 +45,41 @@
             border-radius: inherit;
         }
 
+        /* Main page container: smooth, responsive outer padding so spacing decreases gradually */
+        .container {
+            max-width: 1500px;
+            margin: 0 auto;
+            position: relative; /* scope absolute-positioned decorations like the arrow */
+            /* vertical then horizontal padding: shrinks smoothly with viewport */
+            padding: clamp(12px, 3.2vw, 40px) clamp(10px, 2.5vw, 40px);
+            box-sizing: border-box;
+        }
+
         .form-container>* {
             position: relative;
             z-index: 1;
+        }
+
+        /* make the form a column flex container so children stack naturally
+           and controls like the submit button can use align-self to position */
+        .form-container > form {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch; /* ensure direct children (rows) stretch to full width */
+        }
+
+        /* Ensure each grid row fills the form width so inputs sized with
+           percentage/min() can expand as intended. Some rows are given
+           an inline max-width — keep that but allow the row to grow to
+           the form width when no max is applied. */
+        .form-row {
+            width: 100%;
+        }
+
+        /* Make form groups take full width inside their grid cell so
+           percentage-based input widths resolve against a known width. */
+        .form-group {
+            width: 100%;
         }
 
         /* inputs should be fully opaque — we don't want them blended with the page */
@@ -59,10 +103,6 @@
 
         .section-title:first-child {
             margin-top: 0;
-        }
-
-        .section-title--tight {
-            margin-top: -20px;
         }
 
         .form-row {
@@ -299,12 +339,162 @@
             background: rgba(238, 232, 213, 0.1);
             margin: 0;
         }
+        /* Responsive adjustments: tablet and mobile */
+        @media (max-width: 1024px) {
+            .form-container {
+                padding: 24px 18px;
+                width: calc(100% - 36px);
+            }
+            /* collapse wide multi-column rows into two columns on tablet */
+            .form-row-4 { grid-template-columns: 1fr 1fr; }
+            .form-row-3 { grid-template-columns: 1fr 1fr; }
+            .form-row-2, .form-row-2-email-phone { grid-template-columns: 1fr 1fr; }
+            .three-column-questions { grid-template-columns: 1fr 1fr; }
+            .two-column-questions { grid-template-columns: 1fr 1fr; }
+            .input-fixed { width: 100%; box-sizing: border-box; }
+            /* utility widths become full-width on tablet */
+            .w-1183, .w-753, .w-695, .w-638, .w-519, .w-470, .w-323, .w-305, .w-302, .w-188 {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .form-container {
+                padding: 16px 14px;
+                width: calc(100% - 28px);
+            }
+            /* stack everything on narrow screens */
+            .form-row, .form-row-4, .form-row-3, .form-row-2, .form-row-2-email-phone, .three-column-questions, .two-column-questions {
+                grid-template-columns: 1fr !important;
+                gap: 12px;
+            }
+            .form-group { width: 100%; }
+            .input-fixed { width: 100%; }
+            .section-title { font-size: 20px; text-align: center; }
+            .form-group label { font-size: 18px; }
+            .checkbox-group--centered { padding-left: 0; width: 100%; }
+        }
+
+        /* submit arrow placed as the last element in the form and flows with document
+           It will "hug" the right on wide screens by using margin-left:auto, and
+           become a full-width, centered CTA on narrow screens. Avoid absolute so
+           the button participates in layout and doesn't overlap content. */
+        .form-container .submit-arrow {
+            /* flow-based layout: place as the last element and push to the right */
+            display: inline-flex;
+            align-items: right;
+            justify-content: right;
+            /* place at the end of the form flow and push to the right */
+            margin-top: clamp(12px, 2vw, 24px);
+            align-self: flex-end; /* when the form is a column flex container */
+            z-index: 1; /* above the ::before overlay (which is z-index:0) */
+            background: transparent;
+            border: none;
+            padding: 8px;
+            border-radius: 999px;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+        }
+
+        .form-container .submit-arrow:focus {
+            outline: 2px solid rgba(61,47,31,0.2);
+            outline-offset: 4px;
+        }
+
+        .form-container .submit-arrow .arrow-img {
+            width: clamp(28px, 5vw, 48px);
+            height: auto;
+            display: block;
+        }
+
+        /* Narrow screens: make the button full-width and centered for easier tap target */
+        @media (max-width: 560px) {
+            .form-container .submit-arrow {
+                display: flex;
+                width: 100%;
+                justify-content: center;
+                margin-left: 0;
+                margin-top: 12px;
+                padding: 12px 0;
+                border-radius: 18px;
+                box-shadow: none;
+                background: rgba(61,47,31,0.06);
+                align-self: flex-end; /* when the form is a column flex container */
+            }
+
+            .form-container .submit-arrow .arrow-img {
+                width: 36px;
+            }
+        }
+
     </style>
 </head>
 
 <body>
+    <!-- Space for navbar -->
+    <!-- NAV BAR -->
+    <div class="nav">
+        <!-- Burger menu button for mobile -->
+        <div class="burgerMenuCon" >
+            <div class="burgerMenuBtn" >
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+
+        <div class="navLogo">
+            <img src="images/homeImages/Jurassic Bark.webp" alt="">
+        </div>
+        <div class="mainNav">
+            <p><a href="index.html">Home</a></p>
+            <p> <a href="aboutUs.html">About Us</a></p>
+            <p> <a href="ourAnimals.html">Our Animals</a></p>
+            <p><a href="contact.html">Contact Us</a></p>
+            <p><a href="faqs.html">FAQs</a></p>
+        </div>
+        <div class="navControls">
+            <!-- Search SVG -->
+            <svg class="searchIcon" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.3333 31.6667C25.6971 31.6667 31.6667 25.6971 31.6667 18.3333C31.6667 10.9695 25.6971 5 18.3333 5C10.9695 5 5 10.9695 5 18.3333C5 25.6971 10.9695 31.6667 18.3333 31.6667Z" stroke="#223125" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M35 35L27.75 27.75" stroke="#223125" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+
+            <!-- User Svg -->
+            <svg class="userIcon" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M33.3337 35V31.6667C33.3337 29.8986 32.6313 28.2029 31.381 26.9526C30.1308 25.7024 28.4351 25 26.667 25H13.3337C11.5655 25 9.86986 25.7024 8.61961 26.9526C7.36937 28.2029 6.66699 29.8986 6.66699 31.6667V35" stroke="#223125" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M19.9997 18.3333C23.6816 18.3333 26.6663 15.3486 26.6663 11.6667C26.6663 7.98477 23.6816 5 19.9997 5C16.3178 5 13.333 7.98477 13.333 11.6667C13.333 15.3486 16.3178 18.3333 19.9997 18.3333Z" stroke="#223125" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+
+        </div>
+    </div>
+
+    <div class="navMobileSlide">
+        <div class="navItem">
+            <a href="index.html"><p>HOME</p></a>
+        </div>
+        
+        <div class="navItem">
+            <a href="aboutUs.html"><p>ABOUT US</p></a>
+        </div>
+
+        <div class="navItem">
+            <a href="ourAnimals.html"><p>OUR ANIMALS</p></a>
+        </div>
+
+        <div class="navItem">
+            <a href="contact.html"><p>CONTACT US</p></a>
+        </div>
+
+        <div class="navItem">
+            <a href="faqs.html"><p>FAQs</p></a>
+        </div>
+
+    </div>
     <div class="container">
-        <!-- Space for navbar -->
+
+
+
 
         <div class="header-section">
             <div class="pet-header">
@@ -321,7 +511,7 @@
             <div class="progress-column">
                 <div class="progress-tracker">
 
-                    <div class="progress-item active">
+                    <div class="progress-item active current">
                         <div class="progress-step">
                             <div class="progress-circle"></div>
                         </div>
@@ -666,11 +856,100 @@
                         <input type="text" class="input-fixed w-753">
                     </div>
                 </div>
+
+                <!-- Submit arrow button placed bottom-right of the form container -->
+                <a href="meet-and-greet-sechdule.html" class="submit-arrow" type="submit" aria-label="Submit application">
+                    <img src="svgs/arrow.svg" class="arrow-img" alt="">
+                </a>
             </form>
         </div>
 
         <!-- Space for footer -->
     </div>
+
+        <div style="position:fixed; bottom:20px; right:20px; display:flex; gap:2px; align-items:center; z-index:9999;">
+        <a href="admin-review.html" aria-label="Page 1" style="width:24px; height:24px; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; text-decoration:none; color:#fff; background:#6e6e6e; font-weight:600; font-size:14px; box-shadow:0 4px 10px rgba(0,0,0,0.12);">1</a>
+        <a href="meet-and-greet-sechdule.html" aria-label="Page 2" style="width:24px; height:24px; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; text-decoration:none; color:#fff; background:#6e6e6e; font-weight:600; font-size:14px; box-shadow:0 4px 10px rgba(0,0,0,0.12);">2</a>
+        <a href="meet-and-greet-evaluation.html" aria-label="Page 3" style="width:24px; height:24px; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; text-decoration:none; color:#fff; background:#6e6e6e; font-weight:600; font-size:14px; box-shadow:0 4px 10px rgba(0,0,0,0.12);">3</a>
+        <a href="admin-ready-for-adoption.html" aria-label="Page 4" style="width:24px; height:24px; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; text-decoration:none; color:#fff; background:#6e6e6e; font-weight:600; font-size:14px; box-shadow:0 4px 10px rgba(0,0,0,0.12);">4</a>
+        <a href="admin-ready-for-adoption-confirmation.html" aria-label="Page 5" style="width:24px; height:24px; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; text-decoration:none; color:#fff; background:#6e6e6e; font-weight:600; font-size:14px; box-shadow:0 4px 10px rgba(0,0,0,0.12);">5</a>
+
+    </div>
+    <div style="position:fixed; bottom:40px; right:20px; display:flex; gap:2px; align-items:center; z-index:9999;">
+        <a href="user-application-page.html" aria-label="Page 1" style="width:24px; height:24px; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; text-decoration:none; color:#fff; background:#6e6e6e; font-weight:600; font-size:14px; box-shadow:0 4px 10px rgba(0,0,0,0.12);">1</a>
+        <a href="meet-greet-page.html" aria-label="Page 2" style="width:24px; height:24px; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; text-decoration:none; color:#fff; background:#6e6e6e; font-weight:600; font-size:14px; box-shadow:0 4px 10px rgba(0,0,0,0.12);">2</a>
+        <a href="payment-page.html" aria-label="Page 3" style="width:24px; height:24px; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; text-decoration:none; color:#fff; background:#6e6e6e; font-weight:600; font-size:14px; box-shadow:0 4px 10px rgba(0,0,0,0.12);">3</a>
+        <a href="user-adopted.html" aria-label="Page 4" style="width:24px; height:24px; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; text-decoration:none; color:#fff; background:#6e6e6e; font-weight:600; font-size:14px; box-shadow:0 4px 10px rgba(0,0,0,0.12);">4</a>
+    </div>
+
+    <!-- FOOTER -->
+     <div class="HomeFooter">
+        <div class="footerBg" ></div>
+        <div class="foot1" >
+            <div class="footerLogoIcons" >
+                <img class="footLogo" src="images/homeImages/Jurassic Bark.svg" alt="">
+                <div class="smallIconsCon">
+                    <img class="smallIcons" src="images/homeImages/facebook.svg" alt="">
+                    <img class="smallIcons" src="images/homeImages/instagram.svg" alt="">
+                    <img class="smallIcons" src="images/homeImages/tiktok.svg" alt="">            </div>
+                </div>
+            <div class="foot1Text" >
+                © 2025 Jurassic Bark. All Rights Reserved.
+                <br>
+                Registered Nonstock, Nonprofit Organization — SEC Registration No. CN2025-XXXXXX
+                <br>   
+                Accredited under the Animal Welfare Act of 1998 (Republic Act No. 8485, as amended by RA 10631).
+            </div>
+
+        </div>
+
+        <!-- bottom foot1 text for mobile -->
+        <div class="bottomFoot1Text" >
+            © 2025 Jurassic Bark. All Rights Reserved.
+            <br>
+            Registered Nonstock, Nonprofit Organization — SEC Registration No. CN2025-XXXXXX
+            <br>   
+            Accredited under the Animal Welfare Act of 1998 (Republic Act No. 8485, as amended by RA 10631).
+        </div>
+            
+        <div class="foot2" >
+            Home
+            <br>
+            About Us
+            <br>
+            Our Animals
+            <br>
+            Contact Us
+            <br>
+            FAQs
+        </div>
+        <div class="foot3" >
+            Privacy Policy
+            <br>
+            Terms of Service
+            <br>
+            Adoption Policy
+            <br>
+            Licensing or nonprofit 
+            <br>
+            registration info
+        </div>
+        <div class="foot4" >
+            Tarlac State University - San Isidro Campus, 
+            <br>
+            Brgy. San Isidro, Tarlac City, 2300 Tarlac
+            <br>
+            +63 912 345 6789
+            <br>
+            jurassicbark@gmail.com
+            <br>
+            MON to SAT, 10 AM - 6 PM
+            <br>
+            No Noon Time Break
+        </div>
+     </div>
+
+     
 </body>
 
 </html>

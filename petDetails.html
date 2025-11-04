@@ -6,7 +6,9 @@
     <title>Jurrasic Bark | Pet Detail</title>
     <link rel="stylesheet" href="petDetails.css">
     <link rel="stylesheet" href="global-application-styles.css">
+    <link rel="stylesheet" href="globalFooterNav.css">
     <script defer src="petDetails.js" ></script>
+    <script defer src="global.js" ></script>
 </head>
 <body>
 
@@ -25,11 +27,11 @@
             <img src="images/homeImages/Jurassic Bark.webp" alt="">
         </div>
         <div class="mainNav">
-            <p>Home</p>
-            <p>About Us</p>
-            <p>Our Animals</p>
-            <p>Contact Us</p>
-            <p>FAQs</p>
+            <p><a href="index.html">Home</a></p>
+            <p> <a href="aboutUs.html">About Us</a></p>
+            <p> <a href="ourAnimals.html">Our Animals</a></p>
+            <p><a href="contact.html">Contact Us</a></p>
+            <p><a href="faqs.html">FAQs</a></p>
         </div>
         <div class="navControls">
             <!-- Search SVG -->
@@ -49,23 +51,23 @@
 
     <div class="navMobileSlide">
         <div class="navItem">
-            <p>HOME</p>
+            <a href="index.html"><p>HOME</p></a>
         </div>
         
         <div class="navItem">
-            <p>ABOUT US</p>
+            <a href="aboutUs.html"><p>ABOUT US</p></a>
         </div>
 
         <div class="navItem">
-            <p>OUR ANIMALS</p>
+            <a href="ourAnimals.html"><p>OUR ANIMALS</p></a>
         </div>
 
         <div class="navItem">
-            <p>CONTACT US</p>
+            <a href="contact.html"><p>CONTACT US</p></a>
         </div>
 
         <div class="navItem">
-            <p>FAQs</p>
+            <a href="faqs.html"><p>FAQs</p></a>
         </div>
 
     </div>    
@@ -73,6 +75,8 @@
     
     <!-- PET DETAILS -->
     <div class="petDetailsCon">
+        <div class="petDetailsBg"></div>
+
         <div class="imageCon">
             <div class="imageHolder">
                 <img class="petImage" src="images/homeImages/petPics/Bark-Twaine-BEAGLE 1.webp" alt="">        
@@ -83,8 +87,10 @@
             <div class="petText">
                 <p class="name">Bark Twain</p>
                 <p class="details">
-                    Beagle | 2 years old | Male
-                    <br><br>
+                    <p class="petTypeText" style="text-align: center" >
+                        Beagle | 2 years old | Male
+                    </p>
+                    <br>
                     Coat Length: Short <br> Vaccination: 2025-08-10 <br> Neutered: Yes
                     <br><br>
                     Bark Twain may have been dealt a rough hand—neglected, abandoned, and left tied to a tree at the illegal POGO Boss Mansion—but this gentle giant never let that define him. Despite everything, he still holds onto hope that kindness and love are still in the cards for him.
@@ -92,10 +98,24 @@
             </div>  
 
             <div class="petControls">
-                <img src="images/ourAnimalsImages/heart icon.svg" alt="">
-                <div class="adoption" ></div>
+                <img class="heartIcon" src="images/ourAnimalsImages/heart icon.svg" alt="">
+                <div class="adoption" >
+                    <div class="adoptionBg"></div>
+                    <p class="adoptionText">Considering Bark Twain for adoption?</p>
+                    <a href="user-application-page.html" class="adoptionBtn">Apply Now</a>
+                    <div class="adoptionBtn">Read FAQs</div>
+                </div>
             </div>
         </div>
+
+        <!-- Bottom Pet Details Con For media Breakage -->
+        <div id="bottomAdoption" class="adoption" >
+            <div class="bottomAdoptionBg adoptionBg"></div>
+            <p class="bottomAdoptionText adoptionText">Considering Bark Twain for adoption?</p>
+            <a href="user-application-page.html" class="bottomAdoptionBtn adoptionBtn">Apply Now</a>
+            <div class="bottomAdoptionBtn adoptionBtn">Read FAQs</div>
+        </div>
+            
     </div>
 
 
