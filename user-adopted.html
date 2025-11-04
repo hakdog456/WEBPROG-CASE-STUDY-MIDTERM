@@ -5,6 +5,113 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="global-application-styles.css">
     <title>Payment - Bark Twain Adoption</title>
+
+    <style>
+        .adoption-container {
+            position: relative;
+            overflow: hidden;
+            background: transparent;        
+            border: 1px solid rgba(0, 0, 0, 0.354);
+            /* responsive padding: top/bottom and left/right scale down on narrow screens */
+            padding: clamp(12px, 2.5vw, 35px) clamp(12px, 3vw, 50px);
+            border-radius: 40px;
+            position: relative;
+            width: min(1262px, 100%);
+            /* reduce top/bottom margin as width decreases */
+            margin: clamp(8px, 2vh, 18px) auto;
+            max-height: 1262px;
+            max-width: 1262px;
+            height: auto;
+            box-sizing: border-box;
+        }
+
+        /* Tablet: gently reduce padding/margin and radius so the container breathes on smaller screens */
+        @media (max-width: 900px) {
+            .admin-ready-final-container {
+                padding: clamp(10px, 2.8vw, 22px) clamp(10px, 3.2vw, 36px);
+                border-radius: 28px;
+                margin: clamp(6px, 2vh, 14px) auto;
+            }
+            .verify-text { font-size: clamp(22px, 3.2vw, 32px); margin-bottom: 28px; }
+        }
+
+        /* Mobile: compact padding/margin so content fits comfortably */
+        @media (max-width: 520px) {
+            .admin-ready-final-container {
+                padding: clamp(8px, 4vw, 14px) clamp(8px, 4.5vw, 14px);
+                border-radius: 20px;
+                margin: 10px auto;
+            }
+            .verify-text { font-size: clamp(18px, 4.5vw, 22px); margin-bottom: 18px; }
+        }
+
+
+        .adoption-container::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(68, 78, 39, 0.5);
+            mix-blend-mode: overlay;
+            z-index: 0;
+            pointer-events: none;
+            border-radius: inherit;
+        }
+        
+
+        .section-title {
+            text-align: center;
+            font-size: 38px;
+            margin-bottom: 10px;
+            color: #6b4423;
+            font-weight: 400;
+            letter-spacing: 0.5px;;
+            font-family: "Slackey";
+        }
+
+        .adoption-text {
+            font-size: 24px;
+            color: #4a3728;
+            margin-top: 20px;
+            margin-bottom: 40px;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .form-actions-wrapper {
+            width: min(1262px, 100%);
+            max-width: 1262px;
+            margin: 18px auto 0; 
+            box-sizing: border-box;
+            padding: 0 15px; 
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end; 
+            gap: 12px;
+            align-items: center;
+        }
+
+        /* Tablet: center the action buttons */
+        @media (max-width: 900px) {
+            .form-actions {
+                justify-content: center;
+            }
+        }
+
+        /* Mobile: center and stack the action buttons for better touch targets */
+        @media (max-width: 520px) {
+            .form-actions {
+                justify-content: center;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .section-title { font-size: clamp(28px, 4vw, 38px); }
+            .btn { width: 100%; max-width: 320px; }
+        }
+
+    </style>
 </head>
 <body>
     <div class="container">
@@ -85,7 +192,7 @@
                         </svg>
                     </div>
 
-                    <div class="progress-item active">
+                    <div class="progress-item active current">
                         <div class="progress-step">
                             <div class="progress-circle"></div>
                         </div>
@@ -99,7 +206,12 @@
                     </div>
 
                 </div>
-                <div class="status-message">Adoption complete. You have started your tale with Bark Twain!
+                <div class="status-message">Adoption process complete!</div> </div>
+            </div>
+
+            <div class="adoption-container">
+                <div class="section-title">Congratulations!</div>
+                <p class="adoption-text"> Adoption complete. You have started your tale with Bark Twain!</p>
             </div>
             </div>
         </div>

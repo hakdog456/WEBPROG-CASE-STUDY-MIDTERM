@@ -1,0 +1,1770 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Dog Grid (overlay aligned)</title>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Slackey&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+   /* fuck this shit */
+
+  body {
+    font-family: "Chakra Petch", monospace;
+    background: url('fabric_background.png') center/cover no-repeat;
+    background-size: cover;
+    padding: 20px;
+  }
+
+  /* SECTION: fixed container width (wants to be 731px) and center */
+  .pet-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* stack header, search and grid vertically */
+    align-items: center; /* center children horizontally */
+    position: relative;
+    padding: 20px 0 80px; /* visual breathing room */
+    /* shared layout variables so header, search and grid match width & gap */
+    --max-width: 1431px;
+    /* smaller, responsive gap used across header/search/grid — reduced max so links don't wrap */
+    --gap: clamp(30px, 2vw, 60px);
+    row-gap: 15px;
+    /* constrain the main content and center it */
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  /* Header shell (non-blended) — contains a visual overlay wrapper and the nav links as a sibling
+     so the links won't be affected by mix-blend-mode. */
+  .pet-header-shell {
+    width: min(var(--max-width), 100%);
+    height: 74px;
+    margin: 0 auto 16px;
+    border-radius: 50px;
+    box-sizing: border-box;
+    padding: 0 20px;
+    position: relative;
+    border: 1px solid rgba(0,0,0,1);
+    overflow: visible;
+  }
+
+  /* User name row sits above the header, aligned to the right of the content width */
+  .user-row {
+    width: min(var(--max-width), 100%);
+    margin: 0 auto 8px;
+    display: flex;
+    justify-content: flex-end; /* align to the right */
+    box-sizing: border-box;
+    padding-inline: 20px; /* match header padding visually */
+  }
+
+  .user-name {
+    font-family: 'Slackey', cursive;
+    font-size: clamp(20px, 3vw, 40px); /* preferred 40px but responsive */
+    color: #222;
+    line-height: 1;
+  }
+
+  /* visual overlay inside the header shell — this uses mix-blend-mode but sits underneath
+     the actual nav so the nav itself is not blended. */
+  .pet-header-wrapper {
+    position: absolute;
+    inset: 0;
+    border-radius: 50px;
+    background: rgba(68,78,39,0.5);
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    z-index: 0;
+    box-sizing: border-box;
+  }
+
+  .pet-header-shell {
+    display: flex;
+    align-items: center; /* vertically center children (nav) */
+    justify-content: center; /* center horizontally by default */
+  }
+
+  .pet-header-shell .nav-links {
+    position: relative;
+    z-index: 2; /* above the visual overlay */
+    display: flex;
+    gap: clamp(0px, 70px, 100px);
+    align-items: center;
+    justify-content: center; /* center links horizontally */
+    flex-wrap: nowrap; /* never wrap — we'll scale children instead */
+    overflow-x: auto; /* allow horizontal scroll if space is extremely tight */
+    -webkit-overflow-scrolling: touch;
+    font-weight: 400;
+    color: #222;
+    font-size: clamp(14px, 1.6vw, 22px); /* responsive font sizing */
+  }
+
+  /* hide native scrollbar but keep scrolling functional */
+  .pet-header-shell .nav-links {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+  }
+  .pet-header-shell .nav-links::-webkit-scrollbar { display: none; }
+
+  /* nav scroll arrows (left/right) */
+  .nav-scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(44,56,25,0.9);
+    color: #fff;
+    border: 0;
+    cursor: pointer;
+    z-index: 3;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    opacity: 0.95;
+  }
+  .nav-scroll-left { left: 8px; }
+  .nav-scroll-right { right: 8px; }
+  .nav-scroll-btn.hidden { display: none !important; }
+
+  .pet-header-shell .nav-links a {
+    text-decoration: none;
+    color: #222;
+    padding: 4px 0px;
+    border-radius: 28px;
+    white-space: nowrap; /* prevent link text from wrapping */
+    flex-shrink: 0; /* don't allow links to shrink below content width */
+    font-size: inherit; /* follow responsive nav-links size */
+  }
+
+  .pet-header .nav-links a:hover {
+    background: rgba(0,0,0,0.04);
+  }
+
+  /* Search row sits under the header and above the grid; it aligns with the same width */
+  .search-row {
+    width: min(var(--max-width), 100%);
+    margin: 0 auto 18px;
+    display: flex;
+    justify-content: flex-end; /* hug the right side */
+    box-sizing: border-box;
+    padding-inline: 0px;
+  }
+
+  .search-container {
+    /* prefer 925px but allow shrinking; max-width keeps a cap */
+    flex: 0 1 925px; /* don't grow, can shrink, base 925px */
+    width: min(925px, 100%);
+    max-width: 925px;
+    height: 74px;
+    border-radius: 50px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(0,0,0,1);
+    display: flex;
+    align-items: center;
+    padding: 0 12px 0 20px;
+    box-sizing: border-box;
+  }
+
+  .search-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-size: 18px;
+    padding: 8px 12px;
+    outline: none;
+  }
+
+  .search-btn {
+    width: 40px;
+    height: 40px;
+    border: none;
+    padding: 0;
+    margin-left: 12px;
+    background: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .search-btn img { width: 40px; height: 40px; display: block; }
+
+  /* Shared grid sizing so overlay cells and pet-cards align exactly.
+     IMPORTANT: both grids below use the same column template, gap and width. */
+    .pet-grid-shell {
+      width: min(var(--max-width), 100%);
+      max-width: 100%;
+      margin: 0 auto;
+      position: relative;
+      display: block;
+      border-radius: 50px;
+      /* number of columns (responsive via media queries) */
+      --cols: 3;
+      /* horizontal padding for inner content — share with overlay via --pad-x */
+      --pad-x: 40px;
+      /* vertical padding for inner content (shared with overlay) */
+      --pad-y: 35px;
+  /* shared gap is inherited from .pet-section for consistent spacing */
+      border: 1px solid rgba(0,0,0,0.5);
+      /* apply shared vertical and horizontal padding to the shell */
+      padding: var(--pad-y) var(--pad-x);
+    }
+
+    /* overlay wrapper: visual layer that will use mix-blend-mode and background
+       Keep the overlay separate from the cards (sibling) so cards won't be blended. */
+    .pet-grid-wrapper {
+      position: absolute;
+      inset: 0; /* fill the shell */
+      background: rgba(68,78,39,0.5);
+      mix-blend-mode: overlay;
+      pointer-events: none; /* overlay is purely visual */
+      z-index: 0;
+      box-sizing: border-box;
+      border-radius: 50px;
+      /* overlay uses same inner padding so its inner grid lines up */
+      padding: var(--pad-y) var(--pad-x);
+    }
+
+
+  /* ---------- BACKGROUND OVERLAY GRID (positioned behind) ---------- */
+  .pet-overlay-grid {
+    /* the grid of overlay cells lives inside the overlay wrapper (.pet-grid-wrapper)
+       and fills it. The card grid (below) is a sibling so it won't be blended. */
+    width: 100%;
+    height: 100%;
+    display: grid;
+    /* use fractional columns so cells resize inside wrapper */
+    grid-template-columns: repeat(var(--cols), 1fr);
+    gap: var(--gap); /* smooth responsive gap (shared) */
+    justify-content: center; /* centers the whole grid within wrapper */
+    align-content: start;
+    pointer-events: none; /* purely visual */
+    z-index: 0;
+    box-sizing: border-box;
+  }
+  
+
+  .pet-overlay-cell {
+    width: 100%;
+    /* keep the original card proportions while allowing scaling */
+    aspect-ratio: 415 / 531;
+    border-radius: 36px;
+    background: rgba(68,78,39,0.5);
+    border: 1px solid rgba(0,0,0,0.35);
+    box-shadow: inset 0 -6px 12px rgba(0,0,0,0.06);
+  }
+
+  /* ---------- FOREGROUND GRID (real pet cards) ---------- */
+  .pet-items {
+    position: relative;
+    display: grid;
+    /* fractional columns to match overlay and fit shell */
+    grid-template-columns: repeat(var(--cols), 1fr);
+    gap: var(--gap);
+    justify-content: center;
+    z-index: 2; /* above overlay */
+    /* use the shell padding so content lines up with overlay inner grid */
+    padding: 0; /* shell already provides spacing via padding */
+    margin: 0; /* reset any defaults */
+  }
+
+  /* No-results message styling */
+  .no-results {
+    width: min(var(--max-width), 100%);
+    margin: 8px auto 0;
+    text-align: center;
+    color: #444;
+    font-size: 18px;
+  }
+
+  /* Pet card fixed size */
+  .pet-card {
+    width: 100%;
+    /* match overlay proportions and resize with grid column width */
+    aspect-ratio: 415 / 531;
+    display: flex;
+    flex-direction: column;
+    padding: 28px;
+    background: transparent; /* background comes from overlay cell */
+    border-radius: 36px;
+    /* keep card visually independent (no blend) */
+    border: 1px solid rgba(0,0,0,0.15);
+    position: relative; /* for remove X */
+  }
+
+  .pet-img {
+    /* make image responsive inside the scalable card */
+    width: calc(min(339px, 100%) - 56px); /* leave room for card padding */
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    border-radius: 24px;
+    object-fit: cover;
+    display: block;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+  }
+
+  .pet-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #222;
+  }
+
+  .pet-breed-age {
+    margin-top: 8px;
+    font-size: 18px;
+    color: #2f3a24;
+  }
+
+  /* Actions: heart + button aligned horizontally; placed at bottom of card */
+  .pet-actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-top: auto; /* push to bottom */
+  }
+
+  .heart {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(44,56,25,0);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    cursor: pointer; /* clickable heart */
+    transition: transform 160ms ease;
+  }
+
+  .heart:active { transform: scale(0.98); }
+
+  /* when a heart is toggled, color the svg path (fills the heart) */
+  .heart svg { width: 28px; height: 28px; display: block; }
+  .heart.liked svg path { fill: #111 !important; stroke: #111 !important; transition: fill 180ms ease; }
+
+  /* small active state for nav links */
+  .pet-header-shell .nav-links a.active { font-weight: 600; }
+
+  /* Floating admin/edit buttons */
+  .floating-admin-btn,
+  .floating-edit-btn {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #2c3819;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    border: 2px solid rgba(255,255,255,0.06);
+    cursor: pointer;
+    z-index: 9999;
+  }
+
+  /* TO DO: KILL YOURSELF */
+
+  .floating-edit-btn { right: 90px; background: #3a4a2a; display: none; }
+
+  .floating-admin-btn[aria-pressed="true"] { background: #1e2a0f; }
+
+  /* Admin mode: darker card background and hide hearts */
+  .admin-mode .pet-card {
+    background: rgba(44,56,25,0.08); /* slightly darker green tint */
+    border-color: rgba(0,0,0,0.2);
+  }
+
+  .admin-mode .heart { display: none !important; }
+
+  /* Edit mode: style the button when showing svg icon */
+  .pet-btn.editing { padding: 6px; width: 48px; height: 48px; border-radius: 10px; border: none; background: transparent; }
+  .pet-btn.editing img, .pet-btn.editing svg { width: 20px; height: 20px; display: block; }
+
+  /* Editor overlay that expands a card to edit fields */
+  .editor-overlay {
+    position: absolute;
+    inset: 0; /* will be positioned relative to .pet-grid-shell */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9998;
+    pointer-events: auto;
+  }
+
+  .editor-panel {
+    width: min(1252px, calc(100% - 40px));
+    height: auto; /* allow auto height so panel grows/shrinks with content */
+    max-height: min(693px, calc(100vh - 40px));
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    padding: 28px;
+    box-sizing: border-box;
+    transform-origin: center center;
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+    transition: transform 260ms cubic-bezier(.2,.9,.3,1), opacity 200ms ease;
+  }
+
+  .editor-panel.show { opacity: 1; transform: none; }
+
+  /* Left: image area */
+  .editor-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Maintain the requested aspect ratio (~424x355) so the image scales proportionally
+       as the width changes. Constrain max width to match the design and ensure the
+       height never goes below 150px. */
+    aspect-ratio: 424 / 355;
+    width: 100%;
+    max-width: 424px;
+    min-height: 150px;
+  }
+  /* Make the editor image fill the image area and look good when resized.
+     The image fills the container and is cropped via object-fit:cover so it keeps the
+     visual framing across sizes. */
+  .editor-image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Right: form grid */
+  .editor-form {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 12px;
+  }
+
+  .editor-fields {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    align-content: start;
+  }
+
+  .field-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .field-row label {
+    font-family: 'Slackey', cursive;
+    font-size: 24px;
+    width: 180px;
+    flex: 0 0 180px;
+  }
+
+  .field-row input,
+  .field-row textarea {
+    flex: 1 1 auto;
+    padding: 12px 14px;
+    font-size: 16px;
+    border-radius: 50px;
+    border: 1px solid rgba(0,0,0,0.12);
+    background: rgba(255,255,255,0.1);
+  }
+
+  .field-row input { height: 57px; min-height: 44px; }
+  .field-row textarea { height: 198px; resize: vertical; padding: 14px; }
+
+  /* make the search input rounded too */
+  .search-input { border-radius: 50px; background: rgba(255,255,255,0.1); }
+
+  /* Template shell for editor/add panel visual separation
+    The .editor-visual will be blended (mix-blend-mode) while .editor-content
+    contains the real controls so they don't get blended. The template is hidden
+    by default and can be cloned/used by JS or shown directly for debugging. */
+  .editor-template { display: none; }
+  /* when cloned inside .pet-grid-shell, the editor-shell will overlay the shell via CSS
+    JS should only activate (clone/append) or remove it — no inline positioning needed */
+  .editor-shell { position: absolute; inset: 0; display:flex; align-items:center; justify-content:center; z-index:9998; pointer-events: auto; border-radius: 50px; }
+  .editor-visual { position: absolute; inset: 0; border-radius: 50px; width: 100%; height: 100%; background: rgba(68,78,39,0.5); mix-blend-mode: overlay; pointer-events: none; margin: auto; }
+  .editor-content { position: relative; z-index: 2; width: min(1252px, calc(100% - 40px)); height: min(693px, calc(100% - 40px)); display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding: 28px; box-sizing: border-box; pointer-events: auto; }
+
+  .editor-actions { display:flex; justify-content: flex-end; align-items: center; }
+  .editor-update-btn {
+    width: 182px; height: 61px; border-radius: 12px; background: rgba(44,56,25,0.9); color: #fff; border: none; font-weight: 700; font-size: 18px; cursor: pointer;
+  }
+
+  /* Responsive adjustments: stack columns on narrow screens (tablet and below)
+     Keep the panel within the viewport and prevent horizontal overflow. Put the
+     image on top, make it span the panel width, keep the 424:355 aspect ratio,
+     but cap its height to 200px on tablet/mobile and never below 150px. */
+  @media (max-width: 900px) {
+    .editor-panel {
+      display: grid;
+      grid-template-columns: 1fr;
+      width: calc(100% - 32px);
+      max-width: 100%;
+      padding: 18px;
+      height: auto;
+      max-height: 90vh;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .editor-content {
+      display: grid;
+      grid-template-columns: 1fr;
+      width: 100%;
+      padding: 10px;
+      gap: 18px;
+      box-sizing: border-box;
+      height: auto;
+    }
+
+    /* put the image on top and make it a fixed 180x150 box on tablet so it
+       matches mobile sizing and doesn't push the panel wider. */
+    .editor-image {
+      grid-column: 1 / -1;
+      width: 180px;
+      max-width: 180px;
+      height: 150px;
+      min-height: 150px;
+      max-height: 150px;
+      aspect-ratio: auto;
+      overflow: hidden;
+      margin: 0 auto;
+    }
+
+    .editor-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 12px;
+    }
+
+    .field-row label { width: 140px; flex: 0 0 140px; font-size: 20px; }
+    .editor-update-btn { width: 160px; height: 52px; }
+  }
+
+  /* Reduce input heights on smaller screens to give more room for the top image */
+  @media (max-width: 900px) {
+    .field-row input { height: 48px; }
+    .field-row textarea { height: 150px; }
+  }
+
+  @media (max-width: 520px) {
+    .field-row input { height: 44px; }
+    .field-row textarea { height: 130px; }
+  }
+
+  @media (max-width: 520px) {
+    .editor-panel, .editor-content {
+      padding: 12px;
+      width: calc(100% - 24px);
+      max-width: 100%;
+      box-sizing: border-box;
+      max-height: 92vh;
+      overflow: auto;
+    }
+
+    /* set a fixed mobile image size (180x150) so it doesn't scale unpredictably
+       and stays centered inside the stacked editor panel */
+    .editor-image {
+      width: 180px;
+      max-width: 180px;
+      height: 150px;
+      min-height: 150px;
+      max-height: 150px;
+      aspect-ratio: auto;
+      overflow: hidden;
+      margin: 0 auto 8px;
+    }
+    .editor-image img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; display: block; }
+
+    .field-row { flex-direction: column; align-items: stretch; }
+    .field-row label { width: 100%; flex: 0 0 auto; font-size: 16px; }
+    .field-row input, .field-row textarea { width: 100%; }
+    .editor-update-btn { width: 100%; height: 52px; }
+    .editor-form { grid-template-rows: auto 1fr auto; }
+  }
+
+  /* Morph/transition helpers */
+  .dimmed { opacity: 0.06 !important; pointer-events: none; transition: opacity 220ms ease; }
+  .pet-grid-wrapper.dimmed, .pet-overlay-grid.dimmed { opacity: 0; transition: opacity 220ms ease; }
+
+  .morph-clone {
+    position: fixed;
+    z-index: 99999;
+    margin: 0;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    border-radius: 18px;
+    overflow: hidden;
+    transition: transform 360ms cubic-bezier(.2,.9,.3,1), width 360ms ease, height 360ms ease, opacity 220ms ease;
+    will-change: transform;
+  }
+
+  .pet-btn {
+    width: 195px;
+    height: 61px;
+    border-radius: 40px;
+    border: 2px solid rgba(44,56,25,0.9);
+    background: rgba(255,255,255,0.04);
+    font-weight: 600;
+    font-size: 18px;
+    cursor: pointer;
+    /* push button to the right when inside the flex .pet-actions container */
+    margin-left: auto;
+  }
+
+  /* remove (delete) button that appears in admin mode */
+  .remove-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0);
+    color: #222;
+    border: 0;
+    cursor: pointer;
+    z-index: 5;
+    font-weight: 700;
+  }
+  .admin-mode .remove-btn { display: inline-flex; }
+
+  /* floating add button (appears only in admin mode next to edit) */
+  .floating-add-btn {
+    position: fixed;
+    right: 160px; /* sits left of edit */
+    bottom: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #3b5a2b;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    border: 2px solid rgba(255,255,255,0.06);
+    cursor: pointer;
+    z-index: 9999;
+    display: none;
+  }
+  .floating-add-btn[aria-pressed="true"] { background: #2f4a1f; }
+  .admin-mode .floating-add-btn { display: inline-flex; }
+  /* Ensure admin button remains visible on tablet/mobile: force display and high z-index
+     and respect device safe-area insets so it won't be pushed off-screen on iOS. */
+  .floating-admin-btn {
+    display: inline-flex !important;
+    z-index: 100000 !important;
+    bottom: calc(env(safe-area-inset-bottom, 20px) + 8px) !important;
+    right: calc(env(safe-area-inset-right, 20px) + 12px) !important;
+    pointer-events: auto !important;
+  }
+
+/* Both grids scale together so alignment is perfect */
+
+  /* Responsive column count: 3 columns on wide, 2 on medium, 1 on small screens */
+  @media (max-width: 1100px) {
+    .pet-grid-shell { --cols: 2; }
+  }
+
+  @media (max-width: 560px) {
+    .pet-grid-shell { --cols: 1; }
+    .pet-section { padding: 12px 0 40px; }
+    .pet-btn { width: 140px; }
+  }
+
+
+
+</style>
+</head>
+<body>
+
+  <section class="pet-section">
+    <div class="user-row">
+      <div class="user-name">Username</div>
+    </div>
+
+    <div class="pet-header-shell">
+      <div class="pet-header-wrapper" aria-hidden="true"></div>
+        <nav class="nav-links" aria-label="Pet navigation">
+        <a href="#">All</a>
+        <a href="#">Pending</a>
+        <a href="#">Meet and Greet</a>
+        <a href="#">Ready for Adoption</a>
+        <a href="#">Adopted</a>
+        <a href="#">Withdrawn</a>
+      </nav>
+        <button class="nav-scroll-btn nav-scroll-left hidden" aria-hidden="false" aria-label="Scroll left">‹</button>
+        <button class="nav-scroll-btn nav-scroll-right hidden" aria-hidden="false" aria-label="Scroll right">›</button>
+    </div>
+
+    <div class="search-row">
+      <div class="search-container" role="search">
+        <input class="search-input" type="search" placeholder="Search pets, breeds, status…" aria-label="Search pets">
+        <button class="search-btn" aria-label="Search">
+          <img src="svgs/magnifying_glass.svg" alt="Search">
+        </button>
+      </div>
+    </div>
+
+    <div class="pet-grid-shell">
+
+      <!-- VISUAL OVERLAY: put the overlay in its own element so it can use mix-blend-mode
+           and not blend the card DOM (cards are siblings below). -->
+      <div class="pet-grid-wrapper" aria-hidden="true">
+        <div class="pet-overlay-grid" aria-hidden="true">
+          <div class="pet-overlay-cell"></div>
+          <div class="pet-overlay-cell"></div>
+          <div class="pet-overlay-cell"></div>
+          <div class="pet-overlay-cell"></div>
+          <div class="pet-overlay-cell"></div>
+          <div class="pet-overlay-cell"></div>
+          <div class="pet-overlay-cell"></div>
+          <div class="pet-overlay-cell"></div>
+        </div>
+      </div>
+
+      <!-- FOREGROUND: the actual pet cards (exact same grid configuration as overlay)
+           moved out of the overlay wrapper so they won't be blended. -->
+      <div class="pet-items">
+
+        <!-- PET CARD 1 -->
+        <article class="pet-card" role="article">
+          <img src="images/bark_twain.png" alt="Bark Twain" class="pet-img">
+          <div class="pet-row"><span>Bark Twain</span><span>Male</span></div>
+          <div class="pet-breed-age">Beagle, 2 yrs. old</div>
+          <div class="pet-actions">
+            <div class="heart" aria-hidden="true">               
+                <img src="svgs/heart.svg" alt="Liked">
+            </div>
+            <button class="pet-btn">Adopted</button>
+          </div>
+        </article>
+
+        <!-- PET CARD 2 -->
+        <article class="pet-card">
+          <img src="images/bark_twain.png" alt="Turing" class="pet-img">
+          <div class="pet-row"><span>Turing</span><span>Female</span></div>
+          <div class="pet-breed-age">Poodle, 6 mos. old</div>
+          <div class="pet-actions">
+            <div class="heart" aria-hidden="true">
+                <img src="svgs/heart.svg" alt="Liked">
+            </div>
+            <button class="pet-btn">Pending</button>
+          </div>
+        </article>
+
+        <!-- PET CARD 3 -->
+        <article class="pet-card">
+          <img src="images/bark_twain.png" alt="Nina Tucker" class="pet-img">
+          <div class="pet-row"><span>Nina Tucker</span><span>Female</span></div>
+          <div class="pet-breed-age">German Shepherd, 3 yrs. old</div>
+          <div class="pet-actions">
+            <div class="heart" aria-hidden="true">               
+                <img src="svgs/heart.svg" alt="Liked">
+            </div>
+            <button class="pet-btn">Cancelled</button>
+          </div>
+        </article>
+        
+        <article class="pet-card">
+          <img src="images/bark_twain.png" alt="Nina Tucker" class="pet-img">
+          <div class="pet-row"><span>Nina Tucker</span><span>Female</span></div>
+          <div class="pet-breed-age">German Shepherd, 3 yrs. old</div>
+          <div class="pet-actions">
+            <div class="heart" aria-hidden="true">               
+                <img src="svgs/heart.svg" alt="Liked">
+            </div>
+            <button class="pet-btn">Cancelled</button>
+          </div>
+        </article>
+
+        <article class="pet-card">
+          <img src="images/bark_twain.png" alt="Nina Tucker" class="pet-img">
+          <div class="pet-row"><span>Nina Tucker</span><span>Female</span></div>
+          <div class="pet-breed-age">German Shepherd, 3 yrs. old</div>
+          <div class="pet-actions">
+            <div class="heart" aria-hidden="true">               
+                <img src="svgs/heart.svg" alt="Liked">
+            </div>
+            <button class="pet-btn">Cancelled</button>
+          </div>
+        </article>
+
+        <article class="pet-card">
+          <img src="images/bark_twain.png" alt="Nina Tucker" class="pet-img">
+          <div class="pet-row"><span>Nina Tucker</span><span>Female</span></div>
+          <div class="pet-breed-age">German Shepherd, 3 yrs. old</div>
+          <div class="pet-actions">
+            <div class="heart" aria-hidden="true">               
+                <img src="svgs/heart.svg" alt="Liked">
+            </div>
+            <button class="pet-btn">Cancelled</button>
+          </div>
+        </article>
+
+        <article class="pet-card">
+          <img src="images/bark_twain.png" alt="Nina Tucker" class="pet-img">
+          <div class="pet-row"><span>Nina Tucker</span><span>Female</span></div>
+          <div class="pet-breed-age">German Shepherd, 3 yrs. old</div>
+          <div class="pet-actions">
+            <div class="heart" aria-hidden="true">               
+                <img src="svgs/heart.svg" alt="Liked">
+            </div>
+            <button class="pet-btn">Cancelled</button>
+          </div>
+        </article>
+
+        <article class="pet-card">
+          <img src="images/bark_twain.png" alt="Nina Tucker" class="pet-img">
+          <div class="pet-row"><span>Nina Tucker</span><span>Female</span></div>
+          <div class="pet-breed-age">German Shepherd, 3 yrs. old</div>
+          <div class="pet-actions">
+            <div class="heart" aria-hidden="true">               
+                <img src="svgs/heart.svg" alt="Liked">
+            </div>
+            <button class="pet-btn">Cancelled</button>
+          </div>
+        </article>
+
+      </div><!-- .pet-items -->
+      </div><!-- .pet-grid-shell -->
+  </section>
+    <!-- Static paginator (hidden until JS shows it). Placing in HTML so it can be styled
+         and is available even before JS runs. Inserted at body level so blend overlay can mix
+         with the page backdrop. -->
+    <div class="paginator" style="display:none" aria-hidden="true"></div>
+
+    <!-- Editor / Add panel template: visual (blended) element + content (controls)
+         The controls are siblings of the blended visual (.editor-visual) so they won't be affected
+         by mix-blend-mode. The template lives at body level to ensure the visual can blend with
+         the full page backdrop. -->
+    <div class="editor-template" hidden aria-hidden="true">
+      <div class="editor-shell" role="dialog" aria-modal="true">
+        <div class="editor-visual" aria-hidden="true"></div>
+        <div class="editor-content">
+          <div class="editor-image">
+            <img src="images/bark_twain.png" alt="Preview" />
+          </div>
+          <div class="editor-form">
+            <div class="editor-fields">
+              <div class="field-row"><label>Name</label><input type="text" /></div>
+              <div class="field-row"><label>Breed</label><input type="text" /></div>
+              <div class="field-row"><label>Age</label><input type="text" /></div>
+              <div class="field-row"><label>Gender</label><input type="text" /></div>
+              <div class="field-row"><label>Description</label><textarea></textarea></div>
+            </div>
+            <div class="editor-actions"><button class="editor-update-btn" type="button">Update</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Simple client-side search for pet cards
+      (function(){
+        const input = document.querySelector('.search-input');
+        const btn = document.querySelector('.search-btn');
+    let cards = Array.from(document.querySelectorAll('.pet-card'));
+    let overlayCells = Array.from(document.querySelectorAll('.pet-overlay-cell'));
+
+    function refreshLists(){
+      cards = Array.from(document.querySelectorAll('.pet-card'));
+      overlayCells = Array.from(document.querySelectorAll('.pet-overlay-cell'));
+    }
+
+  // Create and insert no-results message element (if not present already)
+    let noResults = document.querySelector('.no-results');
+    if(!noResults){
+      noResults = document.createElement('div');
+      noResults.className = 'no-results';
+      noResults.textContent = 'No pets match your search.';
+      noResults.style.display = 'none';
+      const shell = document.querySelector('.pet-grid-shell');
+      shell.parentNode.insertBefore(noResults, shell.nextSibling);
+    }
+
+  // Pagination controls element: prefer existing markup in HTML; fallback to creating one
+  let paginator = document.querySelector('.paginator');
+  if(!paginator){ paginator = document.createElement('div'); paginator.className = 'paginator'; noResults.parentNode.insertBefore(paginator, noResults.nextSibling); }
+
+  // Pagination state
+  const PAGE_SIZE = 6;
+  let currentPage = 1;
+  let lastQuery = '';
+
+        function normalize(s){ return (s||'').toLowerCase(); }
+
+        function matches(card, q){
+          if(!q) return true;
+          const nameEl = card.querySelector('.pet-row > span:first-child');
+          const name = nameEl ? nameEl.textContent : '';
+          const breed = card.querySelector('.pet-breed-age')?.textContent || '';
+          const status = card.querySelector('.pet-btn')?.textContent || '';
+          const hay = (name + ' ' + breed + ' ' + status).toLowerCase();
+          return hay.indexOf(q) !== -1;
+        }
+
+        // Render paginator UI (simple, with ellipses)
+        function renderPaginator(totalPages){
+          paginator.innerHTML = '';
+          paginator.style.display = totalPages <= 1 ? 'none' : '';
+          if(totalPages <= 1) return;
+          const makePage = (n, text) => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'page-btn';
+            btn.textContent = text || String(n);
+            if(n === currentPage) btn.classList.add('active');
+            btn.addEventListener('click', ()=>{ if(n === currentPage) return; currentPage = n; filter(lastQuery, false); });
+            return btn;
+          };
+
+          // prev
+          const prev = document.createElement('button'); prev.type='button'; prev.className='page-nav'; prev.textContent='‹'; prev.disabled = currentPage === 1;
+          prev.addEventListener('click', ()=>{ if(currentPage>1){ currentPage--; filter(lastQuery, false); } });
+          paginator.appendChild(prev);
+
+          if(totalPages <= 7){
+            for(let i=1;i<=totalPages;i++) paginator.appendChild(makePage(i));
+          } else {
+            // show first two, ellipsis, neighbors, ellipsis, last two
+            paginator.appendChild(makePage(1));
+            paginator.appendChild(makePage(2));
+            if(currentPage > 4) { const e = document.createElement('span'); e.textContent='…'; e.className='ellipsis'; paginator.appendChild(e); }
+            const start = Math.max(3, currentPage-1);
+            const end = Math.min(totalPages-2, currentPage+1);
+            for(let i=start;i<=end;i++) paginator.appendChild(makePage(i));
+            if(currentPage < totalPages-3){ const e2 = document.createElement('span'); e2.textContent='…'; e2.className='ellipsis'; paginator.appendChild(e2); }
+            paginator.appendChild(makePage(totalPages-1));
+            paginator.appendChild(makePage(totalPages));
+          }
+
+          // next
+          const next = document.createElement('button'); next.type='button'; next.className='page-nav'; next.textContent='›'; next.disabled = currentPage === totalPages;
+          next.addEventListener('click', ()=>{ if(currentPage<totalPages){ currentPage++; filter(lastQuery, false); } });
+          paginator.appendChild(next);
+        }
+
+        // Main filter with pagination. resetPage=true resets to page 1 (used when query/nav changes)
+        function filter(qRaw, resetPage = true){
+          const q = normalize(qRaw.trim());
+          if(resetPage) currentPage = 1;
+          lastQuery = qRaw;
+
+          // compute matched indices
+          refreshLists();
+          const matched = [];
+          cards.forEach((card, idx) => { if(matches(card, q)) matched.push(idx); });
+
+          const totalMatches = matched.length;
+          const totalPages = Math.max(1, Math.ceil(totalMatches / PAGE_SIZE));
+          if(currentPage > totalPages) currentPage = totalPages;
+
+          // determine which matched indices are shown on this page
+          const start = (currentPage - 1) * PAGE_SIZE;
+          const pageIndices = new Set(matched.slice(start, start + PAGE_SIZE));
+
+          // show/hide cards accordingly
+          let anyVisible = false;
+          cards.forEach((card, i) => {
+            const show = pageIndices.has(i);
+            card.style.display = show ? '' : 'none';
+            if(show) anyVisible = true;
+          });
+
+          // sync overlay cells
+          overlayCells.forEach((cell, i) => { const show = pageIndices.has(i); cell.style.display = show ? '' : 'none'; });
+
+          noResults.style.display = anyVisible ? 'none' : '';
+          renderPaginator(totalPages);
+        }
+
+        // Debounce helper
+        function debounce(fn, wait){
+          let t;
+          return function(...args){
+            clearTimeout(t);
+            t = setTimeout(()=> fn.apply(this,args), wait);
+          };
+        }
+
+        const debounced = debounce(()=> filter(input.value), 200);
+        input.addEventListener('input', debounced);
+        input.addEventListener('keydown', (e)=>{ if(e.key=== 'Enter'){ e.preventDefault(); filter(input.value); } });
+        btn.addEventListener('click', (e)=>{ e.preventDefault(); filter(input.value); });
+
+        // expose a clear function on the input for potential future use
+        input.clearSearch = () => { input.value = ''; filter(''); };
+
+        // --- Header nav: click to filter by the status shown on the pet button ---
+        const navLinks = Array.from(document.querySelectorAll('.nav-links a'));
+        navLinks.forEach(link => {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const txt = link.textContent.trim();
+            // visual active state
+            navLinks.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+
+            if (/^all$/i.test(txt)) {
+              // show everything
+              input.clearSearch();
+            } else {
+              // use the existing filter helper to match status (it's substring-based so status text works)
+              input.value = txt;
+              filter(txt);
+            }
+          });
+        });
+
+        // NAV SCROLL CONTROLS: add left/right arrow behaviour for nav-links
+        (function(){
+          const nav = document.querySelector('.nav-links');
+          const leftBtn = document.querySelector('.nav-scroll-left');
+          const rightBtn = document.querySelector('.nav-scroll-right');
+          if(!nav || !leftBtn || !rightBtn) return;
+
+          // compute a sensible step based on visible width; keep a minimum so small navs still move
+          function getScrollStep(){ return Math.max(120, Math.round(nav.clientWidth * 0.7)); }
+
+          function updateNavButtons(){
+            // if there's overflow, show appropriate buttons (allow tiny epsilon for rounding)
+            const EPS = 4;
+            const canScroll = nav.scrollWidth > nav.clientWidth + EPS;
+            if(!canScroll){ leftBtn.classList.add('hidden'); rightBtn.classList.add('hidden'); return; }
+            if(nav.scrollLeft <= EPS) leftBtn.classList.add('hidden'); else leftBtn.classList.remove('hidden');
+            if(nav.scrollLeft + nav.clientWidth >= nav.scrollWidth - EPS) rightBtn.classList.add('hidden'); else rightBtn.classList.remove('hidden');
+          }
+
+          leftBtn.addEventListener('click', ()=>{
+            const step = getScrollStep();
+            const target = Math.max(0, nav.scrollLeft - step);
+            nav.scrollTo({ left: target, behavior: 'smooth' });
+          });
+          rightBtn.addEventListener('click', ()=>{
+            const step = getScrollStep();
+            const max = Math.max(0, nav.scrollWidth - nav.clientWidth);
+            // pick the smaller of (current + step) and the true max so we can always reach the end
+            const target = Math.min(max, nav.scrollLeft + step);
+            nav.scrollTo({ left: target, behavior: 'smooth' });
+          });
+
+          // show/hide buttons on scroll/resize and init
+          nav.addEventListener('scroll', updateNavButtons, { passive: true });
+          window.addEventListener('resize', ()=>{
+            // small timeout to let layout settle then update
+            setTimeout(updateNavButtons, 80);
+          });
+
+          // initialize after a short delay to allow fonts/layout
+          setTimeout(updateNavButtons, 60);
+        })();
+
+        // --- Hearts: inline the external SVGs so we can style/fill them, and toggle a "liked" class ---
+        function inlineHeartSVGs() {
+          const imgs = Array.from(document.querySelectorAll('.heart img'));
+          imgs.forEach(img => {
+            const src = img.getAttribute('src');
+            if (!src) return;
+            fetch(src).then(r => r.text()).then(text => {
+              try {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(text, 'image/svg+xml');
+                const svg = doc.querySelector('svg');
+                if (svg) {
+                  // remove fixed sizing so CSS can control it
+                  svg.removeAttribute('width');
+                  svg.removeAttribute('height');
+                  svg.setAttribute('aria-hidden', 'true');
+                  // replace the <img> with inline <svg>
+                  img.parentNode.replaceChild(svg, img);
+                }
+              } catch (err) {
+                // ignore parse errors
+                console.warn('Failed to inline svg', src, err);
+              }
+            }).catch(()=>{/* ignore fetch errors */});
+          });
+        }
+
+        // Toggle liked state using event delegation so it works even if SVG inlining is async
+        document.querySelector('.pet-items').addEventListener('click', (e) => {
+          const heart = e.target.closest('.heart');
+          if (!heart) return;
+          heart.classList.toggle('liked');
+          const pressed = heart.classList.contains('liked');
+          heart.setAttribute('aria-pressed', pressed ? 'true' : 'false');
+        });
+
+        // make hearts keyboard accessible (toggle on Space/Enter)
+        document.querySelectorAll('.heart').forEach(h => {
+          h.setAttribute('tabindex', '0');
+          h.addEventListener('keydown', (e) => {
+            if (e.key === ' ' || e.key === 'Enter') {
+              e.preventDefault();
+              h.classList.toggle('liked');
+              h.setAttribute('aria-pressed', h.classList.contains('liked') ? 'true' : 'false');
+            }
+          });
+        });
+
+        // run inlining (best-effort)
+        inlineHeartSVGs();
+
+        // ---------------- Admin / Edit mode toggles ----------------
+        let isAdmin = false;
+        let isEditMode = false;
+
+        // create floating admin toggle
+        const adminBtn = document.createElement('button');
+        adminBtn.className = 'floating-admin-btn';
+        adminBtn.type = 'button';
+        adminBtn.title = 'Toggle admin mode';
+        adminBtn.setAttribute('aria-pressed', 'false');
+        adminBtn.textContent = 'ADM';
+        // strong inline styles to ensure visibility across breakpoints and above overlays
+        Object.assign(adminBtn.style, {
+          position: 'fixed',
+          right: '12px',
+          bottom: '12px',
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: '2147483647',
+          pointerEvents: 'auto'
+        });
+        // prepend instead of append so it sits early in DOM stacking order
+        document.body.prepend(adminBtn);
+
+        // create floating edit toggle (only visible in admin)
+        const editBtn = document.createElement('button');
+        editBtn.className = 'floating-edit-btn';
+        editBtn.type = 'button';
+        editBtn.title = 'Toggle edit mode';
+        editBtn.setAttribute('aria-pressed', 'false');
+        editBtn.textContent = '✎';
+        document.body.appendChild(editBtn);
+        
+  // create floating add toggle (only visible in admin)
+  const addBtn = document.createElement('button');
+  addBtn.className = 'floating-add-btn';
+  addBtn.type = 'button';
+  addBtn.title = 'Add new pet';
+  addBtn.setAttribute('aria-pressed', 'false');
+  addBtn.textContent = '+';
+  document.body.appendChild(addBtn);
+
+        const usernameEl = document.querySelector('.user-name');
+        const originalUsername = usernameEl ? usernameEl.textContent : '';
+
+        function setAdminMode(on){
+          isAdmin = !!on;
+          document.body.classList.toggle('admin-mode', isAdmin);
+          adminBtn.setAttribute('aria-pressed', isAdmin ? 'true' : 'false');
+          // change username
+          if(usernameEl) usernameEl.textContent = isAdmin ? 'admin' : originalUsername;
+          // show/hide edit button
+          editBtn.style.display = isAdmin ? 'inline-flex' : 'none';
+          // ensure add button shows/hides (CSS also controls this)
+          addBtn.style.display = isAdmin ? 'inline-flex' : 'none';
+          // ensure each card has a remove button ready
+          if(isAdmin){
+            refreshLists();
+            cards.forEach(card => {
+              if(!card.querySelector('.remove-btn')){
+                const rem = document.createElement('button'); rem.type='button'; rem.className='remove-btn'; rem.textContent='✕';
+                card.appendChild(rem);
+              }
+            });
+          }
+          // when entering admin mode, ensure hearts are hidden (CSS) and exit edit mode by default
+          if(!isAdmin && isEditMode){
+            setEditMode(false);
+          }
+        }
+
+        async function setEditMode(on){
+          if(!isAdmin && on) return; // only allowed in admin
+          isEditMode = !!on;
+          editBtn.setAttribute('aria-pressed', isEditMode ? 'true' : 'false');
+
+          // fetch edit svg once (best-effort)
+          let editSVG = null;
+          try{
+            const res = await fetch('svgs/edit.svg');
+            const txt = await res.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(txt, 'image/svg+xml');
+            const svgel = doc.querySelector('svg');
+            if(svgel){
+              svgel.removeAttribute('width'); svgel.removeAttribute('height');
+              svgel.setAttribute('aria-hidden','true');
+              editSVG = svgel.outerHTML;
+            }
+          }catch(e){
+            // fallback
+            editSVG = null;
+          }
+
+          // apply to each .pet-btn
+          document.querySelectorAll('.pet-btn').forEach(btn => {
+            if(isEditMode){
+              // store original text
+              if(!btn.dataset.orig) btn.dataset.orig = btn.textContent.trim();
+              btn.classList.add('editing');
+              if(editSVG){
+                btn.innerHTML = editSVG;
+              } else {
+                // fallback glyph
+                btn.textContent = '✎';
+              }
+            } else {
+              // restore
+              btn.classList.remove('editing');
+              if(btn.dataset.orig) btn.textContent = btn.dataset.orig;
+            }
+          });
+        }
+
+        // wire buttons
+        adminBtn.addEventListener('click', ()=> setAdminMode(!isAdmin));
+        adminBtn.addEventListener('keydown', (e)=>{ if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setAdminMode(!isAdmin); } });
+        editBtn.addEventListener('click', ()=> setEditMode(!isEditMode));
+        editBtn.addEventListener('keydown', (e)=>{ if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setEditMode(!isEditMode); } });
+  addBtn.addEventListener('click', ()=> openAddPanel());
+  addBtn.addEventListener('keydown', (e)=>{ if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openAddPanel(); } });
+
+        // initialize (no admin by default)
+        setAdminMode(false);
+  // initialize pagination / visibility
+  filter('');
+    
+        // --- Open editor when clicking a pet-btn in edit mode ---
+        let currentEditor = null;
+        function openEditorForCard(card){
+          if(!isAdmin || !isEditMode) return;
+          if(currentEditor) return; // only one at a time
+
+          const shell = document.querySelector('.pet-grid-shell');
+
+          // Use the static template from the HTML so the visual (blended) element
+          // is a sibling of the interactive controls and won't be blended.
+          const template = document.querySelector('.editor-template');
+          if(!template) return; // safety
+          const tpl = template.cloneNode(true);
+          tpl.hidden = false; tpl.removeAttribute('hidden'); tpl.classList.remove('editor-template');
+          // editor-shell is the outer element inside the cloned template
+          const shellClone = tpl.querySelector('.editor-shell');
+          const panel = tpl.querySelector('.editor-content');
+          // wire controls inside the cloned panel
+          const imgEl = panel.querySelector('.editor-image img');
+          const nameEl = card.querySelector('.pet-row > span:first-child');
+          const genderEl = card.querySelector('.pet-row > span:last-child');
+          const breedAgeEl = card.querySelector('.pet-breed-age');
+          const nameVal = nameEl ? nameEl.textContent.trim() : '';
+          const genderVal = genderEl ? genderEl.textContent.trim() : '';
+          let breedVal = '';
+          let ageVal = '';
+          if(breedAgeEl){ const parts = breedAgeEl.textContent.split(',').map(s=>s.trim()); breedVal = parts[0]||''; ageVal = parts[1]||''; }
+          const descVal = card.dataset.desc || '';
+          // fill image and fields
+          if(imgEl){ const src = card.querySelector('.pet-img')?.src || 'images/bark_twain.png'; imgEl.src = src; }
+          const rows = panel.querySelectorAll('.field-row');
+          try{
+            if(rows[0]) rows[0].querySelector('input,textarea').value = nameVal;
+            if(rows[1]) rows[1].querySelector('input,textarea').value = breedVal;
+            if(rows[2]) rows[2].querySelector('input,textarea').value = ageVal;
+            if(rows[3]) rows[3].querySelector('input,textarea').value = genderVal;
+            if(rows[4]) rows[4].querySelector('input,textarea').value = descVal;
+          }catch(e){}
+          // update button inside cloned panel
+          const updateBtn = panel.querySelector('.editor-update-btn');
+          try{ if(updateBtn) updateBtn.textContent = 'Update'; }catch(e){}
+          // append the cloned shell into the grid shell so CSS can position it responsively
+          shell.appendChild(tpl);
+
+          // prepare dimming: dim all other cards and overlay (do this early so resize is clear)
+          const allCards = Array.from(document.querySelectorAll('.pet-card'));
+          const petWrapper = document.querySelector('.pet-grid-wrapper');
+          const petOverlayGrid = document.querySelector('.pet-overlay-grid');
+
+          // compute the desired sizes for the editor panel and shell
+          const desiredPanelW = Math.min(1252, Math.max(600, window.innerWidth - 40));
+          const desiredPanelH = Math.min(693, Math.max(400, window.innerHeight - 40));
+          const desiredShellW = desiredPanelW + 40; // slightly bigger than panel
+          const desiredShellH = desiredPanelH + 40;
+
+          // save original inline styles to restore later
+          const originalShellInline = { width: shell.style.width || '', height: shell.style.height || '', transition: shell.style.transition || '' };
+
+          // apply transitioning class and inline transition
+          shell.classList.add('transitioning');
+          shell.style.transition = 'width 360ms cubic-bezier(.2,.9,.3,1), height 360ms cubic-bezier(.2,.9,.3,1)';
+
+          // start dimming others (low opacity) so the resize appears against subdued content
+          allCards.forEach(c => { if(c !== card) c.classList.add('dimmed'); });
+          if(petWrapper) petWrapper.classList.add('dimmed');
+          if(petOverlayGrid) petOverlayGrid.classList.add('dimmed');
+
+          // request shell resize
+          shell.style.width = desiredShellW + 'px';
+          shell.style.height = desiredShellH + 'px';
+
+          // stored values for reverse morph
+          let storedCardRect = null;
+
+          // helper to proceed after shell finished resizing
+          const proceedWithMorph = () => {
+            // hide the original card (but keep layout) and create a fixed clone for morph
+            const cardRect = card.getBoundingClientRect();
+            storedCardRect = cardRect;
+            card.style.visibility = 'hidden';
+            const clone = card.cloneNode(true);
+            clone.classList.add('morph-clone');
+            clone.style.width = cardRect.width + 'px';
+            clone.style.height = cardRect.height + 'px';
+            clone.style.left = cardRect.left + 'px';
+            clone.style.top = cardRect.top + 'px';
+            clone.style.position = 'fixed';
+            clone.style.transform = 'none';
+            clone.style.margin = '0';
+            document.body.appendChild(clone);
+
+            // append hidden panel (the cloned shell is already attached to body)
+            // panel is the .editor-content inside tpl; keep it hidden while measuring
+            panel.classList.add('show');
+            panel.style.visibility = 'hidden';
+            const panelRect = panel.getBoundingClientRect();
+
+            // compute transform
+            const tx = panelRect.left - cardRect.left;
+            const ty = panelRect.top - cardRect.top;
+            const sx = panelRect.width / cardRect.width;
+            const sy = panelRect.height / cardRect.height;
+
+            // trigger transition on clone to morph into place
+            requestAnimationFrame(()=>{
+              clone.style.transformOrigin = 'top left';
+              clone.style.transform = `translate(${tx}px, ${ty}px) scale(${sx}, ${sy})`;
+            });
+
+            // when morph finished, reveal the panel and remove clone
+            const onTransEnd = ()=>{
+              clone.removeEventListener('transitionend', onTransEnd);
+              // reveal panel
+              panel.style.visibility = 'visible';
+              // ensure panel shows its internal animation
+              requestAnimationFrame(()=> panel.classList.add('show'));
+              // remove clone
+              if(clone.parentNode) clone.parentNode.removeChild(clone);
+              currentEditor = { tpl, panel, close: closeEditor };
+            };
+              // safety fallback: if transitionend doesn't fire, proceed anyway after 800ms
+              let transFired = false;
+              const transCb = () => { transFired = true; onTransEnd(); };
+              clone.addEventListener('transitionend', transCb);
+              setTimeout(()=>{ if(!transFired){ try{ transCb(); }catch(e){} } }, 800);
+          };
+
+          // watch for shell transition end (width or height) - proceed once
+          let handled = false;
+          const tcb = (e) => {
+            if(e.target !== shell) return;
+            if(e.propertyName !== 'width' && e.propertyName !== 'height') return;
+            if(handled) return; handled = true;
+            shell.removeEventListener('transitionend', tcb);
+            proceedWithMorph();
+          };
+          shell.addEventListener('transitionend', tcb);
+
+          // if shell already at desired size, proceed immediately
+          const nowW = shell.getBoundingClientRect().width;
+          const nowH = shell.getBoundingClientRect().height;
+          if(Math.abs(nowW - desiredShellW) < 1 && Math.abs(nowH - desiredShellH) < 1){
+            shell.removeEventListener('transitionend', tcb);
+            proceedWithMorph();
+          }
+
+          function closeEditor(){
+            // perform reverse morph from panel back to card, then restore shell and UI
+            try{
+              const panelRect = panel.getBoundingClientRect();
+              // use stored card rect if available, else compute current
+              const targetCardRect = storedCardRect || card.getBoundingClientRect();
+
+              // clone the panel and position fixed at panelRect
+              const panelClone = panel.cloneNode(true);
+              panelClone.classList.add('morph-clone');
+              panelClone.style.left = panelRect.left + 'px';
+              panelClone.style.top = panelRect.top + 'px';
+              panelClone.style.width = panelRect.width + 'px';
+              panelClone.style.height = panelRect.height + 'px';
+              panelClone.style.position = 'fixed';
+              panelClone.style.transform = 'none';
+              document.body.appendChild(panelClone);
+
+              // hide actual panel so clone is visible
+              panel.style.visibility = 'hidden';
+
+              // compute transform to card
+              const tx = targetCardRect.left - panelRect.left;
+              const ty = targetCardRect.top - panelRect.top;
+              const sx = targetCardRect.width / panelRect.width;
+              const sy = targetCardRect.height / panelRect.height;
+
+              requestAnimationFrame(()=>{
+                panelClone.style.transformOrigin = 'top left';
+                panelClone.style.transform = `translate(${tx}px, ${ty}px) scale(${sx}, ${sy})`;
+                panelClone.style.opacity = '1';
+              });
+
+              const onEnd = () => {
+                panelClone.removeEventListener('transitionend', onEnd);
+                // remove clone
+                if(panelClone.parentNode) panelClone.parentNode.removeChild(panelClone);
+                // remove cloned template (tpl) from DOM
+                try{ if(tpl && tpl.parentNode) tpl.parentNode.removeChild(tpl); }catch(e){}
+
+                // undim others
+                allCards.forEach(c => c.classList.remove('dimmed'));
+                if(petWrapper) petWrapper.classList.remove('dimmed');
+                if(petOverlayGrid) petOverlayGrid.classList.remove('dimmed');
+
+                // restore original card visibility
+                card.style.visibility = '';
+
+                // restore shell size (transition back)
+                shell.style.width = originalShellInline.width || '';
+                shell.style.height = originalShellInline.height || '';
+
+                const onShellTransEnd = (e) => {
+                  if(e.target !== shell) return;
+                  shell.removeEventListener('transitionend', onShellTransEnd);
+                  // restore original transition and class
+                  shell.style.transition = originalShellInline.transition || '';
+                  shell.classList.remove('transitioning');
+                };
+                shell.addEventListener('transitionend', onShellTransEnd);
+
+                // re-enable update button if it was disabled
+                try{ updateBtn.disabled = false; }catch(e){}
+
+                currentEditor = null;
+              };
+              // safety fallback in case transitionend doesn't fire
+              let fired = false;
+              const onEndWrap = () => { fired = true; onEnd(); };
+              panelClone.addEventListener('transitionend', onEndWrap);
+              setTimeout(()=>{ if(!fired) onEndWrap(); }, 900);
+            }catch(err){
+              // fallback: immediate cleanup
+              if(overlay.parentNode) overlay.parentNode.removeChild(overlay);
+              allCards.forEach(c => c.classList.remove('dimmed'));
+              if(petWrapper) petWrapper.classList.remove('dimmed');
+              if(petOverlayGrid) petOverlayGrid.classList.remove('dimmed');
+              card.style.visibility = '';
+              shell.style.width = originalShellInline.width || '';
+              shell.style.height = originalShellInline.height || '';
+              // ensure update button re-enabled
+              try{ updateBtn.disabled = false; }catch(e){}
+              currentEditor = null;
+            }
+          }
+
+          // handle update
+          if(updateBtn){
+            updateBtn.addEventListener('click', ()=>{
+              // guard: disable the button so user can't re-click and race the morph
+              updateBtn.disabled = true;
+              // write back values from cloned panel rows
+              const rows = panel.querySelectorAll('.field-row');
+              const newName = rows[0] ? (rows[0].querySelector('input,textarea').value || '').trim() : '';
+              const newBreed = rows[1] ? (rows[1].querySelector('input,textarea').value || '').trim() : '';
+              const newAge = rows[2] ? (rows[2].querySelector('input,textarea').value || '').trim() : '';
+              const newGender = rows[3] ? (rows[3].querySelector('input,textarea').value || '').trim() : '';
+              const newDesc = rows[4] ? (rows[4].querySelector('input,textarea').value || '').trim() : '';
+
+              if(nameEl) nameEl.textContent = newName || nameEl.textContent;
+              if(genderEl) genderEl.textContent = newGender || genderEl.textContent;
+              if(breedAgeEl) breedAgeEl.textContent = (newBreed || '').trim() + (newAge ? ', ' + newAge : (newBreed ? '' : breedAgeEl.textContent));
+              // store description (allow clearing)
+              if(typeof newDesc === 'string') card.dataset.desc = newDesc;
+
+              // ensure pagination refresh in case status/text changes what matches
+              refreshLists(); filter(lastQuery);
+
+              // close editor
+              closeEditor();
+            });
+          }
+
+          // close on outside click (click on shell background closes)
+          try{
+            const shellClick = (e)=>{ if(e.target === shellClone || e.target === tpl) closeEditor(); };
+            shellClone.addEventListener('click', shellClick);
+            // close on ESC
+            const escHandler = (e)=>{ if(e.key === 'Escape') closeEditor(); };
+            document.addEventListener('keydown', escHandler);
+            // cleanup on close
+            const cleanup = ()=>{ document.removeEventListener('keydown', escHandler); try{ shellClone.removeEventListener('click', shellClick); }catch(e){} };
+            // ensure cleanup after tpl removed
+            setTimeout(()=>{ const obs = new MutationObserver(()=>{ if(!document.body.contains(tpl)){ cleanup(); obs.disconnect(); } }); obs.observe(document.body,{childList:true,subtree:true}); },300);
+          }catch(e){}
+        }
+// fuck this shit
+
+        // delegate clicks on pet-btn to open editor when editing
+        document.querySelector('.pet-items').addEventListener('click', (e)=>{
+          if(!isAdmin || !isEditMode) return;
+          const btn = e.target.closest('.pet-btn');
+          if(!btn) return;
+          const card = btn.closest('.pet-card');
+          if(!card) return;
+          openEditorForCard(card);
+        });
+
+        // delegate remove click (X) in admin mode
+        document.querySelector('.pet-items').addEventListener('click', (e)=>{
+          const rem = e.target.closest('.remove-btn');
+          if(!rem) return;
+          const card = rem.closest('.pet-card');
+          if(!card) return;
+          // remove corresponding overlay cell by index
+          refreshLists();
+          const idx = cards.indexOf(card);
+          if(idx !== -1){
+            // remove overlay cell if exists
+            if(overlayCells[idx] && overlayCells[idx].parentNode) overlayCells[idx].parentNode.removeChild(overlayCells[idx]);
+            // remove card
+            card.parentNode.removeChild(card);
+            // refresh arrays
+            refreshLists();
+            // refresh pagination / UI
+            filter(lastQuery);
+          }
+        });
+
+        // --- Add panel (create new pet) ---
+        function openAddPanel(){
+          if(!isAdmin) return;
+          if(currentEditor) return;
+          const shell = document.querySelector('.pet-grid-shell');
+
+          // build overlay & panel (empty fields) - replaced by cloning template below
+
+          // Clone the HTML template and use it for the Add panel (controls are siblings to the blended visual)
+          const template = document.querySelector('.editor-template');
+          if(!template) return;
+          const tpl = template.cloneNode(true);
+          tpl.hidden = false; tpl.removeAttribute('hidden'); tpl.classList.remove('editor-template');
+          const shellClone = tpl.querySelector('.editor-shell');
+          const panel = tpl.querySelector('.editor-content');
+          // setup image placeholder and file input inside cloned panel
+          const imgWrap = panel.querySelector('.editor-image');
+          imgWrap.innerHTML = '';
+          const placeholder = document.createElement('div'); placeholder.style.width = '100%'; placeholder.style.height = '100%'; placeholder.style.display = 'flex'; placeholder.style.alignItems = 'center'; placeholder.style.justifyContent = 'center'; placeholder.style.border = '2px dashed rgba(0,0,0,0.06)'; placeholder.style.borderRadius = '12px';
+          const plus = document.createElement('button'); plus.type='button'; plus.textContent = '+'; plus.style.fontSize='36px'; plus.style.width='84px'; plus.style.height='84px'; plus.style.borderRadius='50%'; plus.style.border='0'; plus.style.cursor='pointer';
+          placeholder.appendChild(plus); imgWrap.appendChild(placeholder);
+
+          // hidden file input
+          const fileInput = document.createElement('input'); fileInput.type='file'; fileInput.accept='image/*'; fileInput.style.display='none';
+          // append the hidden file input into the cloned panel so it's removed with tpl
+          panel.appendChild(fileInput);
+          fileInput.addEventListener('change', (ev)=>{
+            const f = fileInput.files && fileInput.files[0]; if(!f) return; const reader = new FileReader(); reader.onload = () => {
+              const img = document.createElement('img');
+              img.src = reader.result;
+              // make uploaded preview match editor image sizing rules: fill the area and crop if needed
+              img.style.width = '100%';
+              img.style.height = '100%';
+              img.style.objectFit = 'cover';
+              img.style.borderRadius = '12px';
+              img.style.display = 'block';
+              imgWrap.innerHTML = '';
+              imgWrap.appendChild(img);
+            };
+            reader.readAsDataURL(f);
+          });
+          plus.addEventListener('click', ()=> fileInput.click());
+
+          // reset fields
+          const rows = panel.querySelectorAll('.field-row');
+          const addSubmit = panel.querySelector('.editor-update-btn');
+          try{ if(addSubmit) addSubmit.textContent = 'Add'; }catch(e){}
+          try{ if(rows[0]) rows[0].querySelector('input,textarea').value = ''; if(rows[1]) rows[1].querySelector('input,textarea').value = ''; if(rows[2]) rows[2].querySelector('input,textarea').value = ''; if(rows[3]) rows[3].querySelector('input,textarea').value = ''; if(rows[4]) rows[4].querySelector('input,textarea').value = ''; }catch(e){}
+
+          // add to DOM: append into the grid shell so CSS can position it responsively
+          shell.appendChild(tpl);
+
+          // reuse shell resizing code: compute desired sizes
+          const desiredPanelW = Math.min(1252, Math.max(600, window.innerWidth - 40));
+          const desiredPanelH = Math.min(693, Math.max(400, window.innerHeight - 40));
+          const desiredShellW = desiredPanelW + 40; const desiredShellH = desiredPanelH + 40;
+          const originalShellInline = { width: shell.style.width || '', height: shell.style.height || '', transition: shell.style.transition || '' };
+          shell.classList.add('transitioning'); shell.style.transition = 'width 360ms cubic-bezier(.2,.9,.3,1), height 360ms cubic-bezier(.2,.9,.3,1)';
+          const allCards = Array.from(document.querySelectorAll('.pet-card'));
+          const petWrapper = document.querySelector('.pet-grid-wrapper');
+          const petOverlayGrid = document.querySelector('.pet-overlay-grid');
+          allCards.forEach(c => c.classList.add('dimmed'));
+          if(petWrapper) petWrapper.classList.add('dimmed'); if(petOverlayGrid) petOverlayGrid.classList.add('dimmed');
+          shell.style.width = desiredShellW + 'px'; shell.style.height = desiredShellH + 'px';
+
+          const proceed = () => {
+            // create a small source rect at addBtn position to morph from
+            const srcRect = addBtn.getBoundingClientRect();
+            const clone = document.createElement('div'); clone.className='morph-clone';
+            clone.style.left = srcRect.left + 'px'; clone.style.top = srcRect.top + 'px';
+            clone.style.width = srcRect.width + 'px'; clone.style.height = srcRect.height + 'px';
+            clone.style.position = 'fixed'; document.body.appendChild(clone);
+
+            // panel is inside tpl which is already appended to the shell; hide it while measuring
+            panel.classList.add('show'); panel.style.visibility='hidden';
+            const panelRect = panel.getBoundingClientRect();
+
+            const tx = panelRect.left - srcRect.left; const ty = panelRect.top - srcRect.top;
+            const sx = panelRect.width / srcRect.width; const sy = panelRect.height / srcRect.height;
+            requestAnimationFrame(()=>{ clone.style.transformOrigin='top left'; clone.style.transform = `translate(${tx}px, ${ty}px) scale(${sx}, ${sy})`; });
+
+            const onTransEnd = ()=>{
+              clone.removeEventListener('transitionend', onTransEnd);
+              panel.style.visibility='visible'; requestAnimationFrame(()=> panel.classList.add('show'));
+              if(clone.parentNode) clone.parentNode.removeChild(clone);
+              currentEditor = { tpl, panel, close: closeAdd };
+            };
+            // attach transitionend with fallback so we don't get stuck if it doesn't fire
+            let transFired = false;
+            const transWrap = () => { transFired = true; onTransEnd(); };
+            clone.addEventListener('transitionend', transWrap);
+            setTimeout(()=>{ if(!transFired){ try{ transWrap(); }catch(e){} } }, 900);
+
+            function closeAdd(){
+              try{
+                const panelRect2 = panel.getBoundingClientRect();
+                const targetRect = addBtn.getBoundingClientRect();
+                const panelClone = panel.cloneNode(true); panelClone.className='morph-clone';
+                panelClone.style.left = panelRect2.left+'px'; panelClone.style.top = panelRect2.top+'px'; panelClone.style.width = panelRect2.width+'px'; panelClone.style.height = panelRect2.height+'px'; panelClone.style.position='fixed'; document.body.appendChild(panelClone);
+                panel.style.visibility='hidden';
+                const tx2 = targetRect.left - panelRect2.left; const ty2 = targetRect.top - panelRect2.top; const sx2 = targetRect.width / panelRect2.width; const sy2 = targetRect.height / panelRect2.height;
+                requestAnimationFrame(()=>{ panelClone.style.transformOrigin='top left'; panelClone.style.transform = `translate(${tx2}px, ${ty2}px) scale(${sx2}, ${sy2})`; });
+                const finish = ()=>{
+                  panelClone.removeEventListener('transitionend', finish);
+                  if(panelClone.parentNode) panelClone.parentNode.removeChild(panelClone);
+                  try{ if(tpl && tpl.parentNode) tpl.parentNode.removeChild(tpl); }catch(e){}
+                  allCards.forEach(c => c.classList.remove('dimmed'));
+                  if(petWrapper) petWrapper.classList.remove('dimmed'); if(petOverlayGrid) petOverlayGrid.classList.remove('dimmed');
+                  shell.style.width = originalShellInline.width || ''; shell.style.height = originalShellInline.height || '';
+                  const onShellTransEnd = (e)=>{ if(e.target !== shell) return; shell.removeEventListener('transitionend', onShellTransEnd); shell.style.transition = originalShellInline.transition || ''; shell.classList.remove('transitioning'); };
+                  shell.addEventListener('transitionend', onShellTransEnd);
+                  // cleanup file input
+                  if(fileInput && fileInput.parentNode) fileInput.parentNode.removeChild(fileInput);
+                  // re-enable add button in case it was disabled
+                  try{ addSubmit.disabled = false; }catch(e){}
+                  currentEditor = null;
+                };
+                // attach with fallback
+                let finFired = false;
+                const finWrap = ()=>{ finFired = true; finish(); };
+                panelClone.addEventListener('transitionend', finWrap);
+                setTimeout(()=>{ if(!finFired) finWrap(); }, 900);
+              }catch(err){
+                try{ if(tpl && tpl.parentNode) tpl.parentNode.removeChild(tpl); }catch(e){}
+                allCards.forEach(c => c.classList.remove('dimmed'));
+                if(petWrapper) petWrapper.classList.remove('dimmed'); if(petOverlayGrid) petOverlayGrid.classList.remove('dimmed');
+                shell.style.width = originalShellInline.width || ''; shell.style.height = originalShellInline.height || '';
+                if(fileInput && fileInput.parentNode) fileInput.parentNode.removeChild(fileInput);
+                try{ addSubmit.disabled = false; }catch(e){}
+                currentEditor = null;
+              }
+            }
+
+            // when Add clicked: create new card + overlay cell then close
+            addSubmit.addEventListener('click', ()=>{
+              // guard: disable to prevent double-click/race
+              addSubmit.disabled = true;
+              // read values from cloned panel rows
+              const n = rows[0] ? (rows[0].querySelector('input,textarea').value || '').trim() : '';
+              const b = rows[1] ? (rows[1].querySelector('input,textarea').value || '').trim() : '';
+              const a = rows[2] ? (rows[2].querySelector('input,textarea').value || '').trim() : '';
+              const g = rows[3] ? (rows[3].querySelector('input,textarea').value || '').trim() : '';
+              const d = rows[4] ? (rows[4].querySelector('input,textarea').value || '').trim() : '';
+              // build new card
+              const art = document.createElement('article'); art.className='pet-card';
+              const imgEl = document.createElement('img'); imgEl.className='pet-img';
+              // if preview exists in imgWrap
+              const previewImg = imgWrap.querySelector('img');
+              imgEl.src = previewImg ? previewImg.src : 'images/bark_twain.png'; imgEl.alt = n || 'New Pet';
+              art.appendChild(imgEl);
+              const prow = document.createElement('div'); prow.className='pet-row'; const s1=document.createElement('span'); s1.textContent = n || 'New Pet'; const s2=document.createElement('span'); s2.textContent = g || '' ; prow.appendChild(s1); prow.appendChild(s2); art.appendChild(prow);
+              const bdiv = document.createElement('div'); bdiv.className='pet-breed-age'; bdiv.textContent = (b ? b : '') + (a ? (', ' + a) : ''); art.appendChild(bdiv);
+              const actions = document.createElement('div'); actions.className='pet-actions';
+              const heartWrap = document.createElement('div'); heartWrap.className='heart'; const himg = document.createElement('img'); himg.src='svgs/heart.svg'; himg.alt='Liked'; heartWrap.appendChild(himg);
+              const pbtn = document.createElement('button'); pbtn.className='pet-btn'; pbtn.textContent = 'Available';
+              actions.appendChild(heartWrap); actions.appendChild(pbtn);
+              art.appendChild(actions);
+              // append remove btn (hidden until admin)
+              const rembtn = document.createElement('button'); rembtn.className='remove-btn'; rembtn.type='button'; rembtn.textContent='✕'; art.appendChild(rembtn);
+              document.querySelector('.pet-items').appendChild(art);
+              // add overlay cell
+              const oc = document.createElement('div'); oc.className='pet-overlay-cell'; document.querySelector('.pet-overlay-grid').appendChild(oc);
+              // refresh lists and inline heart svg for new heart
+              refreshLists(); inlineHeartSVGs();
+              // compute pagination so we jump to the last page (where the new item will be)
+              try{
+                const qnorm = normalize((lastQuery||'').trim());
+                const matched = [];
+                cards.forEach((c, idx) => { if(matches(c, qnorm)) matched.push(idx); });
+                const totalPages = Math.max(1, Math.ceil(matched.length / PAGE_SIZE));
+                currentPage = totalPages;
+              }catch(e){ /* ignore and fallback to default */ }
+              // refresh view without resetting the page (we already set currentPage)
+              filter(lastQuery, false);
+              // close add panel with reverse morph
+              closeAdd();
+            });
+
+            // close on outside click (click on shell background closes)
+            try{
+              const shellClick = (e)=>{ if(e.target === shellClone || e.target === tpl) closeAdd(); };
+              shellClone.addEventListener('click', shellClick);
+              // close on ESC
+              const escHandler = (e)=>{ if(e.key === 'Escape') closeAdd(); };
+              document.addEventListener('keydown', escHandler);
+              // cleanup on close
+              const cleanup = ()=>{ document.removeEventListener('keydown', escHandler); try{ shellClone.removeEventListener('click', shellClick); }catch(e){} };
+              // ensure cleanup after tpl removed
+              setTimeout(()=>{ const obs = new MutationObserver(()=>{ if(!shell.contains(tpl)){ cleanup(); obs.disconnect(); } }); obs.observe(document.body,{childList:true,subtree:true}); },300);
+            }catch(e){}
+          };
+
+          // watch for shell transition end
+          let handled=false; const cb=(e)=>{ if(e.target!==shell) return; if(e.propertyName!=='width' && e.propertyName!=='height') return; if(handled) return; handled=true; shell.removeEventListener('transitionend', cb); proceed(); };
+          shell.addEventListener('transitionend', cb);
+          const nowW = shell.getBoundingClientRect().width; const nowH = shell.getBoundingClientRect().height;
+          if(Math.abs(nowW - desiredShellW) < 1 && Math.abs(nowH - desiredShellH) < 1){ shell.removeEventListener('transitionend', cb); proceed(); }
+        }
+    
+      })();
+    </script>
+</body>
+</html>
