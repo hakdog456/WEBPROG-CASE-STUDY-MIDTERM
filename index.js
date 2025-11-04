@@ -159,3 +159,8 @@ navBurger.addEventListener("click", () => {
 
   navBurger.classList.toggle("burgerActive")
 })
+
+const meetPetsBtn = document.querySelector(".startYoursBtn")
+meetPetsBtn.addEventListener("click", () =>{
+  window.location.href = "ourAnimals.html"
+} )
