@@ -141,7 +141,7 @@ body{
 
 
 .petDetailsCon div, img{
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
 }
 
 .petContent{
@@ -239,7 +239,7 @@ body{
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     grid-column: 1/3;
     height: 70%;
     justify-items: center;
@@ -269,6 +269,95 @@ body{
 
 
 @media only screen and (max-width: 950px) {
-  
+  .petDetailsCon{
+    grid-template-columns: none;
+    grid-template-rows: .5fr 1fr auto;
+  }
 
+  .imageCon{
+    grid-row: 1;
+  }
+
+  .imageHolder{
+    width: 90%;
+    height: auto;
+    margin-top: 3%;
+  }
+
+  .petContent{
+    grid-row:2;
+  }
+  
+  #bottomAdoption{
+    grid-row: 3;
+  }
+
+  .petControls{
+    display: none;
+  }
+
+  .petContent{
+    display: flex;
+    align-items: center;
+    margin-right: 0;
+    flex-direction: column;
+  }
+
+  .petText{
+    margin-right: 0;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .name{
+    text-align: center;
+  }
+
+  #bottomAdoption{
+    margin: 0;
+    height: 100%;
+    border: none;
+    border-top: solid 2px #223125;
+    border-radius: 0;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+  .bottomAdoptionBg{
+    display: none;
+  }
+
+  .adoptionBtn{
+    width: 100%;
+    border: 1px solid #223125;
+  }
+}
+
+
+
+/* Small Mobile Font size change */
+@media only screen and (max-width: 400px) {
+
+  .petDetailsCon{
+    border-radius: 20px;
+  }
+
+  .petImage{
+    border-radius: 20px;
+  }
+
+  .petText{
+    font-size: 15px;
+  }
+
+  #bottomAdoption, .adoptionText, .adoptionBtn{
+    font-size: 15px;
+  }
+
+  .adoptionBtn{
+    height: 30px;
+  }
+  
 }
