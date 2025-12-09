@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 09, 2025 at 10:06 AM
+-- Generation Time: Dec 09, 2025 at 11:15 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -83,6 +83,16 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`userId`, `name`, `username`, `password`, `privilege`, `email`) VALUES
+(27, 'dustin', 'hakdog', '$2y$10$aN5zrbrFUktU9rkG/UIiPeqDWwZ.bS/wfLE2jxEvmK1.oPc2LEsw.', 'user', 'dustingualberto7@gmail.com'),
+(28, 'kyran', 'kyky', '$2y$10$nVjpza/ERG5XdLRmH9VFyOriHOZHnvV4wRQqdSfYZYbmhOJ1qXyx2', 'user', 'kyran@gmail.com'),
+(29, 'mennard', 'nardy', '$2y$10$qHZNKZqJmPW0LBk56MZ6vusxGfcfEn.SelxkkDBnZF4ry1tCWzhcK', 'user', 'nardy@gmail.com'),
+(32, 'chingchong', 'cheng', '$2y$10$daKG8dK6KjnMRZk.HLAAJeKz8ZheDIQRwmllGw1xyqWsoIyt01Pu2', 'user', 'cheng@gmail.com');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -142,7 +152,7 @@ ALTER TABLE `transactions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- Constraints for dumped tables
