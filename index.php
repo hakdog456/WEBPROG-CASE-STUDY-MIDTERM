@@ -1,6 +1,4 @@
-<!-- <?php
-  include("database.php");
-?> -->
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,6 +17,19 @@
     
 </head>
 <body>
+
+    <!-- PHP -->
+    <?php
+
+use Dom\Mysql;
+
+        include("database.php");
+
+        mysqli_close($conn)
+    ?>
+
+
+
 
     <!-- Page Image Background -->
     <div class="homeBg1" ></div>
