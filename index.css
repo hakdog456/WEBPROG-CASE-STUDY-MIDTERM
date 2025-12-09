@@ -66,6 +66,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
+
 /* MAIN STARTING STYLING */
 /* PAGE STYLING */
 body{
@@ -78,7 +79,6 @@ body{
     align-items: center;
     /* border: 2px solid violet; */
     overflow-x: hidden;
-    
     
     /* Temporary bottom padding */
     padding-bottom: 300px;
