@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 09, 2025 at 11:49 AM
+-- Generation Time: Dec 09, 2025 at 01:22 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -47,8 +47,25 @@ CREATE TABLE `pets` (
   `age` int(11) NOT NULL,
   `price` double NOT NULL,
   `details` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`details`)),
-  `imageDirectory` varchar(255) NOT NULL
+  `imageDirectory` varchar(255) NOT NULL,
+  `adoptedById` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pets`
+--
+
+INSERT INTO `pets` (`petID`, `name`, `type`, `breed`, `age`, `price`, `details`, `imageDirectory`, `adoptedById`) VALUES
+(6, 'Bark Twain', 'Dog', 'Beagle', 2, 15000, '{\"gender\":\"Male\",\"color\":\"Brown and White\",\"coat_length\":\"Short\",\"personality\":\"Bark Twain may have been dealt a rough hand—neglected, abandoned, and left tied to a tree at the illegal POGO Boss Mansion—but this gentle giant never let that define him. Despite everything, he still holds onto hope that kindness and love are still in the cards for him.\",\"vaccinated\":true,\"spayed_neutered\":false}', 'images/homeImages/petPics/Bark-Twaine-BEAGLE 1.webp', NULL),
+(7, 'Andarna', 'Small Animal', 'Guinea Pig', 1, 2500, '{\"gender\":\"Male\",\"color\":\"Orange and White\",\"coat_length\":\"Short\",\"personality\":\"Andarna is a gentle and calm guinea pig who loves fresh vegetables and quiet environments. Perfect for families with children who want a low-maintenance, affectionate pet.\",\"vaccinated\":true,\"spayed_neutered\":true}', 'images/homeImages/petPics/Andarna-GUINEA_PIG 1.webp', NULL),
+(8, 'Cheetos', 'Small Animal', 'Syrian Hamster', 1, 1500, '{\"gender\":\"Male\",\"color\":\"Golden\",\"coat_length\":\"Short\",\"personality\":\"Cheetos is an active and curious hamster who loves exploring tunnels and running on his wheel. He\'s nocturnal and enjoys late-night adventures. Great for someone looking for an entertaining pocket pet.\",\"vaccinated\":false,\"spayed_neutered\":false}', 'images/homeImages/petPics/Cheetos-SYRIAN_HAMSTER 1.webp', NULL),
+(9, 'Lunch', 'Dog', 'Bichon Frise', 1, 20000, '{\"gender\":\"Male\",\"color\":\"White\",\"coat_length\":\"Long\",\"personality\":\"Lunch is a playful and affectionate Bichon Frise who loves being the center of attention. He enjoys cuddles, playing fetch, and making new friends. His fluffy white coat requires regular grooming but his loving personality makes it all worthwhile.\",\"vaccinated\":true,\"spayed_neutered\":false}', 'images/homeImages/petPics/Lunch-BICHON_FRISE 1.webp', NULL),
+(10, 'Gizmo', 'Dog', 'Papillon', 1, 18000, '{\"gender\":\"Male\",\"color\":\"White and Brown\",\"coat_length\":\"Long\",\"personality\":\"Gizmo is a smart and alert Papillon with distinctive butterfly-like ears. He\'s highly trainable, loves learning new tricks, and is great with older children. His elegant appearance and lively personality make him a wonderful companion.\",\"vaccinated\":true,\"spayed_neutered\":false}', 'images/homeImages/petPics/Gizmo-PAPILLON 1.webp', NULL),
+(11, 'Bark Twain', 'Dog', 'Beagle', 2, 15000, '{\"gender\":\"Male\",\"color\":\"Brown and White\",\"coat_length\":\"Short\",\"personality\":\"Bark Twain may have been dealt a rough hand—neglected, abandoned, and left tied to a tree at the illegal POGO Boss Mansion—but this gentle giant never let that define him. Despite everything, he still holds onto hope that kindness and love are still in the cards for him.\",\"vaccinated\":true,\"spayed_neutered\":false}', 'images/homeImages/petPics/Bark-Twaine-BEAGLE 1.webp', NULL),
+(12, 'Andarna', 'Small Animal', 'Guinea Pig', 1, 2500, '{\"gender\":\"Male\",\"color\":\"Orange and White\",\"coat_length\":\"Short\",\"personality\":\"Andarna is a gentle and calm guinea pig who loves fresh vegetables and quiet environments. Perfect for families with children who want a low-maintenance, affectionate pet.\",\"vaccinated\":true,\"spayed_neutered\":true}', 'images/homeImages/petPics/Andarna-GUINEA_PIG 1.webp', NULL),
+(13, 'Cheetos', 'Small Animal', 'Syrian Hamster', 1, 1500, '{\"gender\":\"Male\",\"color\":\"Golden\",\"coat_length\":\"Short\",\"personality\":\"Cheetos is an active and curious hamster who loves exploring tunnels and running on his wheel. He\'s nocturnal and enjoys late-night adventures. Great for someone looking for an entertaining pocket pet.\",\"vaccinated\":false,\"spayed_neutered\":false}', 'images/homeImages/petPics/Cheetos-SYRIAN_HAMSTER 1.webp', NULL),
+(14, 'Lunch', 'Dog', 'Bichon Frise', 1, 20000, '{\"gender\":\"Male\",\"color\":\"White\",\"coat_length\":\"Long\",\"personality\":\"Lunch is a playful and affectionate Bichon Frise who loves being the center of attention. He enjoys cuddles, playing fetch, and making new friends. His fluffy white coat requires regular grooming but his loving personality makes it all worthwhile.\",\"vaccinated\":true,\"spayed_neutered\":false}', 'images/homeImages/petPics/Lunch-BICHON_FRISE 1.webp', NULL),
+(15, 'Gizmo', 'Dog', 'Papillon', 1, 18000, '{\"gender\":\"Male\",\"color\":\"White and Brown\",\"coat_length\":\"Long\",\"personality\":\"Gizmo is a smart and alert Papillon with distinctive butterfly-like ears. He\'s highly trainable, loves learning new tricks, and is great with older children. His elegant appearance and lively personality make him a wonderful companion.\",\"vaccinated\":true,\"spayed_neutered\":false}', 'images/homeImages/petPics/Gizmo-PAPILLON 1.webp', NULL);
 
 -- --------------------------------------------------------
 
@@ -141,7 +158,7 @@ ALTER TABLE `likedpet`
 -- AUTO_INCREMENT for table `pets`
 --
 ALTER TABLE `pets`
-  MODIFY `petID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `petID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `transactions`
