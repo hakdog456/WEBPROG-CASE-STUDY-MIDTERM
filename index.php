@@ -1,5 +1,5 @@
 <!-- PHP -->                
-        <!-- <?php
+        <?php
             use Dom\Mysql;
             include("database.php");
 
@@ -16,6 +16,7 @@
 
             // mysqli_close($conn);
 
+            echo "<h1>this is the index</h1>";
 
             // QUERYING TEST
             $sql = "SELECT * FROM users WHERE username = 'hakdog'";
@@ -29,4 +30,4 @@
 
             mysqli_close($conn);
 
-        ?> -->
+        ?>
