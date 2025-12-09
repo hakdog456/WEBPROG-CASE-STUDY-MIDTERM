@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("ssss", $name, $username, $hashedPassword, $email);
 
     if ($stmt->execute()) {
-        echo "<script>alert('Account created successfully!'); window.location='login.html';</script>";
+        echo "<script>alert('Account created successfully!'); window.location='login.php';</script>";
     } else {
         // Check for duplicate username or email
         if ($conn->errno == 1062) {

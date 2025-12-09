@@ -1,3 +1,57 @@
+<?php
+session_start(); // Start session to store user info
+
+// Connect to MySQL
+$conn = new mysqli("localhost", "root", "", "adoptiondb");
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$error = ""; // Initialize error message
+
+// Check if form submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // Prepare statement to prevent SQL injection
+    $stmt = $conn->prepare("SELECT userId, name, username, password FROM users WHERE email=?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->store_result();
+
+    // Check if email exists
+    if ($stmt->num_rows > 0) {
+        $stmt->bind_result($id, $name, $username, $hashed_password);
+        $stmt->fetch();
+
+        // Verify password
+        if (password_verify($password, $hashed_password)) {
+            // Successful login
+            $_SESSION['user_id'] = $id;
+            $_SESSION['user_name'] = $name;
+            $_SESSION['username'] = $username;
+
+            // Redirect to home page
+            header("Location: index.html");
+            exit();
+        } else {
+            $error = "Incorrect password.";
+        }
+    } else {
+        $error = "No account found with that email.";
+    }
+
+    $stmt->close();
+}
+
+$conn->close();
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -490,89 +544,68 @@
           </div>
       </div>
 
-      <div class="navMobileSlide">
-          <div class="navItem">
-              <a href="index.html"><p>HOME</p></a>
-          </div>
-          
-          <div class="navItem">
-              <a href="aboutUs.html"><p>ABOUT US</p></a>
-          </div>
-
-          <div class="navItem">
-              <a href="ourAnimals.html"><p>OUR ANIMALS</p></a>
-          </div>
-
-          <div class="navItem">
-              <a href="contact.html"><p>CONTACT US</p></a>
-          </div>
-
-          <div class="navItem">
-              <a href="faqs.html"><p>FAQs</p></a>
-          </div>
-
-      </div>
-
-
-        <section class="mainframe">
-            <div class="cat-image">
-                <img src="images/login-images/Dogs image.webp" alt="catimage">
+       <section class="mainframe">
+        <div class="cat-image">
+            <img src="images/login-images/Dogs image.webp" alt="catimage">
+        </div>
+        <form action="login.php" method="POST">
+            <div class="maintext">
+                <h2>Welcome Back!</h2>
+                <p>Tails are wagging back in anticipation.</p>
             </div>
-            <form action="#" method="get">
-                <div class="maintext">
-                    <h2>Welcome Back!</h2>
-                    <p>Tails are wagging back in anticipation.</p>
+
+            <?php if (!empty($error)) : ?>
+                <div class="error-message" style="color:red; margin-bottom:10px;">
+                    <?php echo $error; ?>
                 </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="text" id="email" name="email" required>
+            <?php endif; ?>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <svg class="eyeicon" id="eye" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path id="eyePath1" d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="#444E27" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path id="eyePath2" d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="#444E27" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <line id="eyeSlash" x1="3" y1="3" x2="21" y2="21" stroke="#444E27" stroke-width="2" stroke-linecap="round" style="display: none;"/>
+                </svg>
+            </div>
+            <div class="form-options">
+                <div class="remember-me">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember">Remember Me</label>
                 </div>
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required>
-                    <svg class="eyeicon" id="eye" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path id="eyePath1" d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="#444E27" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path id="eyePath2" d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="#444E27" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <line id="eyeSlash" x1="3" y1="3" x2="21" y2="21" stroke="#444E27" stroke-width="2" stroke-linecap="round" style="display: none;"/>
-                    </svg>
+                <div class="forgot-password">
+                    <a href="#">Forgot Password?</a>
                 </div>
-                <div class="form-options">
-                    <div class="remember-me">
-                        <input type="checkbox" id="remember" name="remember">
-                        <label for="remember">Remember Me</label>
-                    </div>
-                    <div class="forgot-password">
-                        <a href="#">Forgot Password?</a>
-                    </div>
-                </div>
-                <div class="login-button">
+            </div>
+            <div class="login-button">
                 <input type="submit" value="Login">
-                </div>
-                <div class="signup-link">
-                    <p>Don't have an account? <a href="#">Sign Up</a></p>
-                </div>
-            </form>
-            <div class="mobile-image">
-              <img src="images/login-images/Dogs image (1).webp">
             </div>
-        </section>
+            <div class="signup-link">
+                <p>Don't have an account? <a href="signup.php">Sign Up</a></p>
+            </div>
+        </form>
+    </section>
 
-        <script>
-            const passwordInput = document.getElementById('password');
-            const eyeIcon = document.getElementById('eye');
-            const eyeSlash = document.getElementById('eyeSlash');
+    <script>
+        const passwordInput = document.getElementById('password');
+        const eyeIcon = document.getElementById('eye');
+        const eyeSlash = document.getElementById('eyeSlash');
 
-            eyeIcon.addEventListener('click', function() {
-                // Toggle password visibility
-                if (passwordInput.type === 'password') {
-                    passwordInput.type = 'text';
-                    eyeSlash.style.display = 'block';
-                } else {
-                    passwordInput.type = 'password';
-                    eyeSlash.style.display = 'none';
-                }
-            });
-        </script>
+        eyeIcon.addEventListener('click', function() {
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeSlash.style.display = 'block';
+            } else {
+                passwordInput.type = 'password';
+                eyeSlash.style.display = 'none';
+            }
+        });
+    </script>
 
       <!-- FOOTER -->
      <div class="HomeFooter">
