@@ -54,6 +54,20 @@
                 line-height: 34px;
             }
 
+            .input-with-help {
+                display: flex;
+                flex-direction: column;
+                flex: 1 1 auto;
+                gap: 6px;
+            }
+
+            .help-text {
+                font-size: 12px;
+                color: #3d2f1f;
+                opacity: 0.75;
+                margin-left: 6px;
+            }
+
             .set-details-grid {
                 display: flex;
                 flex-direction: column;
@@ -347,12 +361,18 @@
             <div class="set-details-grid">
                 <div class="detail-row">
                     <label class="detail-label" for="meet-date">Date:</label>
-                    <input type="text" class="detail-input" id="meet-date" placeholder="Select date" aria-label="Date">
+                    <div class="input-with-help">
+                        <input type="date" class="detail-input" id="meet-date" placeholder="YYYY-MM-DD" aria-label="Date" inputmode="numeric">
+                        <div class="help-text">Use YYYY-MM-DD</div>
+                    </div>
                 </div>
 
                 <div class="detail-row">
                     <label class="detail-label" for="meet-time">Time:</label>
-                    <input type="text" class="detail-input" id="meet-time" placeholder="Select time" aria-label="Time">
+                    <div class="input-with-help">
+                        <input type="time" class="detail-input" id="meet-time" placeholder="HH:MM" aria-label="Time" inputmode="numeric">
+                        <div class="help-text">Use HH:MM (24-hour)</div>
+                    </div>
                 </div>
 
                 <div class="detail-row">
@@ -366,9 +386,7 @@
                 </div>
             </div>
 
-            <a href="meet-and-greet-evaluation.html" class="set-actions">
                 <button type="button" class="btn btn-primary">Send Schedule</button>
-            </a>
         </div>
 
         <!-- Space for footer -->
