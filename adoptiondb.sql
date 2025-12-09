@@ -3,7 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
+<<<<<<< HEAD
 -- Generation Time: Dec 09, 2025 at 01:22 PM
+=======
+-- Generation Time: Dec 09, 2025 at 11:15 AM
+>>>>>>> dbea35327524842574ff9b5fadbed0604bc58336
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -46,6 +50,7 @@ CREATE TABLE `pets` (
   `breed` varchar(50) NOT NULL,
   `age` int(11) NOT NULL,
   `price` double NOT NULL,
+<<<<<<< HEAD
   `details` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`details`)),
   `imageDirectory` varchar(255) NOT NULL,
   `adoptedById` int(11) DEFAULT NULL
@@ -67,6 +72,11 @@ INSERT INTO `pets` (`petID`, `name`, `type`, `breed`, `age`, `price`, `details`,
 (14, 'Lunch', 'Dog', 'Bichon Frise', 1, 20000, '{\"gender\":\"Male\",\"color\":\"White\",\"coat_length\":\"Long\",\"personality\":\"Lunch is a playful and affectionate Bichon Frise who loves being the center of attention. He enjoys cuddles, playing fetch, and making new friends. His fluffy white coat requires regular grooming but his loving personality makes it all worthwhile.\",\"vaccinated\":true,\"spayed_neutered\":false}', 'images/homeImages/petPics/Lunch-BICHON_FRISE 1.webp', NULL),
 (15, 'Gizmo', 'Dog', 'Papillon', 1, 18000, '{\"gender\":\"Male\",\"color\":\"White and Brown\",\"coat_length\":\"Long\",\"personality\":\"Gizmo is a smart and alert Papillon with distinctive butterfly-like ears. He\'s highly trainable, loves learning new tricks, and is great with older children. His elegant appearance and lively personality make him a wonderful companion.\",\"vaccinated\":true,\"spayed_neutered\":false}', 'images/homeImages/petPics/Gizmo-PAPILLON 1.webp', NULL);
 
+=======
+  `details` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`details`))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+>>>>>>> dbea35327524842574ff9b5fadbed0604bc58336
 -- --------------------------------------------------------
 
 --
@@ -158,7 +168,11 @@ ALTER TABLE `likedpet`
 -- AUTO_INCREMENT for table `pets`
 --
 ALTER TABLE `pets`
+<<<<<<< HEAD
   MODIFY `petID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+=======
+  MODIFY `petID` int(11) NOT NULL AUTO_INCREMENT;
+>>>>>>> dbea35327524842574ff9b5fadbed0604bc58336
 
 --
 -- AUTO_INCREMENT for table `transactions`
