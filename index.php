@@ -21,11 +21,20 @@
     <!-- PHP -->
     <?php
 
-use Dom\Mysql;
-
+        use Dom\Mysql;
         include("database.php");
 
-        mysqli_close($conn)
+        $name = 'Kyran Solomon';
+        $username = 'ky';
+        $password = 'heynow';
+        $priveledge = 'user';
+
+        $sql = "INSERT INTO users (name, username, password, priveledge)
+        VALUES ('$name', '$username', '$password', '$priveledge')";
+
+        mysqli_query($conn, $sql);        
+
+        mysqli_close($conn);
     ?>
 
 
