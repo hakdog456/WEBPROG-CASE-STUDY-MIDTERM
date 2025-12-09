@@ -44,7 +44,7 @@ if (!$status) {
 }
 
 // Allowed statuses
-$allowedStatuses = ['Application Placed', 'Application Approved', 'Application Rejected', 'Meet and Greet Scheduled', 'Ready for Adoption', 'Adopted'];
+$allowedStatuses = ['Application Placed', 'Application Approved', 'Application Rejected', 'Meet and Greet Scheduled', 'Ready for Adoption', 'Adopted', 'Adopted-Final', 'Paid - Approved', 'Refunded'];
 if (!in_array($status, $allowedStatuses)) {
     http_response_code(422);
     echo json_encode([

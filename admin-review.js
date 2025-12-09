@@ -108,8 +108,16 @@
 
 	const fetchFirstTransaction = async () => {
 		try {
-			const response = await fetch('get-first-transaction.php');
-			const data = await response.json();
+			const response = await fetch('ensure-transaction-by-status.php?status=' + encodeURIComponent('Application Placed'));
+			let data = null;
+			let text = '';
+			try {
+				text = await response.text();
+				data = text ? JSON.parse(text) : null;
+			} catch (parseErr) {
+				console.error('Failed to parse transaction response', parseErr, text);
+				throw parseErr;
+			}
 
 			if (!data.success || !data.transaction) {
 				console.warn('No transaction found');
@@ -119,7 +127,7 @@
 			currentTransaction = data.transaction;
 			const evaluation = typeof data.transaction.evaluation === 'string'
 				? JSON.parse(data.transaction.evaluation)
-				: data.transaction.evaluation;
+				: (data.transaction.evaluationDecoded || data.transaction.evaluation);
 
 			populateForm(evaluation);
 			console.log('Loaded transaction:', currentTransaction);

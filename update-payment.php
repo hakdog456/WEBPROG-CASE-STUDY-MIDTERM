@@ -23,9 +23,7 @@ if (!is_array($payload)) {
 }
 
 $transactionId = isset($payload['transactionId']) ? (int) $payload['transactionId'] : 0;
-$meetGreetDateTime = trim($payload['meetGreetDateTime'] ?? '');
-$location = trim($payload['location'] ?? '');
-$message = trim($payload['message'] ?? '');
+$total = trim($payload['total'] ?? '');
 
 if ($transactionId <= 0) {
     http_response_code(422);
@@ -36,11 +34,11 @@ if ($transactionId <= 0) {
     exit;
 }
 
-if (!$meetGreetDateTime || !$location) {
+if (!$total) {
     http_response_code(422);
     echo json_encode([
         'success' => false,
-        'message' => 'meetGreetDateTime and location are required'
+        'message' => 'total is required'
     ]);
     exit;
 }
@@ -58,7 +56,7 @@ if ($conn->connect_error) {
 
 $conn->set_charset('utf8mb4');
 
-// First, fetch the current evaluation JSON
+// Fetch current evaluation JSON
 $fetch = $conn->prepare('SELECT evaluation FROM transactions WHERE transactionId = ?');
 if (!$fetch) {
     http_response_code(500);
@@ -88,11 +86,9 @@ if ($result->num_rows === 0) {
 $row = $result->fetch_assoc();
 $evaluation = json_decode($row['evaluation'], true) ?? [];
 
-// Add/update the meet and greet info
-$evaluation['meetAndGreet'] = [
-    'date' => $meetGreetDateTime,
-    'location' => $location,
-    'message' => $message
+// Add payment info to the JSON, preserving existing data
+$evaluation['payment'] = [
+    'total' => $total
 ];
 
 $evaluationJson = json_encode($evaluation, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
@@ -110,11 +106,11 @@ if ($evaluationJson === false) {
 
 $fetch->close();
 
-// Update the transaction
-$newStatus = 'Meet and Greet Scheduled';
+$newStatus = 'Paid';
 
+// Update the transaction with new evaluation and status
 $stmt = $conn->prepare(
-    'UPDATE transactions SET meetGreetDateTime = ?, location = ?, evaluation = ?, status = ? WHERE transactionId = ?'
+    'UPDATE transactions SET evaluation = ?, status = ?, userPayment = ? WHERE transactionId = ?'
 );
 
 if (!$stmt) {
@@ -127,7 +123,10 @@ if (!$stmt) {
     exit;
 }
 
-$stmt->bind_param('ssssi', $meetGreetDateTime, $location, $evaluationJson, $newStatus, $transactionId);
+// Parse total to numeric value for userPayment field
+$numericTotal = floatval(preg_replace('/[^0-9.]/', '', $total));
+
+$stmt->bind_param('ssdi', $evaluationJson, $newStatus, $numericTotal, $transactionId);
 
 if (!$stmt->execute()) {
     http_response_code(500);
@@ -144,7 +143,7 @@ if ($stmt->affected_rows === 0) {
     http_response_code(404);
     echo json_encode([
         'success' => false,
-        'message' => 'Transaction not found'
+        'message' => 'Transaction not found or no changes made'
     ]);
     $stmt->close();
     $conn->close();
@@ -174,7 +173,7 @@ $conn->close();
 
 echo json_encode([
     'success' => true,
-    'message' => 'Meet and greet details updated',
+    'message' => 'Payment processed and status updated to Adopted',
     'transaction' => $transaction
 ]);
 ?>
