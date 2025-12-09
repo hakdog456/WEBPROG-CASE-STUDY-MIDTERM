@@ -243,6 +243,19 @@ body {
 }
 
 /* -------------------- RESPONSIVE -------------------- */
+@media only screen and (max-width: 1188px) and (min-width: 930px) {
+  body {
+    min-height: 100vh;
+  }
+  .HomeFooter {
+    margin-top: 40px;          
+  }
+
+  .footerBg {
+    height: auto;
+    min-height: 240px;
+  }
+} 
 @media (max-width: 1024px) {
   .contact-container {
     flex-direction: column;
@@ -270,19 +283,20 @@ body {
   .contact-image img {
     display: block !important;
     order: 1;
-    width: 125%;
+    width: 100%;
+    max-width: 470px;
     height: 75%;
     border-radius: 15px;
     object-fit: contain;
   }
   .contact-form {
-    width: 117%;
+    width: 100%;
+    max-width: 420px;
   }
   .contact-form .bottom-row{
     flex-direction: column-reverse !important;
     align-items: center;
-    gap: 20px;
-    padding: 1rem;
+    gap: 2px;
   }
 
 }

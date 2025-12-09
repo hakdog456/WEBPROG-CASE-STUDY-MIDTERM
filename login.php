@@ -340,6 +340,11 @@ $conn->close();
           flex: 0 1 auto;
         }
       }
+      @media only screen and (max-width: 1112px) and (min-width: 769px) {
+        .HomeFooter{
+          display: flex;
+        }
+      }
       @media (max-width: 1024px) {
         .mainframe {
           flex-direction: column;

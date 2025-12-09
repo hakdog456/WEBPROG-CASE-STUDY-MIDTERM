@@ -241,6 +241,20 @@ body{
     font-weight: 1000;
 }
 
+@media only screen and (max-width: 1188px) and (min-width: 930px) {
+  body {
+    min-height: 100vh;
+  }
+  .HomeFooter {
+    margin-top: 40px;          
+  }
+
+  .footerBg {
+    height: auto;
+    min-height: 240px;
+  }
+} 
+
 
 /* SMALL LAPTOP BREAK POINT */
 @media only screen and (max-width: 1024px) {

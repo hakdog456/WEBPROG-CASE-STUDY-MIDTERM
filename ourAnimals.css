@@ -102,12 +102,6 @@ body{
   justify-content: flex-end;
   padding-right: 2%;
 }
-
-.filterIconCon{
-  
-}
-
-
 /* PETS LIST */
 
 .petsList{
@@ -200,6 +194,19 @@ body{
 }
 
 /* TABLET BREAK */
+@media only screen and (max-width: 1188px) and (min-width: 930px) {
+  body {
+    min-height: 100vh;
+  }
+  .HomeFooter {
+    margin-top: 40px;          
+  }
+
+  .footerBg {
+    height: auto;
+    min-height: 240px;
+  }
+} 
 @media only screen and (max-width: 1000px) {
 
   /* SEARCH BAR SECTION */
