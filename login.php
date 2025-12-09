@@ -16,15 +16,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Prepare statement to prevent SQL injection
-    $stmt = $conn->prepare("SELECT userId, name, username, password FROM users WHERE email=?");
+    // Prepare statement to prevent SQL injection - UPDATED to include privilege
+    $stmt = $conn->prepare("SELECT userId, name, username, password, privilege FROM users WHERE email=?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $stmt->store_result();
 
     // Check if email exists
     if ($stmt->num_rows > 0) {
-        $stmt->bind_result($id, $name, $username, $hashed_password);
+        $stmt->bind_result($id, $name, $username, $hashed_password, $privilege);
         $stmt->fetch();
 
         // Verify password
@@ -33,10 +33,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['user_id'] = $id;
             $_SESSION['user_name'] = $name;
             $_SESSION['username'] = $username;
+            $_SESSION['privilege'] = $privilege; // Store privilege in session
+            $_SESSION['login_success'] = true; // Flag for localStorage storage
 
-            // Redirect to home page
-            header("Location: index.php");
-            exit();
+            // Don't redirect here - let JavaScript handle it
+            // header("Location: index.php");
+            // exit();
         } else {
             $error = "Incorrect password.";
         }
@@ -605,7 +607,41 @@ $conn->close();
                 eyeSlash.style.display = 'none';
             }
         });
+
+        // ===== NEW: localStorage functionality =====
+        
+        // Check if user is already logged in on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            const storedUser = localStorage.getItem('jurassicBark_user');
+            
+            if (storedUser) {
+                const userData = JSON.parse(storedUser);
+                // Redirect to home if already logged in
+                window.location.href = 'index.php';
+            }
+        });
     </script>
+
+    <?php if (isset($_SESSION['login_success']) && $_SESSION['login_success']): ?>
+    <script>
+        // Store user data in localStorage after successful login
+        const userData = {
+            userId: <?php echo $_SESSION['user_id']; ?>,
+            name: "<?php echo addslashes($_SESSION['user_name']); ?>",
+            username: "<?php echo addslashes($_SESSION['username']); ?>",
+            privilege: "<?php echo $_SESSION['privilege']; ?>",
+            loginTime: new Date().toISOString()
+        };
+        
+        localStorage.setItem('jurassicBark_user', JSON.stringify(userData));
+        
+        // Redirect after storing
+        window.location.href = 'index.php';
+    </script>
+    <?php 
+        unset($_SESSION['login_success']); // Clear the flag
+    ?>
+    <?php endif; ?>
 
       <!-- FOOTER -->
      <div class="HomeFooter">
@@ -621,7 +657,7 @@ $conn->close();
             <div class="foot1Text" >
                 © 2025 Jurassic Bark. All Rights Reserved.
                 <br>
-                Registered Nonstock, Nonprofit Organization — SEC Registration No. CN2025-XXXXXX
+                Registered Nonstock, Nonprofit Organization – SEC Registration No. CN2025-XXXXXX
                 <br>   
                 Accredited under the Animal Welfare Act of 1998 (Republic Act No. 8485, as amended by RA 10631).
             </div>
@@ -632,7 +668,7 @@ $conn->close();
         <div class="bottomFoot1Text" >
             © 2025 Jurassic Bark. All Rights Reserved.
             <br>
-            Registered Nonstock, Nonprofit Organization — SEC Registration No. CN2025-XXXXXX
+            Registered Nonstock, Nonprofit Organization – SEC Registration No. CN2025-XXXXXX
             <br>   
             Accredited under the Animal Welfare Act of 1998 (Republic Act No. 8485, as amended by RA 10631).
         </div>
