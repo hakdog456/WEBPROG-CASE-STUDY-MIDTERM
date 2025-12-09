@@ -1,9 +1,70 @@
+<?php
+// Get pet ID from URL
+$petId = isset($_GET['id']) ? intval($_GET['id']) : 0;
+
+// Database connection and pet fetching
+$pet = null;
+$error = null;
+
+if ($petId > 0) {
+    try {
+        // Database configuration
+        $host = '127.0.0.1';
+        $dbname = 'adoptiondb';
+        $username = 'root';
+        $password = '';
+        
+        // Create PDO connection
+        $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+        // Fetch specific pet from database
+        $stmt = $pdo->prepare("SELECT petID, name, type, breed, age, price, details, imageDirectory FROM pets WHERE petID = :petId");
+        $stmt->bindParam(':petId', $petId, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        $pet = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if (!$pet) {
+            $error = "Pet not found.";
+        }
+        
+    } catch (PDOException $e) {
+        $error = "Database error: " . $e->getMessage();
+    }
+} else {
+    $error = "Invalid pet ID.";
+}
+
+// Parse pet details if pet exists
+$details = [];
+$gender = 'Unknown';
+$color = 'Unknown';
+$personality = 'No description available';
+$vaccinated = 'Unknown';
+$neutered = 'Unknown';
+$coatLength = 'Unknown';
+
+if ($pet) {
+    $details = json_decode($pet['details'], true);
+    if ($details) {
+        $gender = isset($details['gender']) ? $details['gender'] : 'Unknown';
+        $color = isset($details['color']) ? $details['color'] : 'Unknown';
+        $personality = isset($details['personality']) ? $details['personality'] : 'No description available';
+        $vaccinated = isset($details['vaccinated']) ? ($details['vaccinated'] ? 'Yes' : 'No') : 'Unknown';
+        $neutered = isset($details['spayed_neutered']) ? ($details['spayed_neutered'] ? 'Yes' : 'No') : 'Unknown';
+        $coatLength = isset($details['coat_length']) ? $details['coat_length'] : 'Unknown';
+    }
+}
+
+$ageText = $pet ? ($pet['age'] > 1 ? $pet['age'] . ' years old' : $pet['age'] . ' year old') : '';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jurrasic Bark | Pet Detail</title>
+    <title>Jurrasic Bark | <?php echo $pet ? htmlspecialchars($pet['name']) : 'Pet Detail'; ?></title>
     <link rel="stylesheet" href="petDetails.css">
     <link rel="stylesheet" href="global-application-styles.css">
     <link rel="stylesheet" href="globalFooterNav.css">
@@ -29,7 +90,7 @@
         <div class="mainNav">
             <p><a href="index.html">Home</a></p>
             <p> <a href="aboutUs.html">About Us</a></p>
-            <p> <a href="ourAnimals.html">Our Animals</a></p>
+            <p> <a href="ourAnimals.php">Our Animals</a></p>
             <p><a href="contact.html">Contact Us</a></p>
             <p><a href="faqs.html">FAQs</a></p>
         </div>
@@ -59,7 +120,7 @@
         </div>
 
         <div class="navItem">
-            <a href="ourAnimals.html"><p>OUR ANIMALS</p></a>
+            <a href="ourAnimals.php"><p>OUR ANIMALS</p></a>
         </div>
 
         <div class="navItem">
@@ -74,26 +135,41 @@
 
     
     <!-- PET DETAILS -->
+    <?php if ($error): ?>
+        <div style="text-align: center; padding: 50px; width: 82%;">
+            <h2>Error</h2>
+            <p><?php echo htmlspecialchars($error); ?></p>
+            <p><a href="ourAnimals.php" style="color: #223125; text-decoration: underline;">Back to Animals List</a></p>
+        </div>
+    <?php elseif ($pet): ?>
     <div class="petDetailsCon">
         <div class="petDetailsBg"></div>
 
         <div class="imageCon">
             <div class="imageHolder">
-                <img class="petImage" src="images/homeImages/petPics/Bark-Twaine-BEAGLE 1.webp" alt="">        
+                <img class="petImage" 
+                     src="<?php echo htmlspecialchars($pet['imageDirectory']); ?>" 
+                     alt="<?php echo htmlspecialchars($pet['name']); ?>"
+                     onerror="this.src='images/homeImages/petPics/default-pet.jpg'">        
             </div>
         </div>
         
         <div class="petContent">
             <div class="petText">
-                <p class="name">Bark Twain</p>
+                <p class="name"><?php echo htmlspecialchars($pet['name']); ?></p>
                 <p class="details">
                     <p class="petTypeText" style="text-align: center" >
-                        Beagle | 2 years old | Male
+                        <?php echo htmlspecialchars($pet['breed']); ?> | <?php echo $ageText; ?> | <?php echo htmlspecialchars($gender); ?>
                     </p>
                     <br>
-                    Coat Length: Short <br> Vaccination: 2025-08-10 <br> Neutered: Yes
+                    Coat Length: <?php echo htmlspecialchars($coatLength); ?> <br> 
+                    Color: <?php echo htmlspecialchars($color); ?> <br>
+                    Vaccinated: <?php echo htmlspecialchars($vaccinated); ?> <br> 
+                    Neutered/Spayed: <?php echo htmlspecialchars($neutered); ?>
                     <br><br>
-                    Bark Twain may have been dealt a rough hand—neglected, abandoned, and left tied to a tree at the illegal POGO Boss Mansion—but this gentle giant never let that define him. Despite everything, he still holds onto hope that kindness and love are still in the cards for him.
+                    <?php echo htmlspecialchars($personality); ?>
+                    <br><br>
+                    Adoption Fee: ₱<?php echo number_format($pet['price'], 2); ?>
                 </p>
             </div>  
 
@@ -101,8 +177,8 @@
                 <img class="heartIcon" src="images/ourAnimalsImages/heart icon.svg" alt="">
                 <div class="adoption" >
                     <div class="adoptionBg"></div>
-                    <p class="adoptionText">Considering Bark Twain for adoption?</p>
-                    <a href="user-application-page.html" class="adoptionBtn">Apply Now</a>
+                    <p class="adoptionText">Considering <?php echo htmlspecialchars($pet['name']); ?> for adoption?</p>
+                    <a href="user-application-page.html?petId=<?php echo $pet['petID']; ?>" class="adoptionBtn">Apply Now</a>
                     <div class="adoptionBtn">Read FAQs</div>
                 </div>
             </div>
@@ -111,12 +187,13 @@
         <!-- Bottom Pet Details Con For media Breakage -->
         <div id="bottomAdoption" class="adoption" >
             <div class="bottomAdoptionBg adoptionBg"></div>
-            <p class="bottomAdoptionText adoptionText">Considering Bark Twain for adoption?</p>
-            <a href="user-application-page.html" class="bottomAdoptionBtn adoptionBtn">Apply Now</a>
+            <p class="bottomAdoptionText adoptionText">Considering <?php echo htmlspecialchars($pet['name']); ?> for adoption?</p>
+            <a href="user-application-page.html?petId=<?php echo $pet['petID']; ?>" class="bottomAdoptionBtn adoptionBtn">Apply Now</a>
             <div class="bottomAdoptionBtn adoptionBtn">Read FAQs</div>
         </div>
             
     </div>
+    <?php endif; ?>
 
 
     <!-- FOOTER -->
@@ -133,7 +210,7 @@
             <div class="foot1Text" >
                 © 2025 Jurassic Bark. All Rights Reserved.
                 <br>
-                Registered Nonstock, Nonprofit Organization — SEC Registration No. CN2025-XXXXXX
+                Registered Nonstock, Nonprofit Organization – SEC Registration No. CN2025-XXXXXX
                 <br>   
                 Accredited under the Animal Welfare Act of 1998 (Republic Act No. 8485, as amended by RA 10631).
             </div>
@@ -144,7 +221,7 @@
         <div class="bottomFoot1Text" >
             © 2025 Jurassic Bark. All Rights Reserved.
             <br>
-            Registered Nonstock, Nonprofit Organization — SEC Registration No. CN2025-XXXXXX
+            Registered Nonstock, Nonprofit Organization – SEC Registration No. CN2025-XXXXXX
             <br>   
             Accredited under the Animal Welfare Act of 1998 (Republic Act No. 8485, as amended by RA 10631).
         </div>
