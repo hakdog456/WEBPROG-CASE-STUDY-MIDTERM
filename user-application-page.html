@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="global-application-styles.css">
     <link rel="stylesheet" href="globalFooterNav.css">
     <script defer src="global.js" ></script>
+    <script defer src="submit-application.js"></script>
     <style>
         
         body{
@@ -600,52 +601,52 @@
                 <div class="form-row form-row-4">
                     <div class="form-group">
                         <label>First Name:</label>
-                        <input type="text" class="input-fixed w-305">
+                        <input type="text" class="input-fixed w-305" placeholder="First Name" data-field="firstName">
                     </div>
                     <div class="form-group">
                         <label>Middle Name:</label>
-                        <input type="text" class="input-fixed w-305">
+                        <input type="text" class="input-fixed w-305" placeholder="Middle Name" data-field="middleName">
                     </div>
                     <div class="form-group">
                         <label>Last Name:</label>
-                        <input type="text" class="input-fixed w-305">
+                        <input type="text" class="input-fixed w-305" placeholder="Last Name" data-field="lastName">
                     </div>
                     <div class="form-group">
                         <label>Suffix (Optional):</label>
-                        <input type="text" class="input-fixed w-188">
+                        <input type="text" class="input-fixed w-188" placeholder="Suffix" data-field="suffix">
                     </div>
                 </div>
 
                 <div class="form-row form-row-3">
                     <div class="form-group">
                         <label>Occupation</label>
-                        <input type="text" class="input-fixed w-305">
+                        <input type="text" class="input-fixed w-305" placeholder="Occupation" data-field="occupation">
                     </div>
                     <div class="form-group">
                         <label>Employer</label>
-                        <input type="text" class="input-fixed w-305">
+                        <input type="text" class="input-fixed w-305" placeholder="Employer" data-field="employer">
                     </div>
                     <div class="form-group">
                         <label>Employer Address</label>
-                        <input type="text" class="input-fixed w-519">
+                        <input type="text" class="input-fixed w-519" placeholder="Employer Address" data-field="employerAddress">
                     </div>
                 </div>
 
                 <div class="form-row form-row-2-email-phone">
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="email" class="input-fixed w-638">
+                        <input type="email" class="input-fixed w-638" placeholder="Email" data-field="email">
                     </div>
                     <div class="form-group">
                         <label>Phone</label>
-                        <input type="tel" class="input-fixed w-519">
+                        <input type="tel" class="input-fixed w-519" placeholder="Phone" data-field="phone">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label>Address</label>
-                        <input type="text" class="input-fixed w-1183">
+                        <input type="text" class="input-fixed w-1183" placeholder="Address" data-field="address">
                     </div>
                 </div>
 
@@ -692,11 +693,11 @@
                     <div class="form-row form-row-2">
                         <div class="form-group">
                             <label>Landlord's Name:</label>
-                            <input type="text" class="input-fixed w-695">
+                            <input type="text" class="input-fixed w-695" placeholder="Landlord Name" data-field="landlordName">
                         </div>
                         <div class="form-group">
                             <label>Landlord's Phone Number</label>
-                            <input type="tel" class="input-fixed w-470">
+                            <input type="tel" class="input-fixed w-470" placeholder="Landlord Phone" data-field="landlordPhone">
                         </div>
                     </div>
                 </div>
@@ -704,11 +705,11 @@
                 <div class="form-row form-row-2" style="margin-top: 0px;">
                     <div class="form-group">
                         <label>How many adults are in the household?</label>
-                        <input type="text" class="input-fixed w-695">
+                        <input type="text" class="input-fixed w-695" placeholder="Number of Adults" data-field="adultsInHousehold">
                     </div>
                     <div class="form-group">
                         <label>How many children are in the household?</label>
-                        <input type="text" class="input-fixed w-470">
+                        <input type="text" class="input-fixed w-470" placeholder="Number of Children" data-field="childrenInHousehold">
                     </div>
                 </div>
 
@@ -744,7 +745,7 @@
                     </div>
                     <div class="form-group average-alone-time">
                         <label>Average time pet would be alone per day?</label>
-                        <input type="text" class="input-fixed w-470">
+                        <input type="text" class="input-fixed w-470" placeholder="Time alone per day" data-field="averageAloneTime">
                     </div>
                 </div>
 
@@ -784,7 +785,7 @@
                                     <input type="checkbox" id="other-reason">
                                     <label for="other-reason">Other (please specify):</label>
                                 </div>
-                                <input type="text" class="input-fixed w-323" aria-label="Other reason">
+                                <input type="text" class="input-fixed w-323" placeholder="Other reason" data-field="otherReason" aria-label="Other reason">
                             </div>
                         </div>
                     </div>
@@ -810,11 +811,11 @@
                     <div class="form-row form-row-2">
                         <div class="form-group">
                             <label>Name:</label>
-                            <input type="text" class="input-fixed w-695">
+                            <input type="text" class="input-fixed w-695" placeholder="Gift Recipient Name" data-field="giftRecipientName">
                         </div>
                         <div class="form-group">
                             <label>Phone Number</label>
-                            <input type="tel" class="input-fixed w-470">
+                            <input type="tel" class="input-fixed w-470" placeholder="Gift Recipient Phone" data-field="giftRecipientPhone">
                         </div>
                     </div>
                 </div>
@@ -853,14 +854,14 @@
                     style="margin-top: 18px; max-width: 800px; margin-left: auto; margin-right: auto;">
                     <div class="form-group">
                         <label>Signature</label>
-                        <input type="text" class="input-fixed w-753">
+                        <input type="text" class="input-fixed w-753" placeholder="Signature" data-field="signature">
                     </div>
                 </div>
 
                 <!-- Submit arrow button placed bottom-right of the form container -->
-                <a href="meet-and-greet-sechdule.html" class="submit-arrow" type="submit" aria-label="Submit application">
+                <button class="submit-arrow" type="button" aria-label="Submit application">
                     <img src="svgs/arrow.svg" class="arrow-img" alt="">
-                </a>
+                </button>
             </form>
         </div>
 
@@ -949,7 +950,7 @@
         </div>
      </div>
 
-     
+
 </body>
 
 </html>

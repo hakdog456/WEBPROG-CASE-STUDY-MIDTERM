@@ -647,7 +647,7 @@
             <div class="dog-image">
                 <img src="images/login-images/Dogs image (1).webp" alt="dogimage">
             </div>
-            <form action="#" method="get">
+            <form action="signup.php" method="POST">
                 <div class="maintext">
                     <h2>Join The Journey!</h2>
                     <p>Open your heart to a new companion.</p>
@@ -657,8 +657,8 @@
                     <input type="text" id="name" name="name" required>
                 </div>
                 <div class="form-group">
-                    <label for="Username">Username:</label>
-                    <input type="text" id="Username" name="Username" required>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>
@@ -675,7 +675,7 @@
                 </div>
                 <div class="form-group confirm-password-group">
                     <label for="confirm-password">Confirm Password:</label>
-                    <input type="password" id="confirm-password" name="confirm-password" required>
+                    <input type="password" id="confirm-password" name="confirm_password" required>
                     <svg class="eyeicon1" id="eye1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <path id="eyePath1-confirm" d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="#444E27" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         <path id="eyePath2-confirm" d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="#444E27" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
