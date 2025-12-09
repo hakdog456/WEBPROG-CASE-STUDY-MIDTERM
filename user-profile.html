@@ -61,7 +61,7 @@
     width: min(var(--max-width), 100%);
     margin: 0 auto 8px;
     display: flex;
-    justify-content: flex-end; /* align to the right */
+    justify-content: space-between; /* align to the right */
     box-sizing: border-box;
     padding-inline: 20px; /* match header padding visually */
   }
@@ -702,6 +702,15 @@
 
 
 </style>
+
+<script>
+
+  function logout() {
+    localStorage.removeItem('jurassicBark_user');
+    window.location.href = 'login.php';
+  }
+
+</script>
 </head>
 <body>
       <div class="nav">
@@ -765,6 +774,11 @@
 
   <section class="pet-section">
     <div class="user-row">
+      <div 
+        style="align-self: flex-end;
+              cursor: pointer;"
+        onclick="logout()"
+      >Log out</div>
       <div class="user-name">Username</div>
     </div>
 
