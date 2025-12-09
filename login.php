@@ -84,7 +84,7 @@ $conn->close();
         min-height: 100vh;
         padding: 1rem;
         font-size: 16px;
-        padding-bottom: 300px;
+        padding-bottom: 230px;
         padding-top: 70px;
       }
 
@@ -457,7 +457,8 @@ $conn->close();
         }
         .mobile-image {
           display: block;
-          width: 100%;
+          width: 33rem;
+          max-width: 100%;
           margin-top: 0.3rem;
           
         }
@@ -472,6 +473,9 @@ $conn->close();
       }
 
       @media (max-width: 480px) {
+        body{
+          padding-bottom: 150px;
+        }
         form {
           width: 90%;
           padding: 1.5rem;
@@ -591,6 +595,9 @@ $conn->close();
                 <p>Don't have an account? <a href="sign-up.php">Sign Up</a></p>
             </div>
         </form>
+        <div class="mobile-image">
+            <img src="images/login-images/Dogs image (1).webp" alt="dogimage">
+        </div>
     </section>
 
     <script>
