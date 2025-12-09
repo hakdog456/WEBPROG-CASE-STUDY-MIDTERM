@@ -586,7 +586,7 @@ $conn->close();
                 <input type="submit" value="Login">
             </div>
             <div class="signup-link">
-                <p>Don't have an account? <a href="signup.php">Sign Up</a></p>
+                <p>Don't have an account? <a href="sign-up.php">Sign Up</a></p>
             </div>
         </form>
     </section>
