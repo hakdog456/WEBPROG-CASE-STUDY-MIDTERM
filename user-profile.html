@@ -7,7 +7,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Slackey&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="globalFooterNav.css">
+  <script defer src="user-profile.js" ></script>
   <script defer src="global.js" ></script>
+
 
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -357,6 +359,81 @@
   .heart svg { width: 28px; height: 28px; display: block; }
   .heart.liked svg path { fill: #111 !important; stroke: #111 !important; transition: fill 180ms ease; }
 
+  /* Heart Animation Keyframes */
+  @keyframes heartBeat {
+    0% { transform: scale(1); }
+    10%, 20% { transform: scale(1.3); }
+    30%, 50% { transform: scale(1.15); }
+    40% { transform: scale(1.25); }
+    60% { transform: scale(1); }
+  }
+
+  @keyframes heartGlow {
+    0% { 
+      filter: drop-shadow(0 0 2px rgba(255, 0, 0, 0.5)) 
+              drop-shadow(0 0 4px rgba(255, 0, 0, 0.3));
+    }
+    50% { 
+      filter: drop-shadow(0 0 15px rgba(255, 0, 0, 1)) 
+              drop-shadow(0 0 25px rgba(255, 100, 100, 0.8))
+              drop-shadow(0 0 35px rgba(255, 0, 0, 0.6));
+    }
+    100% { 
+      filter: drop-shadow(0 0 2px rgba(255, 0, 0, 0.5)) 
+              drop-shadow(0 0 4px rgba(255, 0, 0, 0.3));
+    }
+  }
+
+  @keyframes heartExplode {
+    0% { 
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% { 
+      transform: scale(2.5);
+      opacity: 0;
+    }
+  }
+
+  @keyframes heartSparkle {
+    0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
+    50% { opacity: 0.6; transform: scale(1.2) rotate(180deg); }
+  }
+
+  /* Heart icon animations when liked */
+  .heart-icon {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .heart-icon.liked {
+    animation: heartBeat 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+              heartGlow 0.8s ease-in-out,
+              heartSparkle 0.7s ease-in-out;
+    filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.9)) 
+            drop-shadow(0 0 16px rgba(255, 0, 0, 0.7))
+            brightness(1.3);
+  }
+
+  .heart-icon.liked::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 0, 0, 0.6), transparent);
+    transform: translate(-50%, -50%);
+    animation: heartExplode 0.8s ease-out forwards;
+    pointer-events: none;
+  }
+
+  .heart-icon.unliked {
+    animation: heartSparkle 0.4s ease-in-out;
+  }
+
   /* small active state for nav links */
   .pet-header-shell .nav-links a.active { font-weight: 600; }
 
@@ -704,6 +781,36 @@
 </style>
 
 <script>
+// Redirect admin users to data-overview.html
+(function() {
+  var jurassicBarkUser = localStorage.getItem('jurassicBark_user');
+  var usernamelocal = localStorage.getItem('username');
+  if (usernamelocal && usernamelocal.toLowerCase() === 'admin') {
+    window.location.href = 'data-overview.html';
+    return;
+  }
+  if (jurassicBarkUser) {
+    try {
+      var userObj = JSON.parse(jurassicBarkUser);
+      if (userObj.username && userObj.username.toLowerCase() === 'admin') {
+        window.location.href = 'data-overview.html';
+      }
+    } catch(e) {}
+  }
+})();
+
+document.addEventListener('DOMContentLoaded', function() {
+  var userNameDiv = document.querySelector('.user-name');
+  var jurassicBarkUser = localStorage.getItem('jurassicBark_user');
+  if (jurassicBarkUser && userNameDiv) {
+    try {
+      var userObj = JSON.parse(jurassicBarkUser);
+      if (userObj.name) {
+        userNameDiv.textContent = userObj.name;
+      }
+    } catch(e) {}
+  }
+});
 
   function logout() {
     localStorage.removeItem('jurassicBark_user');
@@ -786,11 +893,11 @@
       <div class="pet-header-wrapper" aria-hidden="true"></div>
         <nav class="nav-links" aria-label="Pet navigation">
         <a href="#">All</a>
+        <a href="#">Liked</a>
         <a href="#">Pending</a>
         <a href="#">Meet and Greet</a>
         <a href="#">Ready for Adoption</a>
         <a href="#">Adopted</a>
-        <a href="#">Withdrawn</a>
       </nav>
         <button class="nav-scroll-btn nav-scroll-left hidden" aria-hidden="false" aria-label="Scroll left">‹</button>
         <button class="nav-scroll-btn nav-scroll-right hidden" aria-hidden="false" aria-label="Scroll right">›</button>
@@ -1141,10 +1248,26 @@
             link.classList.add('active');
 
             if (/^all$/i.test(txt)) {
-              // show everything
               input.clearSearch();
+            } else if (/^liked$/i.test(txt)) {
+              // Custom filter for liked pets
+              refreshLists();
+              let anyVisible = false;
+              cards.forEach(card => {
+                const heartIcon = card.querySelector('.heart-icon');
+                const liked = heartIcon && heartIcon.classList.contains('liked');
+                card.style.display = liked ? '' : 'none';
+                if (liked) anyVisible = true;
+              });
+              overlayCells.forEach((cell, i) => {
+                const card = cards[i];
+                const heartIcon = card && card.querySelector('.heart-icon');
+                const liked = heartIcon && heartIcon.classList.contains('liked');
+                cell.style.display = liked ? '' : 'none';
+              });
+              noResults.style.display = anyVisible ? 'none' : '';
+              paginator.style.display = 'none';
             } else {
-              // use the existing filter helper to match status (it's substring-based so status text works)
               input.value = txt;
               filter(txt);
             }
