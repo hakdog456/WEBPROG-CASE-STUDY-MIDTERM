@@ -26,9 +26,10 @@ if ($conn->connect_error) {
 $conn->set_charset('utf8mb4');
 
 $stmt = $conn->prepare(
-    'SELECT transactionId, petId, userId, userPayment, dateTimeCreated, meetGreetDateTime, status, location, evaluation
-     FROM transactions
-     WHERE transactionId = ?'
+    'SELECT t.transactionId, t.petId, t.userId, t.userPayment, t.dateTimeCreated, t.meetGreetDateTime, t.status, t.location, t.evaluation, p.price AS petPrice
+     FROM transactions t
+     LEFT JOIN pets p ON p.petID = t.petId
+     WHERE t.transactionId = ?'
 );
 
 if (!$stmt) {

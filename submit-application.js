@@ -52,7 +52,12 @@
 			return Number(fromDataAttr);
 		}
 
-		return 2; // placeholder petId when selection is not provided
+		const fromStorage = localStorage.getItem('petID');
+		if (fromStorage && !Number.isNaN(Number(fromStorage))) {
+			return Number(fromStorage);
+		}
+
+		return null;
 	};
 
 	const getUserId = () => {
@@ -67,7 +72,7 @@
 			return Number(fromStorage);
 		}
 
-		return 21; // placeholder userId when none provided (existing sample user)
+		return null;
 	};
 
 	const buildPayload = () => {
@@ -123,8 +128,7 @@
 				homeEnvironment,
 				petPreferences,
 				agreement,
-				submittedAt: new Date().toISOString(),
-				placeholderPetId: true
+				submittedAt: new Date().toISOString()
 			}
 		};
 	};
@@ -178,7 +182,15 @@
 
 			console.log('Transaction created:', data.row || data);
 
+			const createdId = data.transactionId || data.row?.transactionId;
+			if (createdId) {
+				localStorage.setItem('transactionID', String(createdId));
+			}
+
 			alert('Application submitted successfully.');
+			const target = createdId ? `meet-greet-page.html?transactionId=${createdId}` : 'meet-greet-page.html';
+			window.location.href = target;
+			
 		} catch (err) {
 			console.error('Submit failed', err);
 			alert(`Could not submit application: ${err.message}`);

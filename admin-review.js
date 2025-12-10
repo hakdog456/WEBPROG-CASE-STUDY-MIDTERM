@@ -11,24 +11,13 @@
 	}
 
 	const setTextField = (field, value) => {
-		// Try data-field first, then search by label text proximity
-		let el = form.querySelector(`[data-field="${field}"]`);
-		
-		if (!el) {
-			// Search all labels for matching field name, then get the next input
-			const labels = Array.from(form.querySelectorAll('label'));
-			const label = labels.find((l) => {
-				const text = l.textContent.toLowerCase();
-				return text.includes(field.toLowerCase()) || text.includes(field.replace(/([A-Z])/g, ' $1').toLowerCase());
-			});
-			if (label) {
-				// Get the parent form-group and find the input
-				const formGroup = label.closest('.form-group');
-				el = formGroup ? formGroup.querySelector('input') : null;
-			}
+		const el = form.querySelector(`[data-field="${field}"]`);
+		if (el) {
+			el.value = value || '';
+			console.log(`Set field "${field}" to "${value}"`);
+		} else {
+			console.warn(`Field element not found for data-field="${field}"`);
 		}
-		
-		if (el) el.value = value || '';
 	};
 
 	const setRadioValue = (name, value) => {
@@ -37,8 +26,11 @@
 		const radios = form.querySelectorAll(`input[name="${name}"]`);
 		radios.forEach((radio) => {
 			const label = form.querySelector(`label[for="${radio.id}"]`);
-			if (label && label.textContent.toLowerCase().includes(normalized)) {
-				radio.checked = true;
+			if (label) {
+				const labelText = label.textContent.toLowerCase().trim();
+				if (labelText === normalized || labelText.includes(normalized)) {
+					radio.checked = true;
+				}
 			}
 		});
 	};
@@ -49,12 +41,22 @@
 	};
 
 	const populateForm = (evaluation) => {
-		if (!evaluation) return;
+		if (!evaluation) {
+			console.warn('No evaluation data to populate');
+			return;
+		}
+
+		console.log('Populating form with evaluation:', evaluation);
 
 		const appInfo = evaluation.applicantInfo || {};
 		const homeEnv = evaluation.homeEnvironment || {};
 		const petPref = evaluation.petPreferences || {};
 		const agreement = evaluation.agreement || {};
+
+		console.log('Applicant info:', appInfo);
+		console.log('Home environment:', homeEnv);
+		console.log('Pet preferences:', petPref);
+		console.log('Agreement:', agreement);
 
 		// Applicant Information
 		setTextField('firstName', appInfo.firstName);
@@ -79,20 +81,30 @@
 		setRadioValue('prev-pets', homeEnv.previousPets);
 		setTextField('averageAloneTime', homeEnv.averageAloneTime);
 
-		// Pet Preferences
+		// Pet Preferences - match the exact reason texts from submit-application.js
 		const reasons = petPref.reasons || [];
-		const reasonMap = {
-			'Companion for child': 'companion-child',
-			'Companion for other pets': 'companion-pet',
-			'Security': 'security',
-			'House pet': 'house-pet',
-			'Working animal/Pest control': 'working',
-			'Breeding': 'breeding'
-		};
-		Object.entries(reasonMap).forEach(([label, id]) => {
-			setCheckboxState(id, reasons.includes(label));
+		
+		// Check each reason and match it to the checkbox
+		// The labels are: "Companion for child", "Companion for other pets", "Security", 
+		// "House pet", "Working animal/Pest control", "Breeding", "Other (please specify):"
+		reasons.forEach(reason => {
+			const reasonTrimmed = reason.trim();
+			if (reasonTrimmed === 'Companion for child') {
+				setCheckboxState('companion-child', true);
+			} else if (reasonTrimmed === 'Companion for other pets') {
+				setCheckboxState('companion-pet', true);
+			} else if (reasonTrimmed === 'Security') {
+				setCheckboxState('security', true);
+			} else if (reasonTrimmed === 'House pet') {
+				setCheckboxState('house-pet', true);
+			} else if (reasonTrimmed === 'Working animal/Pest control') {
+				setCheckboxState('working', true);
+			} else if (reasonTrimmed === 'Breeding') {
+				setCheckboxState('breeding', true);
+			} else if (reasonTrimmed.startsWith('Other')) {
+				setCheckboxState('other-reason', true);
+			}
 		});
-		setCheckboxState('other-reason', reasons.some((r) => !Object.values(reasonMap).some((id) => r === id)));
 		setTextField('otherReason', petPref.otherReasonDetail);
 
 		setRadioValue('gift', petPref.gift);
@@ -106,25 +118,69 @@
 		setTextField('signature', agreement.signature);
 	};
 
-	const fetchFirstTransaction = async () => {
+	const fetchTransactionById = async () => {
 		try {
-			const response = await fetch('get-first-transaction.php');
-			const data = await response.json();
+			// Get transactionID from localStorage
+			const transactionID = localStorage.getItem('transactionID');
+			
+			console.log('TransactionID from localStorage:', transactionID);
+			
+			if (!transactionID) {
+				console.warn('No transactionID in localStorage');
+				alert('No transaction selected. Please select a transaction from the list.');
+				window.location.href = 'transactions-list.html';
+				return;
+			}
+
+			const url = `get-transaction-by-id.php?transactionId=${encodeURIComponent(transactionID)}`;
+			console.log('Fetching URL:', url);
+			
+			const response = await fetch(url);
+			console.log('Response status:', response.status);
+			
+			let data = null;
+			let text = '';
+			try {
+				text = await response.text();
+				console.log('Response text:', text);
+				data = text ? JSON.parse(text) : null;
+			} catch (parseErr) {
+				console.error('Failed to parse transaction response', parseErr, text);
+				throw parseErr;
+			}
 
 			if (!data.success || !data.transaction) {
 				console.warn('No transaction found');
+				alert('Transaction not found.');
 				return;
 			}
 
 			currentTransaction = data.transaction;
-			const evaluation = typeof data.transaction.evaluation === 'string'
-				? JSON.parse(data.transaction.evaluation)
-				: data.transaction.evaluation;
+			
+			// Parse the evaluation JSON - check evaluationDecoded first, then evaluation
+			let evaluation = data.transaction.evaluationDecoded || data.transaction.evaluation;
+			
+			if (typeof evaluation === 'string') {
+				try {
+					evaluation = JSON.parse(evaluation);
+				} catch (e) {
+					console.error('Failed to parse evaluation JSON', e);
+					evaluation = {};
+				}
+			}
+
+			// Check if this is a seeded/placeholder transaction with no real data
+			if (evaluation && evaluation.seeded) {
+				console.warn('This is a placeholder transaction with no application data');
+				// Still populate whatever data exists
+			}
 
 			populateForm(evaluation);
 			console.log('Loaded transaction:', currentTransaction);
+			console.log('Evaluation data:', evaluation);
 		} catch (err) {
 			console.error('Failed to fetch transaction:', err);
+			alert('Failed to load transaction data.');
 		}
 	};
 
@@ -175,6 +231,6 @@
 		updateTransactionStatus('Application Rejected');
 	});
 
-	// Load the first transaction on page load
-	fetchFirstTransaction();
+	// Load the transaction from localStorage on page load
+	fetchTransactionById();
 })();

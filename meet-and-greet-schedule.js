@@ -14,14 +14,15 @@
 	}
 
 	const fetchTransaction = async () => {
-		if (!transactionId) {
-			console.warn('No transactionId in URL');
-			return;
-		}
-
 		try {
-			const response = await fetch('get-transaction-by-id.php?transactionId=' + transactionId);
-			const data = await response.json();
+			let data;
+			if (transactionId) {
+				const response = await fetch('get-transaction-by-id.php?transactionId=' + transactionId);
+				data = await response.json();
+			} else {
+				const response = await fetch('ensure-transaction-by-status.php?status=' + encodeURIComponent('Application Approved'));
+				data = await response.json();
+			}
 
 			if (!data.success) {
 				console.error('Failed to fetch transaction:', data.message);

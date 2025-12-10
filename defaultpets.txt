@@ -1,0 +1,6 @@
+INSERT IGNORE INTO pets (petID, name, type, breed, age, price, details) VALUES
+(1, 'Bark Twain', 'Male', 'Beagle', 2, 1, '{"description": "Bark Twain may have been dealt a rough hand—neglected, abandoned, and left tied to a tree at the illegal POGO Boss Mansion—but this gentle giant never let that define him. Despite everything, he still holds onto hope that kindness and love are still in the cards for him."}'),
+(2, 'Andarna', 'Male', 'Guinea pig', 0, 200, '{}'),
+(3, 'Cheetos', 'Male', 'Syrian Hamster', 0, 300, '{}'),
+(4, 'Lunch', 'Male', 'Bichon Frise', 1, 100000, '{}'),
+(5, 'Gizmo', 'Male', 'Papillon', 1, 1000, '{}');

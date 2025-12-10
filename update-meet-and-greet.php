@@ -111,8 +111,10 @@ if ($evaluationJson === false) {
 $fetch->close();
 
 // Update the transaction
+$newStatus = 'Meet and Greet Scheduled';
+
 $stmt = $conn->prepare(
-    'UPDATE transactions SET meetGreetDateTime = ?, location = ?, evaluation = ? WHERE transactionId = ?'
+    'UPDATE transactions SET meetGreetDateTime = ?, location = ?, evaluation = ?, status = ? WHERE transactionId = ?'
 );
 
 if (!$stmt) {
@@ -125,7 +127,7 @@ if (!$stmt) {
     exit;
 }
 
-$stmt->bind_param('sssi', $meetGreetDateTime, $location, $evaluationJson, $transactionId);
+$stmt->bind_param('ssssi', $meetGreetDateTime, $location, $evaluationJson, $newStatus, $transactionId);
 
 if (!$stmt->execute()) {
     http_response_code(500);

@@ -1,4 +1,5 @@
 document.documentElement.style.display = 'none';
+// localStorage.setItem('petname', 'Bark Twain');
 localStorage.setItem('username', 'admin');
 
 function checkIfAdmin() {

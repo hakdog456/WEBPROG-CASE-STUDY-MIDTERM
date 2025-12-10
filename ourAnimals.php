@@ -1,29 +1,24 @@
 <?php
-// Database connection and pet fetching
-$pets = [];
-$error = null;
-
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    try {
-        // Database configuration
-        $host = '127.0.0.1';
-        $dbname = 'adoptiondb';
-        $username = 'root';
-        $password = '';
-        
-        // Create PDO connection
-        $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        
-        // Fetch all pets from database
-        $stmt = $pdo->prepare("SELECT petID, name, type, breed, age, price, details, imageDirectory FROM pets ORDER BY petID DESC");
-        $stmt->execute();
-        
-        $pets = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
-    } catch (PDOException $e) {
-        $error = "Database error: " . $e->getMessage();
+if (isset($_GET['json'])) {
+    $mysqli = new mysqli('127.0.0.1', 'root', '', 'adoptiondb', 3306);
+    if ($mysqli->connect_error) {
+        http_response_code(500);
+        echo json_encode(['error' => 'Database connection failed']);
+        exit;
     }
+    $mysqli->set_charset('utf8mb4');
+    $result = $mysqli->query('SELECT petID AS petId, name, type, breed, age, price, details, imageDirectory FROM pets WHERE adoptedById IS NULL ORDER BY petID DESC');
+    $pets = [];
+    if ($result) {
+        while ($row = $result->fetch_assoc()) {
+            $pets[] = $row;
+        }
+        $result->free();
+    }
+    $mysqli->close();
+    header('Content-Type: application/json');
+    echo json_encode($pets);
+    exit;
 }
 ?>
 <!DOCTYPE html>
@@ -35,14 +30,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     <link rel="stylesheet" href="ourAnimals.css">
     <link rel="stylesheet" href="global-application-styles.css">
     <link rel="stylesheet" href="globalFooterNav.css">
-    <script defer src="ourAnimals.js" ></script>
-    <script defer src="global.js" ></script>
+    <script defer src="ourAnimals.js"></script>
+    <script defer src="global.js"></script>
 </head>
 <body>
+    <div id="petsData" data-pets='<?php echo htmlspecialchars(json_encode($pets, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), ENT_QUOTES, 'UTF-8'); ?>' hidden></div>
 
-    <!-- NAV BAR -->
     <div class="nav">
-        <!-- Burger menu button for mobile -->
         <div class="burgerMenuCon" >
             <div class="burgerMenuBtn" >
                 <div></div>
@@ -55,20 +49,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             <img src="images/homeImages/Jurassic Bark.webp" alt="">
         </div>
         <div class="mainNav">
-            <p><a href="index.php">Home</a></p>
+            <p><a href="index.html">Home</a></p>
             <p> <a href="aboutUs.html">About Us</a></p>
             <p> <a href="ourAnimals.php">Our Animals</a></p>
             <p><a href="contact.html">Contact Us</a></p>
             <p><a href="faqs.html">FAQs</a></p>
         </div>
         <div class="navControls">
-            <!-- Search SVG -->
             <svg class="searchIcon" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M18.3333 31.6667C25.6971 31.6667 31.6667 25.6971 31.6667 18.3333C31.6667 10.9695 25.6971 5 18.3333 5C10.9695 5 5 10.9695 5 18.3333C5 25.6971 10.9695 31.6667 18.3333 31.6667Z" stroke="#223125" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M35 35L27.75 27.75" stroke="#223125" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
 
-            <!-- User Svg -->
             <svg class="userIcon" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M33.3337 35V31.6667C33.3337 29.8986 32.6313 28.2029 31.381 26.9526C30.1308 25.7024 28.4351 25 26.667 25H13.3337C11.5655 25 9.86986 25.7024 8.61961 26.9526C7.36937 28.2029 6.66699 29.8986 6.66699 31.6667V35" stroke="#223125" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M19.9997 18.3333C23.6816 18.3333 26.6663 15.3486 26.6663 11.6667C26.6663 7.98477 23.6816 5 19.9997 5C16.3178 5 13.333 7.98477 13.333 11.6667C13.333 15.3486 16.3178 18.3333 19.9997 18.3333Z" stroke="#223125" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -79,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     <div class="navMobileSlide">
         <div class="navItem">
-            <a href="index.php"><p>HOME</p></a>
+            <a href="index.html"><p>HOME</p></a>
         </div>
         
         <div class="navItem">
@@ -100,7 +92,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     </div>
 
-    <!-- SEARCH BAR -->
     <div class="searchBarSection">
         <div class="searchBar">
             <img src="images\ourAnimalsImages\search.svg" alt="">
@@ -111,52 +102,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         </div>
     </div>
 
+    <div class="petsList" id="petsList"></div>
 
-    <!-- PETS LIST -->
-    <div class="petsList">
-        <?php if ($error): ?>
-            <p style="text-align: center; width: 100%; padding: 50px; color: red;">
-                Error loading pets: <?php echo htmlspecialchars($error); ?>
-            </p>
-        <?php elseif (empty($pets)): ?>
-            <p style="text-align: center; width: 100%; padding: 50px;">
-                No pets available at the moment.
-            </p>
-        <?php else: ?>
-            <?php foreach ($pets as $pet): ?>
-                <?php
-                    // Parse JSON details
-                    $details = json_decode($pet['details'], true);
-                    $gender = isset($details['gender']) ? htmlspecialchars($details['gender']) : 'Unknown';
-                    $ageText = $pet['age'] > 1 ? $pet['age'] . ' yrs. old' : $pet['age'] . ' yr. old';
-                ?>
-                <div class="petCard">
-                    <div class="petCardBg"></div>
-                    <div class="petPicCon">
-                        <img src="<?php echo htmlspecialchars($pet['imageDirectory']); ?>" 
-                             alt="<?php echo htmlspecialchars($pet['name']); ?>"
-                             onerror="this.src='images/homeImages/petPics/default-pet.jpg'">
-                    </div>
-                    <div class="petDetails">
-                        <p class="petName"><?php echo htmlspecialchars($pet['name']); ?></p>
-                        <p class="petGender"><?php echo $gender; ?></p>
-                        <p class="petType"><?php echo htmlspecialchars($pet['breed']) . ', ' . $ageText; ?></p>
-                    </div>
-                    <div class="buttons">
-                        <img class="heartBtn" src="images/ourAnimalsImages/heart icon.svg" alt="Like">
-                        <a href="petDetails.php?id=<?php echo $pet['petID']; ?>">
-                            <div class="knowMoreBtn"><p>Know More</p></div>
-                        </a>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
-    </div>
-
-
-
-
-    <!-- FOOTER -->
     <div class="HomeFooter">
     <div class="footerBg" ></div>
     <div class="foot1" >
@@ -170,18 +117,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         <div class="foot1Text" >
             © 2025 Jurassic Bark. All Rights Reserved.
             <br>
-            Registered Nonstock, Nonprofit Organization – SEC Registration No. CN2025-XXXXXX
+            Registered Nonstock, Nonprofit Organization — SEC Registration No. CN2025-XXXXXX
             <br>   
             Accredited under the Animal Welfare Act of 1998 (Republic Act No. 8485, as amended by RA 10631).
         </div>
 
     </div>
 
-    <!-- bottom foot1 text for mobile -->
     <div class="bottomFoot1Text" >
         © 2025 Jurassic Bark. All Rights Reserved.
         <br>
-        Registered Nonstock, Nonprofit Organization – SEC Registration No. CN2025-XXXXXX
+        Registered Nonstock, Nonprofit Organization — SEC Registration No. CN2025-XXXXXX
         <br>   
         Accredited under the Animal Welfare Act of 1998 (Republic Act No. 8485, as amended by RA 10631).
     </div>
@@ -222,6 +168,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         No Noon Time Break
     </div>
     </div>
-    
 </body>
 </html>

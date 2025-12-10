@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="global-application-styles.css">
     <link rel="stylesheet" href="globalFooterNav.css">
+    <script defer src="load-pet-header.js"></script>
     <script defer src="global.js" ></script>
+    <script defer src="user-stage-router.js"></script>
+        <script defer src="load-pet-header.js"></script>
+
     <title>Meet and Greet - Bark Twain</title>
     <style>
 
@@ -75,24 +79,11 @@
             word-break: break-word; 
         }
 
-        @media only screen and (max-width: 1188px) and (min-width: 930px) {
-            body {
-                min-height: 100vh;
-            }
-            .HomeFooter {
-                margin-top: 40px;          
-            }
-
-            .footerBg {
-                height: auto;
-                min-height: 240px;
-            }
-        }
         @media (max-width: 700px) {
             .detail-row {
                 grid-template-columns: 1fr; 
             }
-            .detail-value { margin-top: 4px; } 
+            .detail-value { margin-top: 4px; }
         }
     </style>
 </head>
@@ -162,13 +153,9 @@
         <div class="header-section">
             <div class="pet-header">
                 <div class="pet-image">
-                    <img src="images/bark_twain.png" alt="Bark Twain">
                 </div>
                 <div class="pet-info">
-                    <h2>Bark Twain</h2>
-                    <p>Beagle</p>
-                    <p>2 yrs. old</p>
-                    <p>Male</p>
+
                 </div>
             </div>
             <div class="progress-column">
@@ -260,19 +247,84 @@
             
             <div class="detail-row">
                 <span class="detail-label">Date:</span>
-                <span class="detail-value">October 22, 2025</span>
+                <span class="detail-value" id="mg-date">Loading…</span>
             </div>
             
             <div class="detail-row">
                 <span class="detail-label">Time:</span>
-                <span class="detail-value">10:30 AM</span>
+                <span class="detail-value" id="mg-time">Loading…</span>
             </div>
             
             <div class="detail-row">
                 <span class="detail-label">Location:</span>
-                <span class="detail-value">Tarlac State University - San Isidro Campus, Brgy. San Isidro, Tarlac City, 2300 Tarlac</span>
+                <span class="detail-value" id="mg-location">Loading…</span>
             </div>
         </div>
+
+        <script>
+        (() => {
+            const dateEl = document.getElementById('mg-date');
+            const timeEl = document.getElementById('mg-time');
+            const locationEl = document.getElementById('mg-location');
+            const fallbackText = 'To be decided by admin';
+
+            const fillFields = (tx) => {
+                if (!tx) return;
+                let meet = tx.meetGreetDateTime || '';
+                let location = tx.location || '';
+
+                // If evaluation has meet and greet info, prefer it when fields are empty.
+                const evalData = typeof tx.evaluation === 'string'
+                    ? JSON.parse(tx.evaluation || '{}')
+                    : (tx.evaluationDecoded || tx.evaluation || {});
+                if (!meet && evalData && evalData.meetAndGreet && evalData.meetAndGreet.date) {
+                    meet = evalData.meetAndGreet.date;
+                }
+                if (!location && evalData && evalData.meetAndGreet && evalData.meetAndGreet.location) {
+                    location = evalData.meetAndGreet.location;
+                }
+
+                let dateText = fallbackText;
+                let timeText = fallbackText;
+                if (meet) {
+                    const [d, t] = meet.split(' ');
+                    dateText = d || fallbackText;
+                    if (t) {
+                        const [hh, mm] = t.split(':');
+                        timeText = (hh && mm) ? `${hh}:${mm}` : t;
+                    }
+                }
+
+                dateEl.textContent = dateText;
+                timeEl.textContent = timeText;
+                locationEl.textContent = location || fallbackText;
+            };
+
+            const loadMeetGreet = async () => {
+                try {
+                    const status = encodeURIComponent('Meet and Greet Scheduled');
+                    const res = await fetch(`ensure-transaction-by-status.php?status=${status}`);
+                    const text = await res.text();
+                    const data = text ? JSON.parse(text) : null;
+                    if (!data || !data.success || !data.transaction) {
+                        console.warn('No meet and greet transaction found');
+                        dateEl.textContent = fallbackText;
+                        timeEl.textContent = fallbackText;
+                        locationEl.textContent = fallbackText;
+                        return;
+                    }
+                    fillFields(data.transaction);
+                } catch (err) {
+                    console.error('Failed to load meet and greet details', err);
+                    dateEl.textContent = fallbackText;
+                    timeEl.textContent = fallbackText;
+                    locationEl.textContent = fallbackText;
+                }
+            };
+
+            loadMeetGreet();
+        })();
+        </script>
 
             </div>
 
